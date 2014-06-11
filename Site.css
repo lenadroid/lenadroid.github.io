@@ -125,7 +125,7 @@
 
 #mainHeader
 {
-    height:350px;
+    height:380px;
     text-align:center;
     background-color:#F7F7F7;
     /*box-shadow: 0px 2px 7px #808080;*/
@@ -147,13 +147,13 @@
     transition-property:color;
     transition-duration: 0.5s;
     transition-timing-function: linear;
-    background-color: #f0f0f0;/*white;#2C2826;*/
-    /*color:white;*/
-    opacity: 0.3;
-    padding-bottom: 20px;
-    padding-top: 10px;
+    color:white;
+    background-color: rgba(255,255,255,0.2);/*white;#2C2826;*/
+
 }
 #mainTitle p {
+  padding-top: 10px;
+  padding-bottom: 20px;
   opacity: 1;
 }
 #mainTitle:hover
