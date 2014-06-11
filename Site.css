@@ -5,6 +5,38 @@
     padding:0;
     min-width:800px;
     min-height:400px;
+    width: 100%
+}
+
+#headerbackground {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  
+  display: block;
+  background-image: url('forest.png');
+  width:100%;
+  height: 350px;
+  background-repeat:no-repeat;
+  background-size:cover;
+  
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+  filter: url(blur.svg#blur);
+  filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+}
+
+#headercontent {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+/*  margin-left: 20px;
+  margin-right: 20px;*/
 }
 
 ::selection 
@@ -93,11 +125,11 @@
 
 #mainHeader
 {
-    height:250px;
+    height:350px;
     text-align:center;
     background-color:#F7F7F7;
     /*box-shadow: 0px 2px 7px #808080;*/
-    border-top:7px solid #333333;
+    /*border-top:7px solid #333333;*/
     border-bottom: 1px solid #d5d2d2;
     margin:0;
     /*color: #009DF3;
@@ -111,10 +143,18 @@
     margin:0 auto;
     font-size:60px;
     /*font-weight: bold;*/
-    margin-top:50px;
+    margin-top:150px;
     transition-property:color;
     transition-duration: 0.5s;
     transition-timing-function: linear;
+    background-color: #f0f0f0;/*white;#2C2826;*/
+    /*color:white;*/
+    opacity: 0.3;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+#mainTitle p {
+  opacity: 1;
 }
 #mainTitle:hover
 {
@@ -126,7 +166,7 @@
     display:block;
     margin:0 auto;
     padding-top:15px;
-    color: #8d8d8d; /*#F363A4; #D08CB5; #D07691; a7a7a7*/
+    /*color: #8d8d8d; #F363A4; #D08CB5; #D07691; a7a7a7*/
     font-size: 15px;
 }
 
