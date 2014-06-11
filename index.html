@@ -1,1 +1,85 @@
-"Hello World" 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenadroid</title>
+	<!--<link href="~/Scripts/external/google-code-prettify/prettify.css" rel="stylesheet" />
+    <link href="~/Scripts/external/bootstrap-responsive.min.css" rel="stylesheet" /> -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+    <link href="Site.css" rel="stylesheet">
+</head>
+<body>
+        <header id="mainHeader">
+            <span id="mainTitle">Lena's Software Engineering Blog</span>
+            <span id="mainDescription">Love programming and challenges. Learning every day, every hour and every second. Convinced that way to excellence goes through hard work and effort.</span>   
+            <div class="scroller_anchor"></div>
+            <section id="mainMenuSection" class="scroller">
+                <section id="mainMenu">
+                    <a href="#">Posts</a>
+                    <a href="#">Tutorials</a>
+                    <a href="#">Videos</a>
+                    <a href="#">About</a>
+                </section>
+            </section>
+        </header>
+
+            Hello World
+        
+
+        <hr />
+        <footer id="mainFooter">
+            <p>&copy; 2014 - Lena Droid</p>
+        </footer>
+        
+
+    <!--@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/external/jquery.hotkeys.js"></script>
+    <script src="~/Scripts/external/bootstrap.min.js"></script>
+    <script src="~/Scripts/external/google-code-prettify/prettify.js"></script>
+    <script src="~/Scripts/external/bootstrap-wysiwyg.js"></script>
+
+    <script>
+        $(function () {
+            function initToolbarBootstrapBindings() {
+                var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
+                      'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+                      'Times New Roman', 'Verdana', 'Segoe UI'],
+                      fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+                $.each(fonts, function (idx, fontName) {
+                    fontTarget.append($('<li><a data-edit="fontName ' + fontName + '" style="font-family:\'' + fontName + '\'">' + fontName + '</a></li>'));
+                });
+                $('a[title]').tooltip({ container: 'body' });
+                $('.dropdown-menu input').click(function () { return false; })
+                    .change(function () { $(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle'); })
+                .keydown('esc', function () { this.value = ''; $(this).change(); });
+
+                $('[data-role=magic-overlay]').each(function () {
+                    var overlay = $(this), target = $(overlay.data('target'));
+                    overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+                });
+                if ("onwebkitspeechchange" in document.createElement("input")) {
+                    var editorOffset = $('#editor').offset();
+                    $('#voiceBtn').css('position', 'absolute').offset({ top: editorOffset.top, left: editorOffset.left + $('#editor').innerWidth() - 35 });
+                } else {
+                    $('#voiceBtn').hide();
+                }
+            };
+            function showErrorAlert(reason, detail) {
+                var msg = '';
+                if (reason === 'unsupported-file-type') { msg = "Unsupported format " + detail; }
+                else {
+                    console.log("error uploading file", reason, detail);
+                }
+                $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                 '<strong>File upload error</strong> ' + msg + ' </div>').prependTo('#alerts');
+            };
+            initToolbarBootstrapBindings();
+            $('#editor').wysiwyg({ fileUploadError: showErrorAlert });
+            window.prettyPrint && prettyPrint();
+        });
+    </script>-->
+    </body>
+</html>
