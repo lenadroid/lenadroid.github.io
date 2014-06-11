@@ -1,15 +1,14 @@
 ﻿body 
 {
-    padding-bottom: 20px;
     font-family: 'Segoe UI';
-    padding:0;
     min-width:800px;
-    min-height:400px;
+    min-height:600px;
+    margin: 0;
     width: 100%
 }
 
 #headerbackground {
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   z-index: 1;
@@ -17,7 +16,7 @@
   display: block;
   background-image: url('forest.png');
   width:100%;
-  height: 350px;
+  height: 360px;
   background-repeat:no-repeat;
   background-size:cover;
   
@@ -31,12 +30,14 @@
 }
 
 #headercontent {
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   z-index: 9999;
-/*  margin-left: 20px;
-  margin-right: 20px;*/
+}
+
+#contentSection {
+  padding: 20px;
 }
 
 ::selection 
@@ -78,7 +79,6 @@
 .lenaButton
 {
     border:none;
-    /*border:2px solid #333333;*/
     box-shadow:0 0 2px #333333;
     background-color: #F3D6E3;
     color:#333333;
@@ -87,7 +87,6 @@
     width:180px;
     height: 50px;
     text-align:center;
-    /*font-weight:bold;*/
     padding-top:5px;
     cursor:pointer;
     font-size: 25px;
@@ -109,7 +108,6 @@
    border:none;
    width:300px;
    height:35px;
-   /*border: 1px solid #333333;*/
    box-shadow: 0 0 3px #111111;
    border-radius:5px;
    transition-property:box-shadow;
@@ -125,15 +123,11 @@
 
 #mainHeader
 {
-    height:380px;
+    height:360px;
     text-align:center;
     background-color:#F7F7F7;
-    /*box-shadow: 0px 2px 7px #808080;*/
-    /*border-top:7px solid #333333;*/
     border-bottom: 1px solid #d5d2d2;
     margin:0;
-    /*color: #009DF3;
-    font-weight:bold;*/
 }
 
 #mainTitle
@@ -142,20 +136,21 @@
     display:block;
     margin:0 auto;
     font-size:60px;
-    /*font-weight: bold;*/
     margin-top:150px;
     transition-property:color;
     transition-duration: 0.5s;
     transition-timing-function: linear;
     color:white;
-    background-color: rgba(255,255,255,0.2);/*white;#2C2826;*/
+    background-color: rgba(255,255,255,0.2);
 
 }
 #mainTitle p {
   padding-top: 10px;
   padding-bottom: 20px;
   opacity: 1;
+  margin:0;
 }
+
 #mainTitle:hover
 {
     color:#F33088;
@@ -165,29 +160,24 @@
 {
     display:block;
     margin:0 auto;
-    padding-top:15px;
-    /*color: #8d8d8d; #F363A4; #D08CB5; #D07691; a7a7a7*/
     font-size: 15px;
+    margin-top: 20px;
+    color: white;
 }
 
 #mainMenuSection
 {
-    /*border: 1px solid black;*/
-    width:100%;
-    height:80px;
-    /*margin-top:20px;*/
-    /*padding-bottom:20px;*/
-    background-color:white;
-    /*padding-top:10px;*/
+    margin-top:60px;
+    /*background-color:white;*/
 }
 
 #mainMenuSection #mainMenu
 {
-    margin-top:20px;
+    margin-top:10px;
+    /*border-top:5px solid #333333;*/
     border-bottom:5px solid #333333;
     text-align:center;
     padding-bottom:7px;
-
 }
 
 #mainMenuSection #mainMenu a
@@ -202,7 +192,6 @@
     border-radius: 1px 1px 0 0;
     color:white;
     border:none;
-    /*margin-top:10px;*/
     transition-property:background-color;
     transition-duration: 0.3s;
     transition-timing-function: linear;
@@ -210,11 +199,9 @@
 
 #mainMenuSection #mainMenu a:hover
 {
-    background-color: #F33088;/*#F3ACCC;#F383B6;#EEEEF2;*/
+    background-color: #F33088;
     color: white;
-    /*border: 0.5px solid #A3A3A3;*/
     border-bottom:0;
-    /*transition: background-color, color 2s;*/
 }
 
 #mainMenuSection #mainMenu a::after, #mainMenuSection #mainMenu a:before
@@ -226,7 +213,6 @@
 {
     margin-left:150px;
     margin-right:20px;
-    /*border:1px solid black;*/
     position:relative;
 }
 
@@ -237,13 +223,11 @@
     font-weight:bold;
     font-size:30px;
     padding-bottom:5px;
-    /*border-bottom: 1px solid #333333;*/
 }
 
 #postTitle
 {
     font-size:20px;
-    /*font-weight:bold;*/
     padding:20px;
     margin-right:70px;
 }
@@ -282,7 +266,7 @@
 }
 
 #editor {
-       margin-left:20px;
+  margin-left:20px;
 	max-height: 250px;
 	height: 250px;
 	background-color: white;
@@ -296,8 +280,8 @@
 	border-bottom-left-radius: 3px; border-top-left-radius: 3px;
 	overflow: scroll;
 	outline: none;
-    /*margin-left:130px;*/
 }
+
 #voiceBtn {
   width: 20px;
   color: transparent;
@@ -317,7 +301,6 @@ div[data-role="editor-toolbar"] {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  /*margin-left:-10px;*/
   box-shadow: 0 0 1px #333333;
   border-radius:2px;
 }
@@ -331,7 +314,6 @@ input[type=text] .lenaInput
    border:none;
    width:300px;
    height:35px;
-   /*border: 1px solid #333333;*/
    box-shadow: 0 0 3px #111111;
    border-radius:5px;
    transition-property:box-shadow;
@@ -354,15 +336,12 @@ footer#mainFooter
 
 #postSection
 {
-    /*margin-right:100px;*/
-    /*border:1px solid green;*/
-        margin-left:100px;
+    margin-left:100px;
 }
 
 #postSection #postHeader
 {
     width:20%;
-    /*border:1px solid green;*/
     height:300px;
     margin-bottom:30px;
 }
@@ -372,7 +351,6 @@ footer#mainFooter
     cursor:pointer;
     text-align:left;
     font-size:35px;
-    /*font-weight:bold;*/
     box-shadow: 2px 1px 1px  #333333;
     padding-bottom:10px;
     transition-property:color;
@@ -380,15 +358,14 @@ footer#mainFooter
     transition-timing-function: linear;
 }
 
-    #postSection #title:hover {
-        color: #F33088;
-    }
+#postSection #title:hover {
+    color: #F33088;
+}
 
 #postSection #description
 {
     text-align:left;
     font-size:15px;
-    /*font-style:italic;*/
     color:#8d8d8d;
     margin-top:10px;
     font-weight:normal;
@@ -401,11 +378,10 @@ footer#mainFooter
     float:right;
     width:80%;
     margin-top:30px;
-    /*border:1px solid red;*/
     padding-left:0px;
     padding-right:230px;
-    /*margin:30px auto;*/
 }
+
 .clear
 {
     clear:both;
