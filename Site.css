@@ -8,7 +8,7 @@
 }
 
 #firstsection {
-  background-color: #A7D06C;/*#322D2B;*/
+  background-color: #A7D06C;
   height: 300px;
   position: relative;;
 }
@@ -43,26 +43,10 @@
   position: absolute;
   left: 0;
   right: 0;*/
-  /*z-index: 1;*/
-  
   display: block;
-  /*background-image: url('forest.png');*/
   width:100%;
   height: 360px;
   max-height: 360px;
-/*  background-repeat:no-repeat;
-  background-size:cover;*/
-
- /*width: 100%;*/
-  /*height: 360px;*/
-  
-/*  -webkit-filter: blur(3px);
-  -moz-filter: blur(3px);
-  -o-filter: blur(3px);
-  -ms-filter: blur(3px);
-  filter: blur(3px);
-  filter: url(blur.svg#blur);
-  filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');*/
 }
 
 #headerbackground div {
@@ -81,7 +65,6 @@
 }
 
 #contentSection {
-/*  padding: 20px;*/
 }
 
 ::selection 
@@ -202,12 +185,12 @@
 
 #mainTitle:hover
 {
-    color:#F33088;/*#F33088;*/
+    color:#F33088;
 }
 
 #mainMenuSection #mainMenu a:hover
 {
-    background-color: #ED4577;/*#F33088;*/
+    background-color: #ED4577;
     color: white;
     border-bottom:0;
 
@@ -230,14 +213,12 @@
 #mainMenuSection
 {
     margin-top:62px;
-    /*background-color:white;*/
     min-width: 500px;
 }
 
 #mainMenuSection #mainMenu
 {
     margin-top:12px;
-    /*border-top:5px solid #333333;*/
     border-bottom:5px solid #333333;
     text-align:center;
     padding-bottom:7px;
