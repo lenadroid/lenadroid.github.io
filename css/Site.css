@@ -1,10 +1,18 @@
-﻿body 
+﻿html
+{
+  width: 100%;
+  height: 100%;
+  background-color: #333333;
+}
+body 
 {
     font-family: 'Segoe UI';
     min-width:800px;
     min-height:600px;
     margin: 0;
     width: 100%
+    height:100%;
+   background-color: #ffffff;
 }
 
 #firstsection {
@@ -25,7 +33,7 @@
   top:30px;*/
 }
 
-#firstsection > #firstround > span {
+#firstsection > #firstround > a > span {
   position: absolute;
   top:40px;
   left:120px;
@@ -35,7 +43,7 @@
   background-size: 100%;
 }
 
-#firstsection > #secondround {
+#firstsection > #secondround > a > span {
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -48,7 +56,7 @@
   background-size: 100%;
 }
 
-#firstsection > #thirdround {
+#firstsection > #thirdround  > a > span  {
   position: absolute;
   top:50px;
   right:120px;
@@ -64,8 +72,8 @@
   right: 0;*/
   display: block;
   width:100%;
-  height: 360px;
-  max-height: 360px;
+  height: 320px;
+  max-height: 320px;
 }
 
 #headerbackground div {
@@ -169,15 +177,15 @@
 
 #mainHeader
 {
-    height:360px;
-    max-height: 360px;
+    height:320px;
+    max-height: 320px;
     overflow: hidden;
     text-align:center;
     background-color:#F7F7F7;
     border-bottom: 1px solid #d5d2d2;
     margin:0;
     min-width: 900px;
-    min-height: 360px;
+    min-height: 320px;
 }
 
 #mainTitle
@@ -186,7 +194,7 @@
     display:block;
     margin:0 auto;
     font-size:60px;
-    margin-top:150px;
+    margin-top:110px;
     transition-property:color;
     transition-duration: 0.5s;
     transition-timing-function: linear;
@@ -382,7 +390,7 @@ footer#mainFooter
 {
     border-top: 15px solid #60990F;
     text-align:center;
-    padding:5px;
+    padding-top:0px;
     background-color: #333333;
     color:white;
 }
