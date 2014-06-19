@@ -42,23 +42,35 @@
 #headerbackground {
   position: absolute;
   left: 0;
-  right: 0;
-  z-index: 1;
+  right: 0;*/
+  /*z-index: 1;*/
   
   display: block;
-  background-image: url('forest.png');
+  /*background-image: url('forest.png');*/
   width:100%;
   height: 360px;
-  background-repeat:no-repeat;
-  background-size:cover;
+  max-height: 360px;
+/*  background-repeat:no-repeat;
+  background-size:cover;*/
+
+ /*width: 100%;*/
+  /*height: 360px;*/
   
-  -webkit-filter: blur(3px);
+/*  -webkit-filter: blur(3px);
   -moz-filter: blur(3px);
   -o-filter: blur(3px);
   -ms-filter: blur(3px);
   filter: blur(3px);
   filter: url(blur.svg#blur);
-  filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+  filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');*/
+}
+
+#headerbackground div {
+  width: 100%;
+  height: 100%;
+  background-image:url('forest1.png');
+  background-repeat:no-repeat;
+  background-size:cover;
 }
 
 #headercontent {
@@ -156,10 +168,14 @@
 #mainHeader
 {
     height:360px;
+    max-height: 360px;
+    overflow: hidden;
     text-align:center;
     background-color:#F7F7F7;
     border-bottom: 1px solid #d5d2d2;
     margin:0;
+    min-width: 900px;
+    min-height: 360px;
 }
 
 #mainTitle
@@ -174,6 +190,7 @@
     transition-timing-function: linear;
     color:white;
     background-color: rgba(255,255,255,0.2);
+    min-width: 900px;
 
 }
 #mainTitle p {
@@ -193,6 +210,7 @@
     background-color: #ED4577;/*#F33088;*/
     color: white;
     border-bottom:0;
+
 }
 
 #mainMenuSection #mainMenu a::after, #mainMenuSection #mainMenu a:before
@@ -213,6 +231,7 @@
 {
     margin-top:62px;
     /*background-color:white;*/
+    min-width: 500px;
 }
 
 #mainMenuSection #mainMenu
