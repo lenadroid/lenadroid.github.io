@@ -18,22 +18,11 @@ body
 #firstsection {
   background-color: #FFFFFF;
   height: 250px;
-  position: relative;;
+  position: relative;
+  min-width: 900px;
 }
 
 #firstsection > #firstround {
-/*  border-radius:50px;
-  width: 300px;
-  height: 120px;
-  background-color: #A7D06C;
-  color:white;
-  font-weight: bold;
-  position: absolute;
-  left:70px;
-  top:30px;*/
-}
-
-#firstsection > #firstround > a > span {
   position: absolute;
   top:40px;
   left:170px;
@@ -43,7 +32,21 @@ body
   background-size: 100%;
 }
 
-#firstsection > #secondround > a > span {
+#firstsection > #firstround > a > span {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+/*#firstsection > #firstround:hover {    
+    background-image: url('../images/twitterblue.png');
+    transition-property: background-image;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+
+}*/
+
+#firstsection > #secondround {
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -56,7 +59,13 @@ body
   background-size: 100%;
 }
 
-#firstsection > #thirdround  > a > span  {
+#firstsection > #secondround > a {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+#firstsection > #thirdround {
   position: absolute;
   top:50px;
   right:170px;
@@ -64,6 +73,12 @@ body
   height:170px;
   background-image: url('../images/groove.jpg');
   background-size: 100%;
+}
+
+#firstsection > #thirdround  > a > span  {
+  height: 100%;
+  width: 100%;
+  display: block;
 }
 
 #headerbackground {
