@@ -167,6 +167,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 }
 
 #contentSection {
+  min-height: 250px;
 }
 
 ::selection 
