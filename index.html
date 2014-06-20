@@ -6,13 +6,28 @@
     <title>Lenadroid</title>
     <link href="css/Site.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="images/favld.png"/>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 </head>
 <body style="display:none;">
 <script type="text/javascript">
-	var header = new Image();
-	header.src = "forest.png";
-    var img = new Image();
-    header.src = "images/twitterblue.png"
+
+    function preloadImages(array) {
+        if (!preloadImages.list) {
+            preloadImages.list = [];
+         }
+        for (var i = 0; i < array.length; i++) {
+            var img = new Image();
+            img.src = array[i];
+            preloadImages.list.push(img);
+         }
+     }
+    var imageURLs = [
+        "images/twitterblue.png",
+        "images/github-hov.png",
+        "images/groove-hover.png",
+    ];
+    preloadImages(imageURLs);
+
     document.getElementsByTagName("body")[0].style.display = "block";
 
 </script>

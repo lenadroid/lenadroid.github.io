@@ -52,6 +52,29 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
     background-image: url('../images/twitterblue.png');
 }
 
+/*#firstsection:before, .test:after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 1;
+}
+#firstsection:before {
+    background-image: url(http://placekitten.com/200/200);
+    z-index: 1;
+    transition: opacity 2s;
+}
+
+#firstsection:after {
+    background-image: url(http://placekitten.com/200/300);
+}
+
+#firstsection:hover:before {
+    opacity: 0;
+}*/
+
 #firstsection > #firstround > a > span {
   height: 100%;
   width: 100%;
@@ -71,12 +94,12 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   background-size: 100%;
 
   transition-property: background-image;
-  transition-duration: 0.1s;
+  transition-duration: 0.3s;
   transition-timing-function: linear;
 }
 
 #firstsection > #secondround:hover {    
-    background-image: url('../images/github-hover1.png');
+    background-image: url('../images/github-hov1.png');
 }
 
 
