@@ -42,6 +42,14 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   height:200px;
   background-image: url('../images/twitter-b.png');
   background-size: 100%;
+
+  transition-property: background-image;
+  transition-duration: 0.3s;
+  transition-timing-function: linear;
+}
+
+#firstsection > #firstround:hover {    
+    background-image: url('../images/twitterblue.png');
 }
 
 #firstsection > #firstround > a > span {
@@ -50,13 +58,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   display: block;
 }
 
-/*#firstsection > #firstround:hover {    
-    background-image: url('../images/twitterblue.png');
-    transition-property: background-image;
-    transition-duration: 0.3s;
-    transition-timing-function: linear;
 
-}*/
 
 #firstsection > #secondround {
   position: absolute;
@@ -239,13 +241,13 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 #mainTitle:hover
 {
-    color:#FFD300; /*#F33088;#EE9700#EE6300#FF7300#FFA300#FFC400*/
+    color:#F33088; /*#F33088;#EE6300#FF7300#FFA300#FFC400*/
 }
 
 #mainMenuSection #mainMenu a:hover
 {
-    background-color: #FFF30A;/*#ED4577;*/
-    color: #333333;
+    background-color: #F33088;/*#ED4577;*/
+    color: white;
     border-bottom:0;
 
 }
