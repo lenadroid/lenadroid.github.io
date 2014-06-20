@@ -16,6 +16,14 @@ body
    background-color: #ffffff;
 }
 
+.twitter-timeline 
+{
+  float: right;
+  max-height: 300px;
+  margin-top: 10px;
+  max-width: 200px;
+}
+
 a:focus, a:active, 
 button::-moz-focus-inner,
 input[type="reset"]::-moz-focus-inner,
@@ -262,8 +270,8 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
     margin:0 auto;
     font-size:60px;
     margin-top:110px;
-    transition-property:color;
-    transition-duration: 0.5s;
+    transition-property: color;
+    transition-duration: 0.3s;
     transition-timing-function: linear;
     color:white;
     background-color: rgba(255,255,255,0.2);
@@ -279,15 +287,16 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 #mainTitle:hover
 {
-    color:#F33088; /*#F33088;#EE6300#FF7300#FFA300#FFC400*/
+    color:black; /*#F33088;#EE6300#FF7300#FFA300#FFC400*/
 }
 
 #mainMenuSection #mainMenu a:hover
 {
-    background-color: #F33088;/*#ED4577;*/
-    color: white;
+    /*background-color: #F33088;/*#ED4577;*/
+    color: #060B03;/*#60990F;*/
     border-bottom:0;
-
+    opacity: 0.6;
+    background-color: white;
 }
 
 #mainMenuSection #mainMenu a::after, #mainMenuSection #mainMenu a:before
@@ -330,8 +339,8 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
     border-radius: 1px 1px 0 0;
     color:white;
     border:none;
-    transition-property:/*background-color*/;
-    transition-duration: 0.3s;
+    transition-property:background-color;
+    transition-duration: 0.5s;
     transition-timing-function: linear;
 }
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenadroid</title>
+    <link href="css/Site.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images/favld.png"/>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+</head>
+<body style="display:none;">
+<script type="text/javascript">
+
+    function preloadImages(array) {
+        if (!preloadImages.list) {
+            preloadImages.list = [];
+         }
+        for (var i = 0; i < array.length; i++) {
+            var img = new Image();
+            img.src = array[i];
+            preloadImages.list.push(img);
+         }
+     }
+    var imageURLs = [
+        "images/twitterblue.png",
+        "images/github-hov1.png",
+        "images/groove-hover.png",
+    ];
+    preloadImages(imageURLs);
+
+    document.getElementsByTagName("body")[0].style.display = "block";
+
+</script>
+        <header id="mainHeader">
+	        <div id="headerbackground">
+             <div></div>   
+            </div>
+	        <div id="headercontent">
+	            <span id="mainTitle"><p>Lena's Software Engineering Blog</p></span>
+	            <!-- <span id="mainDescription">Love programming and challenges. Learning every day, every hour and every second. Convinced that way to excellence goes through hard work and effort.</span>   -->  
+	            <div class="scroller_anchor"></div>
+	            <section id="mainMenuSection" class="scroller">
+	                <section id="mainMenu">
+	                    <a href="#" title="cooming soon">Posts</a>
+	                    <a href="#" title="cooming soon">Tutorials</a>
+	                    <a href="#" title="cooming soon">Videos</a>
+	                    <a href="#" title="cooming soon">About</a>
+	                </section>
+	            </section>
+	        </div>
+        </header>
+        <section id="contentSection">
+
+        <a class="twitter-timeline" href="https://twitter.com/lenadroid" data-widget-id="479959426271432705">
+            Tweets by @lenadroid
+        </a>
+        <script>
+
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+        </script>
+        <div class="clear"></div>
+        </section>
+        <footer id="mainFooter">
+            <p>&copy; 2014 - Lena Droid</p>
+        </footer>
+    </body>
+</html>
