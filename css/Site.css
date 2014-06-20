@@ -239,13 +239,13 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 #mainTitle:hover
 {
-    color:#F33088;
+    color:#FFD300; /*#F33088;#EE9700#EE6300#FF7300#FFA300#FFC400*/
 }
 
 #mainMenuSection #mainMenu a:hover
 {
-    background-color: #ED4577;
-    color: white;
+    background-color: #FFF30A;/*#ED4577;*/
+    color: #333333;
     border-bottom:0;
 
 }
