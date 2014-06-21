@@ -35,8 +35,40 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
     outline : 0;
 }
 
+#personalphoto {
+  width: 200px;
+  height: 200px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-right: 100px;
+  background-image: url("../images/lena.jpg");
+  background-size: 100%;
+  border-radius: 100px;
+  box-shadow: 0 0 10px #111111;
+  float: right;
+  transition-property: opacity, box-shadow, background-size, background-position;
+  transition-duration: 0.3s;
+  transition-timing-function: linear;
+}
+
+#personalphoto:hover {
+  opacity: 0.95;
+  cursor: pointer;
+  box-shadow: 0 0 20px #365608;
+  background-size: 110%;
+  background-position: -10px -10px;
+}
+
+#personalinfo {
+  margin-right: 400px;
+  margin-left: 100px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: justify;
+}
+
 #firstsection {
-  background-color: #FFFFFF;
+  background-color: #F0F0F0;
   height: 250px;
   position: relative;
   min-width: 900px;
@@ -173,13 +205,13 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 ::selection 
 {
     color:white;
-    background:#F33088;
+    background:#535353;
 }
 
 ::-moz-selection 
 {
     color:white;
-    background:#F33088;
+    background:#535353;
 }
 
 #createPostBtn
