@@ -38,7 +38,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 #personalphoto {
   width: 200px;
   height: 200px;
-  margin-top: 10px;
+  margin-top: 30px;
   margin-bottom: 20px;
   margin-right: 100px;
   background-image: url("../images/lena.jpg");
@@ -62,9 +62,11 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 #personalinfo {
   margin-right: 400px;
   margin-left: 100px;
-  margin-top: 30px;
+ /* margin-top: 30px;*/
+  padding-top: 30px;
   margin-bottom: 30px;
   text-align: justify;
+  /*background-color: #F0F0F0;*/
 }
 
 #firstsection {
@@ -169,14 +171,14 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 ::selection 
 {
-    color:white;
-    background:#535353;
+    color:#60990F;
+    background:#E5E5E5;
 }
 
 ::-moz-selection 
 {
-    color:white;
-    background:#535353;
+    color:#60990F;
+    background:#E5E5E5;
 }
 
 #createPostBtn
