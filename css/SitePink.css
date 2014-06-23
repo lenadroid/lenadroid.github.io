@@ -171,14 +171,14 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 ::selection 
 {
-    color:white;
-    background:#FE1C61;
+    color:rgb(254, 28, 97);
+    background:rgba(254, 28, 97, 0.1);
 }
 
 ::-moz-selection 
 {
-    color:white;
-    background:#FE1C61;
+    color:rgb(254, 28, 97);
+    background:rgba(254, 28, 97, 0.1);
 }
 
 #createPostBtn
