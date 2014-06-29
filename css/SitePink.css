@@ -8,7 +8,7 @@ html
 body 
 {
     font-family: 'Segoe UI';
-    min-width:800px;
+    min-width:600px;
     min-height:600px;
     margin: 0;
     width: 100%
@@ -62,7 +62,6 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 #personalinfo {
   margin-right: 400px;
   margin-left: 100px;
- /* margin-top: 30px;*/
   padding-top: 30px;
   margin-bottom: 30px;
   text-align: justify;
@@ -70,16 +69,14 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 }
 
 #firstsection {
-  background-color: #F0F0F0;
   height: 250px;
-  position: relative;
-  min-width: 900px;
+  width: 840px;
+  margin : 0 auto;
 }
 
 #firstsection > #firstround {
-  position: absolute;
-  top:40px;
-  left:170px;
+  margin-top: 40px;
+  float: left;
   width:200px;
   height:200px;
   background-image: url('../images/twitter-b.png');
@@ -97,12 +94,11 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 }
 
 #firstsection > #secondround {
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  top:30px;
+  
+  margin-top: 30px;
+  margin-left: 120px;
+  margin-right: 140px;
+  float: left;
   width:210px;
   height:210px;
   background-image: url('../images/github.png');
@@ -121,9 +117,11 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 }
 
 #firstsection > #thirdround {
-  position: absolute;
+ /* position: absolute;
   top:50px;
-  right:170px;
+  right:170px;*/
+  margin-top: 50px;
+  float: left;
   width:170px;
   height:170px;
   background-image: url('../images/groove.png');
@@ -167,6 +165,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 #contentSection {
   min-height: 250px;
+  background-color: #F0F0F0;
 }
 
 ::selection 
