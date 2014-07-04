@@ -284,6 +284,10 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   margin:0;
 }
 
+#mainTitle p:after  {
+  content: "Lena's Software Engineering Blog";
+}
+
 #mainTitle:hover
 {
     color:black; /*#F33088;#EE6300#FF7300#FFA300#FFC400*/
