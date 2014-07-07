@@ -1,0 +1,90 @@
+html
+{
+  width: 100%;
+  height: 100%;
+  background-color: #333333;
+}
+
+body 
+{
+    font-family: 'Segoe UI';
+    min-width:600px;
+    min-height:600px;
+    margin: 0;
+    width: 100%
+    height:100%;
+   background-color: #ffffff;
+}
+
+.twitter-timeline 
+{
+  float: right;
+  max-height: 300px;
+  margin-top: 10px;
+  max-width: 200px;
+}
+
+a:focus, a:active, 
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+select::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {
+    border: 0;
+    outline : 0;
+}
+
+#mainMenuSection #mainMenu a:hover
+{
+    /*background-color: #F33088;/*#ED4577;*/
+    color: #060B03;/*#60990F;*/
+    border-bottom:0;
+    opacity: 0.6;
+    background-color: white;
+
+}
+
+#mainMenuSection #mainMenu a::after, #mainMenuSection #mainMenu a:before
+{
+    content: "";
+}
+
+
+#mainMenuSection
+{
+    min-width: 500px;
+    height: 50px;    
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+}
+
+#mainMenuSection #mainMenu
+{
+    border-top:15px solid #333333;
+    text-align:center;
+    padding-bottom:7px;
+}
+
+#mainMenuSection #mainMenu a
+{
+    height:30px;
+    background-color:#333333;
+    color:white;
+    padding:0px 10px 7px 10px;
+    text-decoration: none;
+    margin-right:10px;
+    font-size:20px;
+    color:white;
+    border:none;
+    transition-property:background-color;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+    border-radius: 0 0 7px 7px;
+}
+
+section.posts {
+    margin-top: 50px;
+}
