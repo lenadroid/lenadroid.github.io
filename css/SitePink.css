@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Philosopher;
+    src: url("fonts/philosopher/Philosopher-Regular.ttf");
+}
+
 html
 {
   width: 100%;
@@ -7,7 +12,7 @@ html
 
 body 
 {
-    font-family: 'Segoe UI';
+    font-family: 'Philosopher','Segoe UI';
     min-width:600px;
     min-height:600px;
     margin: 0;
@@ -267,7 +272,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
     cursor:pointer;
     display:block;
     margin:0 auto;
-    font-size:60px;
+    font-size:65px;
     margin-top:110px;
     transition-property: color;
     transition-duration: 0.3s;
@@ -318,7 +323,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 #mainMenuSection
 {
-    margin-top:62px;
+    margin-top:72px;
     min-width: 500px;
 }
 
