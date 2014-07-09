@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Posts</title> 
+    <link rel="stylesheet" href="../css/SitePostsPink.css" />
+</head>
+<html>
+   <body>
+
+   <section id="mainMenuSection" >
+        <div id="square1"></div>
+        <div id="border1"></div>
+        <div id="border2"></div>
+        <div id="square2"></div>
+        <div id="border3"></div>
+        <div id="border4"></div>
+                  <section id="mainMenu">
+                      <a href="http://lenadroid.github.io" title="cooming soon">Home</a>
+                      <a href="../posts.html" title="cooming soon">Posts</a>
+                      <a href="#" title="cooming soon">Videos</a>
+                      <a href="about.html" title="cooming soon">About</a>
+                        <div class="clear"></div>
+                  </section>
+  </section>
+  <!-- generated content starts -->
+      <section class='posts' >
+         <article class='post' >
+               <header class='title' >
+                  How do I feel Big Data. Getting started!
+               </header>
+               <!-- <hr id="hr"> -->
+               <div class='description' >
+                 <p>
+                 For some period of time I'm interested in <b>Big Data</b>. I've started programming with object oriented language, learned about relational databases, algorithms, data structures, how to make applications for web, desktop, various services, but initially wasn't thinking about what to do when application grows and how to handle complex moments related to distrubuting applications. Now almost everyone heard of the word Big Data, but almost nobody knows what does it mean exactly. There were also tonns of jokes about it.
+                 </p>
+                 <img src="https://pbs.twimg.com/media/Brhjx4xCAAAuJOW.jpg" width="100%" />
+                 <div class="imagedescr">Original: https://pbs.twimg.com/media/Brhjx4xCAAAuJOW.jpg</div>
+                 <br>
+                 <img width="100%" src="http://33.media.tumblr.com/3d9c3a41124a68b7a542090fde1134af/tumblr_mvn4ox9TBF1soccv6o1_500.jpg"/>
+                 <div class="imagedescr">Original: http://33.media.tumblr.com/3d9c3a41124a68b7a542090fde1134af/tumblr_mvn4ox9TBF1soccv6o1_500.jpg</div>
+                 <br>
+                  <img width="100%" src="http://gettingattention.org/wp-content/uploads/2014/01/Big-Data_-cartoon-Tom-Fishburne_-Marketoonist-1.jpg"/>
+                  <div class="imagedescr">Original: http://gettingattention.org/wp-content/uploads/2014/01/Big-Data_-cartoon-Tom-Fishburne_-Marketoonist-1.jpg</div>
+                <p>
+                The first question - what is big data? 
+                It is logical to suppose we should start with defining the concept. Yes - lots of data, and even more then lots of data. So, there should be a system to act as a storage. Really, there is no such a system, that can acomodate infinities of data just because it can. Data resides on some servers, and to be able to hold more data we need more servers. That's simple! Besides, storage should represent integrity and completeness of the data, despite it is stored in different places of a <b>cluster</b> (cluster is a group of nodes). When we already have storage there are expected to be some requests to it and the system should be able to handle them.  It should also be reliable in sence of <b>availability</b>, guarantee that every request receives a response about whether it was successful or failed.
+                </p>
+
+                <p>There is a term called "<b>horizontal scaling</b>", which means adding more machines, servers or nodes to the cluster for system to be more efficient. Here we assume that each machine we add is equal to another. Okay, we know that data is stored on our servers in the cluster, we can scale it and add more servers to be able to store more data in our <b>distributed storage</b>. </p>
+                <p>But what are our actions if it is required to save new data to the storage? How to manage this? Where to put data? How do we know that data is spread evenly and all our machines are equally loaded? Good questions. Different systems accomplish this task differently, but there is one efficient and popular approach called "<b>sharding</b>". In few words, it is mechanism that desides on which machine current piece of data should be placed on. It works based on so called "<b>sharding keys</b>", that can be for example be calculated by range or using hash. Choosing sharding key is responsible and important task.</p>
+                <p>As in every system even super cool big data storage can have errors and something can go in a way unexpected for us. We want our distributed system to be <b>fault-tolerant</b> and have some recovery mechanisms. What happens is one of our nodes with mega-important information goes down for some unknown purpose? How can we access the data on burnt machine? Here "<b>replication</b>" comes into the game and tries to save us. Relication is a feature that allows storing the same information not just on one node, but additionaty "replicates" this information on a couple of another machines for safety and to decrease risks of failure and unavailability of data.</p>
+                <p>We have reached to the first and popular approach to Big Data problem - <b>NoSQL</b>. As Wikipedia says: <blockquote> A NoSQL or Not Only SQL database provides a mechanism for storage and retrieval of data that is modeled in means other than the tabular relations used in relational databases. Motivations for this approach include simplicity of design, horizontal scaling and finer control over availability. ... NoSQL databases are finding significant and growing industry use in big data and real-time web applications</blockquote></p>
+                <p>In RDBMS all the data we write to the database are checked to match the schema, so after defining the schema we are not allowed to insert something in another format then pre-defined schema. NoSQL approach is different and has schema-less or semistructured nature. For example MongoDB stores data in JSON/BSON (more on <a href="http://bsonspec.org/">BSON</a>). Really, It means  the schema is embedded in the data. The advantage of such approach is in columns flexibility and flexibility of characteristics. For example you can insert a row with 3 columns first, and then insert one more row with 7 columns that are different from previous columns. At the same time that could be dangerous, because you are now responsible for what you are inserting. So, if you didn't find some column you were expected to have it's your own fault!<p>
+                <p>NoSQL databases can be one of the following categories:</p>
+                <p>- <a href="https://en.wikipedia.org/wiki/Document-oriented_database">Document-Oriented</a></p>
+                <p>- <a href="https://en.wikipedia.org/wiki/Key-value_store">Key/Value</a></p>
+                <p>- <a href="https://en.wikipedia.org/wiki/Column_(data_store)">Column-family</a></p>
+                <p>- <a href="https://en.wikipedia.org/wiki/Graph_database">Graph</a></p>
+                <p>We know gold standards that guarantee reliability of relational database operations: <b>Atomicity</b>, <b>Consistency</b>, <b>Isolation</b>, <b>Durability</b> (<a href="https://en.wikipedia.org/wiki/ACID">ACID</a>). </p>
+                <p>The pretty way to understand the behavior of a distributed system is the <b>CAP</b> theorem. The CAP theorem is based on the observation that a distributed system is governed by three fundamental characteristics:<p>
+<ul>
+<li>
+<p>
+<b>Consistency</b>. <br>
+The same characteristic is present in A<b>C</b>ID as a <b>C</b> letter. Consistent operation leads a database from one consistent state and leads it into another consistent state. Consistent state means that there is no violation of any integrity constraints.
+</p>
+</li>
+<li>
+<p>
+<b>Availability</b>.<br>
+Every request should be aware of whether it was successful or failed.
+</p>
+</li>
+<li>
+<p>
+<b>Partition tolerance</b>.<br>
+The system continues to operate despite arbitrary message loss or failure of part of the system.
+</p>
+</li>
+</ul>
+<p>
+The theorem states that given the three fundamental characteristics of a distributed computing system, you may have any two but never all three.  CAP provides us with a framework to make decisions regarding which tradeoffs must be made in system implementations. 
+</p>
+<p>
+The great power of RDBMS is the ability to provide consistency. But if to look a little closer, RDBMS provide availability on condition that there is connectivity between the RDBMS client and the RDBMS itself. So we conclude that the RDBMS does not provide partition tolerance - if there is no connection with client and RDBMS the system will not be able perform its duties. Thus, RDBMS is a CA system bacause it provides Consistency and Availability but not Partition tolerance. If we already know that one of there characteristics of the CAP theorem would be absent, it's reasonable to assume that distributed system can have some recovery mechanisms. Usually CAP is visualized like a triangle with verticies named C, A and P, like this: 
+</p>
+ <img id="cap" src="CAP.png">
+<p>And the distributed system should pick just one side of a triangle, covering two verticies and leaving one alone. For example if RDBMS are CA, MongoDB and HBase are CP, while Cassandra and CouchDB are AP. There are lots of discussions about CAP principle over the Internet, so you can read more from different sources. </p>
+<p>So NoSQL is a storage, where you can save semi-structured data, perform various operations on it (i.e. reads, writes, filtering, aggregation.), almost any NoSQL database allows you to do sharding, horisontal scaling, replication, etc. Of course, each NoSQL store has its own features and qualities and when using one we should definitely explore them from start to end.</p>
+<p>NoSQL databases usually have APIs and documentation for different languages you might want to use.</p>
+<p> It's time to get familliar with one more awesome and exciting approach in Big Data world! <b>Hadoop</b>. Apache Hadoop is a framework for distributed processing of large data. It is not correct to say that Hadoop is just one integral thing, because it consists of several parts and has lots of frameworks that can be used along with it. Simplified anatomy of Hadoop looks like this:</p>
+<img id="hadoop-anatomy" src="hadoop-anatomy.png">
+<ul>
+<li>
+<p>
+<b>HDFS</b> is a distributed file system for Hadoop. The main philosophy  of HDFS is "write once read many". HDFS files are called data blocks and are at least 64 MB size. HDFS is built on top of nodes, which can be of three categories: Name Node, Data Node and Secondary Name Node. Name node is one and only for the whole cluster, acts as a brain and stores metainformation about the filesystem. Data node resides on every machine and is a storage of HDFS. The job of secondary name node is to make the name node start up faster. Here, Name Node is a single point of failure, because if it goes down there is no brain in the filesystem and it won't be able to function properly. HDFS uses replication, you can configure replication rates to store the same piece of data on N other nodes. Being a file system, HDFS is inefficient in random read and write accees.
+</p>
+</li>
+<li>
+<p>
+<b>MapReduce</b> is a computation or processing framework. It runs jobs. The task is to distribute the work across the HDFS. It accepts jobs through the JobTracker. There can be only one JobTracker per cluster, it is responsible for communication with the Name Node and mentoring TaskTrackers, that do their jobs on machines.  MapReduce operation consists of two functions - Map and Reduce. The task of map function is to get input data, process it and generate output key/value pairs. Reduce function gets Map's output as an input, performs some actions based on some criteria and returns a smaller set of key/value pairs.
+</p>
+</li>
+<li>
+<p>
+<b>Hive</b> is SQL-like query syntax to do some operations on HDFS or HBase to perform data warehousing operations, so it makes your life easier if you are familliar with SQL. Hive does well on bulk operations and is not suitable for info modification and updates. Remember the principle "write once read many".
+</p>
+</li>
+<li>
+<p>
+<b>Pig</b> is a tool to operate data stored in HDFS or HBase. Pig consists of two parts, the first is a programming language PigLatin and the second is the runtime environment for language to execute. 
+</p>
+</li>
+<li>
+<p>
+<b>HBase</b> is a column-family NoSQL database on top of HDFS. It has transactional support, DML (inserts, updates, deletes) and allows to use almost limitless number of columns. HBase comes into play in the case of individual records lookups and updating data. HBase doesn't support joins and sometimes it is appropriate to use denormalization. Or instead, joins can be done in your application code or a map/reduce jobs.
+</p>
+</li>
+</ul>
+<p>
+There are also adjacent to Hadoop frameworks:
+</p>
+<ul>
+<li>
+<p>
+<b>Mahout</b> is a machine learning framework for Hadoop.
+</p>
+</li>
+<li>
+<p>
+<b>Squoop</b> helps transferring data from RDBMS into Hadoop.
+</p>
+</li>
+<li>
+<p>
+<b>ZooKeeper</b> tracks and monitors potential errors and conflicts while updates to ensyre and prove consistency across the cluster.
+</p>
+</li>
+</ul>
+<br>
+<h3 align="center">Usage of Hadoop</h3>
+
+<p>
+<b>Java World</b>
+</p>
+<p>
+Hadoop is written in Java and it is quite easy to use it with Java/Scala and Linux platform. There are lots of instructions and tutorials how to get started, for example you can look <a href="https://hadoop.apache.org/docs/r2.3.0/api/">here</a> for Java API and <a href="https://hadoop.apache.org/docs/current/">here</a> for documentation.
+</p>
+<p>
+<b>.NET</b>
+</p>
+<p>
+After some searching how to set up Hadoop cluster on Windows I understood that it is not as straitforward as I thought. Microsoft has its own approach how to do this. Hadoop is offered through <b>HDInsight</b> on Windows Azure. As it is written on Microsoft <a href="http://azure.microsoft.com/en-us/documentation/services/hdinsight/">web site</a>: <blockquote>HDInsight makes Apache Hadoop available as a service in the cloud. It makes the MapReduce software framework available in a simpler, more scalable, and cost efficient Azure environment. HDInsight also provides a cost efficient approach to the managing and storing of data using Azure Blob storage.</blockquote>
+</p>
+<p>There are two options: </p>
+<ul>
+<li>
+<p>
+Single-node Hadoop cluster to try Hadoop and for testing.
+</p>
+<p>You would need Windows Server 2008 R2 64-bit or Windows Server 2012 64-bit. Windows 7 or 8 is not supported for our purposes.</p>
+<p>Mandatory prerequisites:</p>
+<p>- Microsoft Visual C++ 2010 Redistributable Package (64-bit).</p>
+<p>- Microsoft .NET framework 4.0.</p>
+<p>- Java Development Kit (JDK) 6u31.</p>
+<p>- Python 2.7.</p>
+<p>Download and Install <b>Hortonworks Data Platform</b> (<a href="http://hortonworks.com/hdp/"> link </a>)<p>
+<p>Start Hadoop command prompt, it should open in hadoop installation directory by default. Anyway, we need to navigate to a directory higher then hadoop installation.</p>
+<p>Run command "start_local_hdp_services" to start services and then "Run-SmokeTests" to run smoke tests. </p>
+</li>
+<li>Also you are able to create Hadoop (HDInsight) cluster with Windows Azure.</li>
+</ul>
+Here is .NET SDK for Hadoop: https://hadoopsdk.codeplex.com/
+
+Interesting note:
+Both of these solutions have their strengths, weaknesses and unique characteristics.MongoDB and Hadoop are fundamentally different systems. MongoDB is a database while Hadoop is a data processing and analysis framework. MongoDB focuses on storage and efficient retrieval of data while Hadoop focuses on data processing using MapReduce. In spite of this basic difference, both technologies have similar functionality. MongoDB has its own MapReduce framework and Hadoop has HBase.  HBase is a scalable database similar to MongoDB
+
+                </div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  07.07.2014
+               </div> |
+               <div class='keywords' >
+                     <span class='keyword' >
+                        big data
+                     </span>
+                     <span class='keyword' >
+                        nosql
+                     </span>
+                     <span class='keyword' >
+                        hadoop
+                     </span>
+
+               </div>
+
+
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+  </body>
+</html>

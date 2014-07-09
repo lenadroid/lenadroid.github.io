@@ -8,7 +8,10 @@ html
   width: 100%;
   height: 100%;
 }
-
+img, #cap, #hadoop-anatomy {
+    margin: 0 auto;
+    display: block;
+}
 a {
     text-decoration:  none;
     color: #FE1C61;
@@ -18,6 +21,12 @@ a {
 a:hover {
     color: #FE1C61;
     text-shadow: 0 0 1px white;
+}
+
+blockquote {
+    /*font-style: italic;*/
+    font-size: 18px;
+    color: #999999;
 }
 
 body 
@@ -95,6 +104,24 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
     left: 0;
 }
 
+/*#mainMenuSection #border3 {
+    border-radius: 0px 150px 0 0 ;
+    height: 200px;
+    width: 200px;
+    background-color: white;
+    position: absolute;
+    top: 50px;
+    right: 0;
+}
+#mainMenuSection #square2 {
+    height: 200px;
+    width: 200px;
+    background: #333333;
+    position: absolute;
+    top: 50px;
+    right: 0;
+}*/
+
 #mainMenuSection #mainMenu
 {
     border-top:10px solid #333333;
@@ -108,7 +135,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
     height:30px;
     background-color:#333333;
     color:#FFFFFF;
-    padding:0px 10px 7px 10px;
+    padding:5px 10px 7px 10px;
     text-decoration: none;
     margin-right:10px;
     font-size:20px;
@@ -119,11 +146,86 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 }
 
 section.posts {
-    margin-top: 60px;
+    margin-top: 80px;
     width: 60%;
     margin-left: 20%;
     z-index: 900;
     text-align: justify;
-    line-height: 30px;
+    line-height: 31px;
     font-size: 20px;
+    color: #333333;
+    cursor: default;
+}
+
+.imagedescr {
+    color: #999999;
+    margin: 1px auto 1px auto;
+    font-size: 15px;
+}
+
+#hr {
+    color: #222222;
+}
+
+.post {
+    margin-bottom: 40px;
+}
+
+.post a {
+    transition-property: text-shadow, color;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+}
+
+.post a:hover {
+    color:#FE006A;
+    text-shadow:0 0 1px #FE006A;
+}
+
+.post .title {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 10px;
+    transition-property:color;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+    cursor: default;
+}
+
+.post .title:hover {
+    color: #FE1C61;
+}
+
+.post .description {
+    border-bottom: 1px solid #E0E0E0;
+    border-top: 1px solid #E0E0E0;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.post .date {
+display: inline;
+font-size: 17px;
+color: #999999;
+margin-right: 5px;
+}
+.post .keywords {
+ display: inline;
+ font-size: 15px;
+ color: #999999;
+ margin-left: 5px;
+}
+.post .keywords .keyword{
+     background-color: #E0E0E0;
+     border-radius: 3px;
+     padding: 3px;
+     margin-right: 7px;
+     color: #333333;
+     cursor: default;
+     transition-property:color;
+     transition-duration: 0.5s;
+     transition-timing-function: linear;
+}
+.post .keywords .keyword:hover {
+    color: #FE1C61;
 }
