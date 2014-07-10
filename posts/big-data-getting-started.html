@@ -176,8 +176,10 @@ Single-node Hadoop cluster to try Hadoop and for testing.
 <p><a href="https://hadoopsdk.codeplex.com/">Here</a> you can find .NET SDK for Hadoop.</p>
 <p>If you are one of those awesome software engineers, who use F# - <a href="http://fsharp.org/guides/cloud/index.html#big-data-programming-and-nosql-databases">F# and Big Data</a> section would be interesting for you.</p>
 <h3 align="center">Finally, interesting note</h3>
-<p>NoSQL and Hadoop are the two mainstream solutions for so called "Big Data". NoSQL is a database. Hadoop is a distributed data procrssing framework. How to choose whether you actually need Hadoop or some NoSQL database could fulfill your requirements?</p>
-<p>Let's see sample comparison of MongoDB NoSQL database and Hadoop.</p>
+<p>NoSQL and Hadoop are the two of the most mainstreem solutions for so called "Big Data" and they are absolutely different, despite have kind of overlapping functionality. NoSQL is a database, it can be of different type (look above to know about the types). Hadoop is a distributed data procrssing framework. How to choose whether you actually need Hadoop or some NoSQL database could fulfill your requirements?
+</p>
+<p>Let's see *sample* look at MongoDB, which is document-oriented NoSQL database, and at Hadoop. It doesn't mean that these two are designed for the same purposes, on the contrary - each of them has its own use case or they can be used together. The aim is to illustrate that every instrument has advantages and disadvantages and when deciding which one to use it is necessary to explore your problem and task accurately.
+</p>
 <p>MongoDB stores data in JSON, easily handles data in non-standard formats, has good performance on real-time inserts, provides sharding and replication, has geospatial indexes, Map/Reduce can be used in MongoDB, but if the task is to do effective processing it can fail because of single-thread bottleneck per node. </p>
 <p>Hadoop stores data on its HDFS filesystem in blocks, in any format, at the same time we have an opportunity to store data in HBase - NoSQL database based on HDFS, which is aslo scalable and similar to MongoDB. Hadoop is most suitable for batch processing, i.e. huge logs processing, when single machine can't handle it, for Extract-Transform-Load operations, processing complex sequences, is able to do machine learning and data analysis using its frameworks. </p>
 <p>Before desiding to use Hadoop answer to the following questions yourself:<p>
@@ -189,7 +191,7 @@ Do you really need to store terrabytes and petabytes of data?
 Do you have stable inflow of data?
 </li>
 <li>
-What response time do you expect, is it nessessary to have real-time response?
+What response time do you expect, is it necessary to have real-time response?
 </li>
 <li>
 What kind of operations would you perform more on your data - random access or bulk operations with batch reads and writes?
