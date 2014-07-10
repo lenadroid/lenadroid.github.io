@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>How I feel Big Data. Getting started!</title> 
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
     <!-- <link rel="stylesheet" href="../css/SitePostsPink.css" /> -->
     <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" /> 
     <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" /> 
@@ -28,7 +29,6 @@
                <header class='title' >
                   How I feel Big Data. Getting started!
                </header>
-               <!-- <hr id="hr"> -->
                <div class='description' >
                  <p>
                  For some period of time I'm interested in <b>Big Data</b>. I've started programming with object oriented language, learned about relational databases, algorithms, data structures, how to make applications for web, desktop, various services, but initially wasn't thinking about what to do when application grows and how to handle complex moments related to distrubuting applications. Now almost everyone heard of the word Big Data, but almost nobody knows what does it mean exactly. There were also tonns of jokes about it.
@@ -58,145 +58,145 @@
                 <p>- <a href="https://en.wikipedia.org/wiki/Graph_database">Graph</a></p>
                 <p>We know gold standards that guarantee reliability of relational database operations: <b>Atomicity</b>, <b>Consistency</b>, <b>Isolation</b>, <b>Durability</b> (<a href="https://en.wikipedia.org/wiki/ACID">ACID</a>). </p>
                 <p>The pretty way to understand the behavior of a distributed system is the <b>CAP</b> theorem. The CAP theorem is based on the observation that a distributed system is governed by three fundamental characteristics:<p>
-<ul>
-<li>
-<p>
-<b>Consistency</b>. <br>
-The same characteristic is present in A<b>C</b>ID as a <b>C</b> letter. Consistent operation leads a database from one consistent state into another consistent state. Consistent state means that there is no violation of any integrity constraints.
-</p>
-</li>
-<li>
-<p>
-<b>Availability</b>.<br>
-Every request should be aware of whether it was successful or failed.
-</p>
-</li>
-<li>
-<p>
-<b>Partition tolerance</b>.<br>
-The system continues to operate despite arbitrary message loss or failure of part of the system.
-</p>
-</li>
-</ul>
-<p>
-The theorem states that given the three fundamental characteristics of a distributed computing system, you may have any two but never all three.  CAP provides us with a framework to make decisions regarding which tradeoffs must be made in system implementations. 
-</p>
-<p>
-The great power of RDBMS is the ability to provide consistency. But if to look a little closer, RDBMS provide availability on condition that there is connectivity between the RDBMS client and the RDBMS itself. So we conclude that the RDBMS does not provide partition tolerance - if there is no connection with client and RDBMS the system will not be able perform its duties. Thus, RDBMS is a CA system bacause it provides Consistency and Availability but not Partition tolerance. If we already know that one of there characteristics of the CAP theorem would be absent, it's reasonable to assume that distributed system can have some recovery mechanisms. Usually CAP is visualized like a triangle with verticies named C, A and P, like this: 
-</p>
- <img id="cap" src="CAP.png">
-<p>And the distributed system should pick just one side of a triangle, covering two verticies and leaving one alone. For example if RDBMS are CA, MongoDB and HBase are CP, while Cassandra and CouchDB are AP. There are lots of discussions about CAP principle over the Internet, so you can read more from different sources. </p>
-<p>So NoSQL is a storage, where you can save semi-structured data, perform various operations on it (i.e. reads, writes, filtering, aggregation.), almost any NoSQL database allows you to do sharding, horisontal scaling, replication, etc. Of course, each NoSQL store has its own features and qualities and when using one we should definitely explore them from start to end.</p>
-<h3 align="center">Usage of NoSQL</h3>
-<p>NoSQL databases usually have APIs and documentation for different languages you might want to use.
-For example, <a href="http://docs.mongodb.org/ecosystem/drivers/">here</a> you can find MongoDB drivers for different programming languages and <a href="https://wiki.apache.org/cassandra/ClientOptions">here</a> is a list of CQL drivers for Cassandra. You can easily find APIs for other NoSQL databases.</p>
-<br>
-<p> It's time to get familliar with one more awesome and exciting approach in Big Data world! <b>Hadoop</b>. Apache Hadoop is a framework for distributed processing of large data. It is not correct to say that Hadoop is just one integral thing, because it consists of several parts and has lots of frameworks that can be used along with it. Simplified anatomy of Hadoop looks like this:</p>
-<img id="hadoop-anatomy" src="hadoop-anatomy.png">
-<ul>
-<li>
-<p>
-<b>HDFS</b> is a distributed file system for Hadoop. The main philosophy  of HDFS is "write once read many". HDFS files are called data blocks and are at least 64 MB size. HDFS is built on top of nodes, which can be of three categories: Name Node, Data Node and Secondary Name Node. Name node is one and only for the whole cluster, acts as a brain and stores metainformation about the filesystem. Data node resides on every machine and is a storage of HDFS. The job of secondary name node is to make the name node start up faster. Here, Name Node is a single point of failure, because if it goes down there is no brain in the filesystem and it won't be able to function properly. HDFS uses replication, you can configure replication rates to store the same piece of data on N other nodes. Being a file system, HDFS is inefficient in random read and write accees.
-</p>
-</li>
-<li>
-<p>
-<b>MapReduce</b> is a computation or processing framework. It runs jobs. The task is to distribute the work across the HDFS. It accepts jobs through the JobTracker. There can be only one JobTracker per cluster, it is responsible for communication with the Name Node and mentoring TaskTrackers, that do their jobs on machines.  MapReduce operation consists of two functions - Map and Reduce. The task of map function is to get input data, process it and generate output key/value pairs. Reduce function gets Map's output as an input, performs some actions based on some criteria and returns a smaller set of key/value pairs.
-</p>
-</li>
-<li>
-<p>
-<b>Hive</b> is SQL-like query syntax to do some operations on HDFS or HBase to perform data warehousing operations, so it makes your life easier if you are familliar with SQL. Hive does well on bulk operations and is not suitable for info modification and updates. Remember the principle "write once read many".
-</p>
-</li>
-<li>
-<p>
-<b>Pig</b> is a tool to operate data stored in HDFS or HBase. Pig consists of two parts, the first is a programming language PigLatin and the second is the runtime environment for language to execute. 
-</p>
-</li>
-<li>
-<p>
-<b>HBase</b> is a column-family NoSQL database on top of HDFS. It has transactional support, DML (inserts, updates, deletes) and allows to use almost limitless number of columns. HBase comes into play in the case of individual records lookups and updating data. HBase doesn't support joins and sometimes it is appropriate to use denormalization. Or instead, joins can be done in your application code or a map/reduce jobs.
-</p>
-</li>
-</ul>
-<p>
-There are also adjacent to Hadoop frameworks:
-</p>
-<ul>
-<li>
-<p>
-<b>Mahout</b> is a machine learning framework for Hadoop.
-</p>
-</li>
-<li>
-<p>
-<b>Squoop</b> helps transferring data from RDBMS into Hadoop.
-</p>
-</li>
-<li>
-<p>
-<b>ZooKeeper</b> tracks and monitors potential errors and conflicts while updates to ensyre and prove consistency across the cluster.
-</p>
-</li>
-</ul>
-<br>
-<h3 align="center">Usage of Hadoop</h3>
+                    <ul>
+                    <li>
+                    <p>
+                    <b>Consistency</b>. <br>
+                    The same characteristic is present in A<b>C</b>ID as a <b>C</b> letter. Consistent operation leads a database from one consistent state into another consistent state. Consistent state means that there is no violation of any integrity constraints.
+                    </p>
+                    </li>
+                    <li>
+                    <p>
+                    <b>Availability</b>.<br>
+                    Every request should be aware of whether it was successful or failed.
+                    </p>
+                    </li>
+                    <li>
+                    <p>
+                    <b>Partition tolerance</b>.<br>
+                    The system continues to operate despite arbitrary message loss or failure of part of the system.
+                    </p>
+                    </li>
+                    </ul>
+                    <p>
+                    The theorem states that given the three fundamental characteristics of a distributed computing system, you may have any two but never all three.  CAP provides us with a framework to make decisions regarding which tradeoffs must be made in system implementations. 
+                    </p>
+                    <p>
+                    The great power of RDBMS is the ability to provide consistency. But if to look a little closer, RDBMS provide availability on condition that there is connectivity between the RDBMS client and the RDBMS itself. So we conclude that the RDBMS does not provide partition tolerance - if there is no connection with client and RDBMS the system will not be able perform its duties. Thus, RDBMS is a CA system bacause it provides Consistency and Availability but not Partition tolerance. If we already know that one of there characteristics of the CAP theorem would be absent, it's reasonable to assume that distributed system can have some recovery mechanisms. Usually CAP is visualized like a triangle with verticies named C, A and P, like this: 
+                    </p>
+                     <img id="cap" src="CAP.png">
+                    <p>And the distributed system should pick just one side of a triangle, covering two verticies and leaving one alone. For example if RDBMS are CA, MongoDB and HBase are CP, while Cassandra and CouchDB are AP. There are lots of discussions about CAP principle over the Internet, so you can read more from different sources. </p>
+                    <p>So NoSQL is a storage, where you can save semi-structured data, perform various operations on it (i.e. reads, writes, filtering, aggregation.), almost any NoSQL database allows you to do sharding, horisontal scaling, replication, etc. Of course, each NoSQL store has its own features and qualities and when using one we should definitely explore them from start to end.</p>
+                    <h3 align="center">Usage of NoSQL</h3>
+                    <p>NoSQL databases usually have APIs and documentation for different languages you might want to use.
+                    For example, <a href="http://docs.mongodb.org/ecosystem/drivers/">here</a> you can find MongoDB drivers for different programming languages and <a href="https://wiki.apache.org/cassandra/ClientOptions">here</a> is a list of CQL drivers for Cassandra. You can easily find APIs for other NoSQL databases.</p>
+                    <br>
+                    <p> It's time to get familliar with one more awesome and exciting approach in Big Data world! <b>Hadoop</b>. Apache Hadoop is a framework for distributed processing of large data. It is not correct to say that Hadoop is just one integral thing, because it consists of several parts and has lots of frameworks that can be used along with it. Simplified anatomy of Hadoop looks like this:</p>
+                    <img id="hadoop-anatomy" src="hadoop-anatomy.png">
+                    <ul>
+                    <li>
+                    <p>
+                    <b>HDFS</b> is a distributed file system for Hadoop. The main philosophy  of HDFS is "write once read many". HDFS files are called data blocks and are at least 64 MB size. HDFS is built on top of nodes, which can be of three categories: Name Node, Data Node and Secondary Name Node. Name node is one and only for the whole cluster, acts as a brain and stores metainformation about the filesystem. Data node resides on every machine and is a storage of HDFS. The job of secondary name node is to make the name node start up faster. Here, Name Node is a single point of failure, because if it goes down there is no brain in the filesystem and it won't be able to function properly. HDFS uses replication, you can configure replication rates to store the same piece of data on N other nodes. Being a file system, HDFS is inefficient in random read and write accees.
+                    </p>
+                    </li>
+                    <li>
+                    <p>
+                    <b>MapReduce</b> is a computation or processing framework. It runs jobs. The task is to distribute the work across the HDFS. It accepts jobs through the JobTracker. There can be only one JobTracker per cluster, it is responsible for communication with the Name Node and mentoring TaskTrackers, that do their jobs on machines.  MapReduce operation consists of two functions - Map and Reduce. The task of map function is to get input data, process it and generate output key/value pairs. Reduce function gets Map's output as an input, performs some actions based on some criteria and returns a smaller set of key/value pairs.
+                    </p>
+                    </li>
+                    <li>
+                    <p>
+                    <b>Hive</b> is SQL-like query syntax to do some operations on HDFS or HBase to perform data warehousing operations, so it makes your life easier if you are familliar with SQL. Hive does well on bulk operations and is not suitable for info modification and updates. Remember the principle "write once read many".
+                    </p>
+                    </li>
+                    <li>
+                    <p>
+                    <b>Pig</b> is a tool to operate data stored in HDFS or HBase. Pig consists of two parts, the first is a programming language PigLatin and the second is the runtime environment for language to execute. 
+                    </p>
+                    </li>
+                    <li>
+                    <p>
+                    <b>HBase</b> is a column-family NoSQL database on top of HDFS. It has transactional support, DML (inserts, updates, deletes) and allows to use almost limitless number of columns. HBase comes into play in the case of individual records lookups and updating data. HBase doesn't support joins and sometimes it is appropriate to use denormalization. Or instead, joins can be done in your application code or a map/reduce jobs.
+                    </p>
+                    </li>
+                    </ul>
+                    <p>
+                    There are also adjacent to Hadoop frameworks:
+                    </p>
+                    <ul>
+                    <li>
+                    <p>
+                    <b>Mahout</b> is a machine learning framework for Hadoop.
+                    </p>
+                    </li>
+                    <li>
+                    <p>
+                    <b>Squoop</b> helps transferring data from RDBMS into Hadoop.
+                    </p>
+                    </li>
+                    <li>
+                    <p>
+                    <b>ZooKeeper</b> tracks and monitors potential errors and conflicts while updates to ensyre and prove consistency across the cluster.
+                    </p>
+                    </li>
+                    </ul>
+                    <br>
+                    <h3 align="center">Usage of Hadoop</h3>
 
-<p>
-<b>Java World</b>
-</p>
-<p>
-Hadoop is written in Java and it is quite easy to use it with Java/Scala and Linux platform. There are lots of instructions and tutorials how to get started, for example you can look <a href="https://hadoop.apache.org/docs/r2.3.0/api/">here</a> for Java API and <a href="https://hadoop.apache.org/docs/current/">here</a> for documentation.
-</p>
-<p>
-<b>.NET</b>
-</p>
-<p>
-After some searching how to set up Hadoop cluster on Windows I understood that it is not as straitforward as I thought. Microsoft has its own approach how to do this. Hadoop is offered through <b>HDInsight</b> on Windows Azure. As it is written on Microsoft <a href="http://azure.microsoft.com/en-us/documentation/services/hdinsight/">web site</a>: <blockquote>HDInsight makes Apache Hadoop available as a service in the cloud. It makes the MapReduce software framework available in a simpler, more scalable, and cost efficient Azure environment. HDInsight also provides a cost efficient approach to the managing and storing of data using Azure Blob storage.</blockquote>
-</p>
-<p>There are two options: </p>
-<ul>
-<li>
-<p>
-Single-node Hadoop cluster to try Hadoop and for testing.
-</p>
-<p>You would need Windows Server 2008 R2 64-bit or Windows Server 2012 64-bit. Windows 7 or 8 is not supported for our purposes.</p>
-<p>Mandatory prerequisites:</p>
-<p>- Microsoft Visual C++ 2010 Redistributable Package (64-bit).</p>
-<p>- Microsoft .NET framework 4.0.</p>
-<p>- Java Development Kit (JDK) 6u31.</p>
-<p>- Python 2.7.</p>
-<p>Download and Install <b>Hortonworks Data Platform</b> (<a href="http://hortonworks.com/hdp/"> link </a>)<p>
-<p>Start Hadoop command prompt, it should open in hadoop installation directory by default. Anyway, we need to navigate to a directory higher then hadoop installation.</p>
-<p>Run command "start_local_hdp_services" to start services and then "Run-SmokeTests" to run smoke tests. </p>
-</li>
-<li>Also you are able to create Hadoop (HDInsight) cluster with Windows Azure. Microsoft web-site has pretty good articles for this task, look <a href="http://azure.microsoft.com/en-us/documentation/articles/hdinsight-administer-use-management-portal/">here</a>, and there are also useful tutorial videos on <a href="http://channel9.msdn.com/Series/Getting-started-with-Windows-Azure-HDInsight-Service">channel9</a>.</li>
-</ul>
-<p><a href="https://hadoopsdk.codeplex.com/">Here</a> you can find .NET SDK for Hadoop.</p>
-<p>If you are one of those awesome software engineers, who use F# - <a href="http://fsharp.org/guides/cloud/index.html#big-data-programming-and-nosql-databases">F# and Big Data</a> section would be interesting for you.</p>
-<h3 align="center">Finally, interesting note</h3>
-<p>NoSQL and Hadoop are the two of the most mainstreem solutions for so called "Big Data" and they are absolutely different, despite have kind of overlapping functionality. NoSQL is a database, it can be of different type (look above to know about the types). Hadoop is a distributed data procrssing framework.
-</p>
-<p>Let's have a *sample* look at MongoDB, which is document-oriented NoSQL database, and at Hadoop. It doesn't mean that these two are designed for the same purposes, on the contrary - each of them has its own use case or they can be used together. The aim is to illustrate that every instrument has advantages and disadvantages and when deciding which one to use it is necessary to explore your problem and task accurately.
-</p>
-<p>MongoDB stores data in JSON, easily handles data in non-standard formats, has good performance on real-time inserts, provides sharding and replication, has geospatial indexes, Map/Reduce can be used in MongoDB, but if the task is to do effective processing it can fail because of single-thread bottleneck per node. </p>
-<p>Hadoop stores data on its HDFS filesystem in blocks, in any format, at the same time we have an opportunity to store data in HBase - NoSQL database based on HDFS, which is aslo scalable and similar to MongoDB. Hadoop is most suitable for batch processing, i.e. huge logs processing, when single machine can't handle it, for Extract-Transform-Load operations, processing complex sequences, is able to do machine learning and data analysis using its frameworks. </p>
-<p>Before desiding to use Hadoop answer to the following questions yourself:<p>
-<ul>
-<li>
-Do you really need to store terrabytes and petabytes of data?
-</li>
-<li>
-Do you have stable inflow of data?
-</li>
-<li>
-What response time do you expect, is it necessary to have real-time response?
-</li>
-<li>
-What kind of operations would you perform more on your data - random access or bulk operations with batch reads and writes?
-</li>
-<ul>
+                    <p>
+                    <b>Java World</b>
+                    </p>
+                    <p>
+                    Hadoop is written in Java and it is quite easy to use it with Java/Scala and Linux platform. There are lots of instructions and tutorials how to get started, for example you can look <a href="https://hadoop.apache.org/docs/r2.3.0/api/">here</a> for Java API and <a href="https://hadoop.apache.org/docs/current/">here</a> for documentation.
+                    </p>
+                    <p>
+                    <b>.NET</b>
+                    </p>
+                    <p>
+                    After some searching how to set up Hadoop cluster on Windows I understood that it is not as straitforward as I thought. Microsoft has its own approach how to do this. Hadoop is offered through <b>HDInsight</b> on Windows Azure. As it is written on Microsoft <a href="http://azure.microsoft.com/en-us/documentation/services/hdinsight/">web site</a>: <blockquote>HDInsight makes Apache Hadoop available as a service in the cloud. It makes the MapReduce software framework available in a simpler, more scalable, and cost efficient Azure environment. HDInsight also provides a cost efficient approach to the managing and storing of data using Azure Blob storage.</blockquote>
+                    </p>
+                    <p>There are two options: </p>
+                    <ul>
+                    <li>
+                    <p>
+                    Single-node Hadoop cluster to try Hadoop and for testing.
+                    </p>
+                    <p>You would need Windows Server 2008 R2 64-bit or Windows Server 2012 64-bit. Windows 7 or 8 is not supported for our purposes.</p>
+                    <p>Mandatory prerequisites:</p>
+                    <p>- Microsoft Visual C++ 2010 Redistributable Package (64-bit).</p>
+                    <p>- Microsoft .NET framework 4.0.</p>
+                    <p>- Java Development Kit (JDK) 6u31.</p>
+                    <p>- Python 2.7.</p>
+                    <p>Download and Install <b>Hortonworks Data Platform</b> (<a href="http://hortonworks.com/hdp/"> link </a>)<p>
+                    <p>Start Hadoop command prompt, it should open in hadoop installation directory by default. Anyway, we need to navigate to a directory higher then hadoop installation.</p>
+                    <p>Run command "start_local_hdp_services" to start services and then "Run-SmokeTests" to run smoke tests. </p>
+                    </li>
+                    <li>Also you are able to create Hadoop (HDInsight) cluster with Windows Azure. Microsoft web-site has pretty good articles for this task, look <a href="http://azure.microsoft.com/en-us/documentation/articles/hdinsight-administer-use-management-portal/">here</a>, and there are also useful tutorial videos on <a href="http://channel9.msdn.com/Series/Getting-started-with-Windows-Azure-HDInsight-Service">channel9</a>.</li>
+                    </ul>
+                    <p><a href="https://hadoopsdk.codeplex.com/">Here</a> you can find .NET SDK for Hadoop.</p>
+                    <p>If you are one of those awesome software engineers, who use F# - <a href="http://fsharp.org/guides/cloud/index.html#big-data-programming-and-nosql-databases">F# and Big Data</a> section would be interesting for you.</p>
+                    <h3 align="center">Finally, interesting note</h3>
+                    <p>NoSQL and Hadoop are the two of the most mainstreem solutions for so called "Big Data" and they are absolutely different, despite have kind of overlapping functionality. NoSQL is a database, it can be of different type (look above to know about the types). Hadoop is a distributed data procrssing framework.
+                    </p>
+                    <p>Let's have a *sample* look at MongoDB, which is document-oriented NoSQL database, and at Hadoop. It doesn't mean that these two are designed for the same purposes, on the contrary - each of them has its own use case or they can be used together. The aim is to illustrate that every instrument has advantages and disadvantages and when deciding which one to use it is necessary to explore your problem and task accurately.
+                    </p>
+                    <p>MongoDB stores data in JSON, easily handles data in non-standard formats, has good performance on real-time inserts, provides sharding and replication, has geospatial indexes, Map/Reduce can be used in MongoDB, but if the task is to do effective processing it can fail because of single-thread bottleneck per node. </p>
+                    <p>Hadoop stores data on its HDFS filesystem in blocks, in any format, at the same time we have an opportunity to store data in HBase - NoSQL database based on HDFS, which is aslo scalable and similar to MongoDB. Hadoop is most suitable for batch processing, i.e. huge logs processing, when single machine can't handle it, for Extract-Transform-Load operations, processing complex sequences, is able to do machine learning and data analysis using its frameworks. </p>
+                    <p>Before desiding to use Hadoop answer to the following questions yourself:<p>
+                    <ul>
+                    <li>
+                    Do you really need to store terrabytes and petabytes of data?
+                    </li>
+                    <li>
+                    Do you have stable inflow of data?
+                    </li>
+                    <li>
+                    What response time do you expect, is it necessary to have real-time response?
+                    </li>
+                    <li>
+                    What kind of operations would you perform more on your data - random access or bulk operations with batch reads and writes?
+                    </li>
+                    <ul>
 
                 </div>
 

@@ -480,6 +480,16 @@ footer#mainFooter
     color:white;
 }
 
+footer#mainFooter a
+{
+  color:white;
+  text-decoration: none;
+}
+
+footer#mainFooter a:hover {
+  text-shadow: 0 0 1px white;
+}
+
 #postSection
 {
     margin-left:100px;

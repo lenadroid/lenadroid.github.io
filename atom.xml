@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Lenadroid</title>
+    <link href="https://lenadroid.github.io/atom.xml" rel="self" />
+    <link href="https://lenadroid.github.io/" />
+    <id>https://lenadroid.github.io/atom.xml</id>
+    <author>
+        <name>Lenadroid</name>
+        <email>lenadroid@yandex.com</email>
+    </author>
+    <updated>2014-07-07T00:00:00Z</updated>
+    <entry>
+        <title>How I feel Big Data. Getting started!</title>
+        <link href="https://lenadroid.github.io/posts/big-data-getting-started.html" />
+        <id>https://lenadroid.github.io/posts/big-data-getting-started.html</id>
+        <published>2014-07-07T00:00:00Z</published>
+        <updated>2014-07-07T00:00:00Z</updated>
+        <summary type="html"><![CDATA[Lenadroid]]></summary>
+    </entry>
+</feed>
