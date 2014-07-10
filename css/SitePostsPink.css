@@ -7,6 +7,7 @@ html
 {
   width: 100%;
   height: 100%;
+  min-width: 600px;
 }
 img, #cap, #hadoop-anatomy {
     margin: 0 auto;
@@ -33,11 +34,10 @@ body
 {
     font-family: 'Philosopher','Segoe UI';
     min-width:600px;
-    min-height:600px;
     margin: 0;
     width: 100%
     height:100%;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
 }
 
 .twitter-timeline 
@@ -104,23 +104,6 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
     left: 0;
 }
 
-/*#mainMenuSection #border3 {
-    border-radius: 0px 150px 0 0 ;
-    height: 200px;
-    width: 200px;
-    background-color: white;
-    position: absolute;
-    top: 50px;
-    right: 0;
-}
-#mainMenuSection #square2 {
-    height: 200px;
-    width: 200px;
-    background: #333333;
-    position: absolute;
-    top: 50px;
-    right: 0;
-}*/
 
 #mainMenuSection #mainMenu
 {
@@ -155,6 +138,9 @@ section.posts {
     font-size: 20px;
     color: #333333;
     cursor: default;
+    overflow: hidden;
+    min-height: 450px;
+    background-color: #ffffff;
 }
 
 .imagedescr {
@@ -228,4 +214,36 @@ margin-right: 5px;
 }
 .post .keywords .keyword:hover {
     color: #FE1C61;
+}
+
+
+#mainFooter {
+    height: 50px;
+    width: 100%;
+    background-color: #333333;
+    text-align: center;
+    color: white;
+    padding-top: 5px;
+    position: relative;
+}
+
+#mainFooter.postssection {
+    position: absolute;
+    bottom: 0;
+}
+
+ #border3 {
+    border-radius:  0px  0 150px 0 ;
+    height: 200px;
+    width: 200px;
+    background-color: white;
+}
+ #square2 {
+    height: 200px;
+    width: 200px;
+    background: #333333;
+    position: absolute;
+    top: -200px;
+    right: 0;
+    z-index: 900;
 }

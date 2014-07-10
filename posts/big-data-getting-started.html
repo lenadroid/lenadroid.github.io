@@ -11,14 +11,12 @@
         <div id="square1"></div>
         <div id="border1"></div>
         <div id="border2"></div>
-        <div id="square2"></div>
-        <div id="border3"></div>
-        <div id="border4"></div>
+
                   <section id="mainMenu">
                       <a href="http://lenadroid.github.io" title="cooming soon">Home</a>
                       <a href="../posts.html" title="cooming soon">Posts</a>
                       <a href="#" title="cooming soon">Videos</a>
-                      <a href="about.html" title="cooming soon">About</a>
+                      <a href="../about.html" title="cooming soon">About</a>
                         <div class="clear"></div>
                   </section>
   </section>
@@ -26,7 +24,7 @@
       <section class='posts' >
          <article class='post' >
                <header class='title' >
-                  How do I feel Big Data. Getting started!
+                  How I feel Big Data. Getting started!
                </header>
                <!-- <hr id="hr"> -->
                <div class='description' >
@@ -47,9 +45,9 @@
                 </p>
 
                 <p>There is a term called "<b>horizontal scaling</b>", which means adding more machines, servers or nodes to the cluster for system to be more efficient. Here we assume that each machine we add is equal to another. Okay, we know that data is stored on our servers in the cluster, we can scale it and add more servers to be able to store more data in our <b>distributed storage</b>. </p>
-                <p>But what are our actions if it is required to save new data to the storage? How to manage this? Where to put data? How do we know that data is spread evenly and all our machines are equally loaded? Good questions. Different systems accomplish this task differently, but there is one efficient and popular approach called "<b>sharding</b>". In few words, it is mechanism that desides on which machine current piece of data should be placed on. It works based on so called "<b>sharding keys</b>", that can be for example be calculated by range or using hash. Choosing sharding key is responsible and important task.</p>
-                <p>As in every system even super cool big data storage can have errors and something can go in a way unexpected for us. We want our distributed system to be <b>fault-tolerant</b> and have some recovery mechanisms. What happens is one of our nodes with mega-important information goes down for some unknown purpose? How can we access the data on burnt machine? Here "<b>replication</b>" comes into the game and tries to save us. Relication is a feature that allows storing the same information not just on one node, but additionaty "replicates" this information on a couple of another machines for safety and to decrease risks of failure and unavailability of data.</p>
-                <p>We have reached to the first and popular approach to Big Data problem - <b>NoSQL</b>. As Wikipedia says: <blockquote> A NoSQL or Not Only SQL database provides a mechanism for storage and retrieval of data that is modeled in means other than the tabular relations used in relational databases. Motivations for this approach include simplicity of design, horizontal scaling and finer control over availability. ... NoSQL databases are finding significant and growing industry use in big data and real-time web applications</blockquote></p>
+                <p>But what are our actions if it is required to save new data to the storage? How to manage this? Where to put data? How do we know that data is spread evenly and all our machines are equally loaded? Good questions. Different systems accomplish this task differently, but there is one efficient and popular approach called "<b>sharding</b>". In a few words, that mechanism desides on which machine current piece of data should be placed on. It works based on so called "<b>sharding keys</b>", that can be for example be calculated by range or using hash. Choosing sharding key is responsible and important task.</p>
+                <p>As in every system, even super cool big data storage can have errors and something can go in a way unexpected for us. We want our distributed system to be <b>fault-tolerant</b> and have some recovery mechanisms. What happens is one of our nodes with mega-important information goes down for some unknown purpose? How can we access the data on burnt machine? Here "<b>replication</b>" comes into the game and tries to save us. Relication is a feature that allows storing the same information not just on one node, but additionaty "replicates" this information on a couple of another machines for safety and to decrease risks of failure and unavailability of data.</p>
+                <p>We have reached the first and popular approach to Big Data problem - <b>NoSQL</b>. As Wikipedia says: <blockquote> A NoSQL or Not Only SQL database provides a mechanism for storage and retrieval of data that is modeled in means other than the tabular relations used in relational databases. Motivations for this approach include simplicity of design, horizontal scaling and finer control over availability. ... NoSQL databases are finding significant and growing industry use in big data and real-time web applications</blockquote></p>
                 <p>In RDBMS all the data we write to the database are checked to match the schema, so after defining the schema we are not allowed to insert something in another format then pre-defined schema. NoSQL approach is different and has schema-less or semistructured nature. For example MongoDB stores data in JSON/BSON (more on <a href="http://bsonspec.org/">BSON</a>). Really, It means  the schema is embedded in the data. The advantage of such approach is in columns flexibility and flexibility of characteristics. For example you can insert a row with 3 columns first, and then insert one more row with 7 columns that are different from previous columns. At the same time that could be dangerous, because you are now responsible for what you are inserting. So, if you didn't find some column you were expected to have it's your own fault!<p>
                 <p>NoSQL databases can be one of the following categories:</p>
                 <p>- <a href="https://en.wikipedia.org/wiki/Document-oriented_database">Document-Oriented</a></p>
@@ -62,7 +60,7 @@
 <li>
 <p>
 <b>Consistency</b>. <br>
-The same characteristic is present in A<b>C</b>ID as a <b>C</b> letter. Consistent operation leads a database from one consistent state and leads it into another consistent state. Consistent state means that there is no violation of any integrity constraints.
+The same characteristic is present in A<b>C</b>ID as a <b>C</b> letter. Consistent operation leads a database from one consistent state into another consistent state. Consistent state means that there is no violation of any integrity constraints.
 </p>
 </li>
 <li>
@@ -87,7 +85,10 @@ The great power of RDBMS is the ability to provide consistency. But if to look a
  <img id="cap" src="CAP.png">
 <p>And the distributed system should pick just one side of a triangle, covering two verticies and leaving one alone. For example if RDBMS are CA, MongoDB and HBase are CP, while Cassandra and CouchDB are AP. There are lots of discussions about CAP principle over the Internet, so you can read more from different sources. </p>
 <p>So NoSQL is a storage, where you can save semi-structured data, perform various operations on it (i.e. reads, writes, filtering, aggregation.), almost any NoSQL database allows you to do sharding, horisontal scaling, replication, etc. Of course, each NoSQL store has its own features and qualities and when using one we should definitely explore them from start to end.</p>
-<p>NoSQL databases usually have APIs and documentation for different languages you might want to use.</p>
+<h3 align="center">Usage of NoSQL</h3>
+<p>NoSQL databases usually have APIs and documentation for different languages you might want to use.
+For example, <a href="http://docs.mongodb.org/ecosystem/drivers/">here</a> you can find MongoDB drivers for different programming languages and <a href="https://wiki.apache.org/cassandra/ClientOptions">here</a> is a list of CQL drivers for Cassandra. You can easily find APIs for other NoSQL databases.</p>
+<br>
 <p> It's time to get familliar with one more awesome and exciting approach in Big Data world! <b>Hadoop</b>. Apache Hadoop is a framework for distributed processing of large data. It is not correct to say that Hadoop is just one integral thing, because it consists of several parts and has lots of frameworks that can be used along with it. Simplified anatomy of Hadoop looks like this:</p>
 <img id="hadoop-anatomy" src="hadoop-anatomy.png">
 <ul>
@@ -168,12 +169,30 @@ Single-node Hadoop cluster to try Hadoop and for testing.
 <p>Start Hadoop command prompt, it should open in hadoop installation directory by default. Anyway, we need to navigate to a directory higher then hadoop installation.</p>
 <p>Run command "start_local_hdp_services" to start services and then "Run-SmokeTests" to run smoke tests. </p>
 </li>
-<li>Also you are able to create Hadoop (HDInsight) cluster with Windows Azure.</li>
+<li>Also you are able to create Hadoop (HDInsight) cluster with Windows Azure. Microsoft web-site has pretty good articles for this task, look <a href="http://azure.microsoft.com/en-us/documentation/articles/hdinsight-administer-use-management-portal/">here</a>, and there are also useful tutorial videos on <a href="http://channel9.msdn.com/Series/Getting-started-with-Windows-Azure-HDInsight-Service">channel9</a>.</li>
 </ul>
-Here is .NET SDK for Hadoop: https://hadoopsdk.codeplex.com/
-
-Interesting note:
-Both of these solutions have their strengths, weaknesses and unique characteristics.MongoDB and Hadoop are fundamentally different systems. MongoDB is a database while Hadoop is a data processing and analysis framework. MongoDB focuses on storage and efficient retrieval of data while Hadoop focuses on data processing using MapReduce. In spite of this basic difference, both technologies have similar functionality. MongoDB has its own MapReduce framework and Hadoop has HBase.  HBase is a scalable database similar to MongoDB
+<p><a href="https://hadoopsdk.codeplex.com/">Here</a> you can find .NET SDK for Hadoop.</p>
+<p>If you are one of those awesome software engineers, who use F# - <a href="http://fsharp.org/guides/cloud/index.html#big-data-programming-and-nosql-databases">F# and Big Data</a> section would be interesting for you.</p>
+<h3 align="center">Finally, interesting note</h3>
+<p>NoSQL and Hadoop are the two mainstream solutions for so called "Big Data". NoSQL is a database. Hadoop is a distributed data procrssing framework. How to choose whether you actually need Hadoop or some NoSQL database could fulfill your requirements?</p>
+<p>Let's see sample comparison of MongoDB NoSQL database and Hadoop.</p>
+<p>MongoDB stores data in JSON, easily handles data in non-standard formats, has good performance on real-time inserts, provides sharding and replication, has geospatial indexes, Map/Reduce can be used in MongoDB, but if the task is to do effective processing it can fail because of single-thread bottleneck per node. </p>
+<p>Hadoop stores data on its HDFS filesystem in blocks, in any format, at the same time we have an opportunity to store data in HBase - NoSQL database based on HDFS, which is aslo scalable and similar to MongoDB. Hadoop is most suitable for batch processing, i.e. huge logs processing, when single machine can't handle it, for Extract-Transform-Load operations, processing complex sequences, is able to do machine learning and data analysis using its frameworks. </p>
+<p>Before desiding to use Hadoop answer to the following questions yourself:<p>
+<ul>
+<li>
+Do you really need to store terrabytes and petabytes of data?
+</li>
+<li>
+Do you have stable inflow of data?
+</li>
+<li>
+What response time do you expect, is it nessessary to have real-time response?
+</li>
+<li>
+What kind of operations would you perform more on your data - random access or bulk operations with batch reads and writes?
+</li>
+<ul>
 
                 </div>
 
@@ -231,5 +250,11 @@ Both of these solutions have their strengths, weaknesses and unique characterist
         </script>
         <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- Yandex metrica ends -->
+        
+        
+        <footer id="mainFooter"><div id="square2"><div id="border3"></div></div>
+            <p>&copy; 2014 - Lena Droid</p>
+        </footer>
+
   </body>
 </html>
