@@ -7,7 +7,7 @@ html
 {
   width: 100%;
   height: 100%;
-  min-width: 600px;
+  min-width: 200px;
 }
 
 img, #cap, #hadoop-anatomy {
@@ -39,7 +39,7 @@ body
     width: 100%
     height:100%;
     background-color: #FFFFFF;
-    min-width: 1000px;
+    min-width: 200px;
 }
 
 .twitter-timeline 
@@ -93,25 +93,6 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
     z-index: 1;
     background: #333333;
 }
-
-#mainMenuSection #border1 {
-    border-radius: 150px 0 0 0px;
-    height: 200px;
-    width: 200px;
-    background-color: white;
-    position: absolute;
-    top: 50px;
-    left: 0;
-}
-#mainMenuSection #square1 {
-    height: 200px;
-    width: 200px;
-    background: #333333;
-    position: absolute;
-    top: 50px;
-    left: 0;
-}
-
 
 #mainMenuSection #mainMenu
 {
@@ -240,21 +221,4 @@ margin-right: 5px;
 #mainFooter.postssection {
     position: absolute;
     bottom: 0;
-}
-
- #border3 {
-    border-radius:  0px  0 150px 0 ;
-    height: 200px;
-    width: 200px;
-    background-color: white;
-}
-
- #square2 {
-    height: 200px;
-    width: 200px;
-    background: #333333;
-    position: absolute;
-    top: -200px;
-    right: 0;
-    z-index: 900;
 }
