@@ -295,13 +295,12 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 #mainTitle:hover
 {
-    color:black; /*#F33088;#EE6300#FF7300#FFA300#FFC400*/
+    color:black;
 }
 
 #mainMenuSection #mainMenu a:hover
 {
-    /*background-color: #F33088;/*#ED4577;*/
-    color: #060B03;/*#60990F;*/
+    color: #060B03;
     border-bottom:0;
     opacity: 0.6;
     background-color: white;
@@ -329,7 +328,6 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 #mainMenuSection #mainMenu
 {
-    /*margin-top:12px;*/
     border-bottom:10px solid #333333;
     text-align:center;
     padding-bottom:7px;
