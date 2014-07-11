@@ -1,0 +1,49 @@
+@font-face {
+    font-family: Philosopher;
+    src: url("fonts/heavengate/HeavenGate.ttf"); /*"fonts/dhf_story_brush/DHF Story Brush.ttf" "fonts/something_strange/Something Strange.ttf"*/
+}
+
+body {
+	background-color: #000000;
+	vertical-align: middle;
+	cursor: default;
+	font-family: 'Philosopher';
+}
+
+#despair {
+	text-align: center;
+	vertical-align: middle;
+	color: white;
+	font-size: 60px;
+	margin-top: 15%;
+	text-shadow: 0 0 10px white;
+}
+
+#cry {
+	width: 140px;
+	height: 130px;
+	font-size: 40px;
+	background-color: black;
+	color: white;
+	transition-property:box-shadow, text-shadow;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+    margin: auto;
+    box-shadow: 0 0 10px white;
+    text-shadow: 0 0 4px white;
+    margin-top: 40px;
+    padding-top: 6px;
+    border-radius: 140px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#cry div {
+	margin-top: 40px;
+}
+
+#cry:hover {
+	box-shadow: 0 0 14px white;
+    text-shadow: 0 0 6px white;
+}
