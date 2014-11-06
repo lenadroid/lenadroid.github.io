@@ -20,7 +20,8 @@ var Despair = {
 				    "           Sadness is the ambrosia of all art.                                              ",
 				    " You can't truly heal from a loss until you allow yourself to really FEEL the loss.         ",
 				    "                   I can't shove the dark out of my way.                                    ",
-				    "                         THERE IS NO LIGHT NO HOPE THERE IS ONLY DESPAIR!!!                 "
+				    "                         THERE IS NO LIGHT NO HOPE THERE IS ONLY DESPAIR!!!                 ",
+				    "                                            Dzisus, kurwa, ja pierdole!                     "
 				    ];
 		var despairEverything = justDespair[Math.floor(Math.random()*justDespair.length)];
 		return despairEverything
