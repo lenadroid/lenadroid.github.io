@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Part 1 - Distributed computations and Big Data with F# cloud monads</title> 
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <!-- <link rel="stylesheet" href="../css/SitePostsPink.css" /> -->
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" /> 
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" /> 
+</head>
+<html>
+   <body>
+
+   <section id="mainMenuSection" >
+       <!-- <div id="square1"></div>
+        <div id="border1"></div>
+        <div id="border2"></div> -->
+
+                  <section id="mainMenu">
+                      <a href="http://lenadroid.github.io">Home</a>
+                      <a href="http://lenadroid.github.io/posts.html">Posts</a>
+                      <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+                      <a href="#" title="cooming soon">Videos</a>
+                      <a href="http://lenadroid.github.io/about.html">About</a>
+                        <div class="clear"></div>
+                    </section>
+  </section>
+  <!-- generated content starts -->
+      <section class='posts' >
+         <article class='post' >
+               <header class='title' >
+                  Functional approach to distributed computations and Big Data with F# MBrace cloud monads. Part I.
+               </header>
+               <div class='description' >
+<p>This is the series of blog posts about the functional approach to cloud computations and big data using F# and MBrace framework.</p>
+<h3>Motivation</h3>
+<p>MBrace is fully open source framework written in F# and offers very clear and easy programming model. It aims to create all the necessary conditions to make distributed cloud scale computations and data as simple as possible. At the same time it is totally straightforward to setup MBrace clusters. In this series you will get the concept of "cloud monads" or cloud computation expressions, find out how to create a cluster and configure the environment, explore the features and opportunities we have with new F# functional cloud programming model and view the code of MBrace examples. </p>
+<h3>F# in the cloud</h3>
+<p>
+First, have a look at the simple example:
+
+<script src="https://gist.github.com/lenadroid/f7b71b2e5a74b90b0ddd.js"></script>
+</p>
+<p>
+Where the definition of <code>getContentLength</code> function looks like this:
+
+<script src="https://gist.github.com/lenadroid/6a20aa638cda0e72674f.js"></script>
+</p>
+<p>This code is calculating the longest web page from the list of given URL addresses by content length. If we go through it line by line we will see the <code>maxContentLength</code> function. It's body is surrounded with the <code>cloud</code> block. Inside we are creating a set of jobs for finding the content length of each web page from the input array. And then we are executing these jobs in parallel in the cloud, finally returning the maximum value from all the results we got. This example is very simple, just to illustrate the small application for cloud workflows, but in real life we would have much longer list of input data.
+</p>
+<p>This code looks almost like a normal code we usually write, but performs complex and machine effort consuming computations faster by doing them in the cloud. All the distribution work is performed in the background. So no matter how difficult or resource consuming the task is - the computation is spread across the worker nodes of your cloud cluster behind the scenes. All the tricky things, like the strategy of how the work is distributed, sending the code to be executed on some machine in the cloud, balancing the pressure between the worker nodes, coordination while getting the results from the cloud to client - all these tricky things are not falling upon the user and are implemented inside the MBrace framework.
+</p>
+
+<h3>How is it possible?</h3>
+<p>
+It is possible to do because of F# computation expressions feature (also known as monads) and MBrace uses this feature to give the user an opportunity to focus and concentrate on your main code logic. It allows the software engineer to be abstracted away from handling side effects by doing it behind the scenes. Like in a previous example, if the function performs computations somewhere else than on your local machine - it is a side effect. Other examples of side effects are lazyness, asychronicity, some unpredictable and non-deterministic behavior, and the like. But generally, the execution of code in a way, which differs from the standard way in the background behind the scenes - it's a side effect.
+</p>
+<p>
+So MBrace is based on this concept and inside - it consolidates the mechanism of code distribution and spreading data across the cloud. If you remember the async computation expression, it runs the operation asynchronously on it's own thread and then immediately releases the current thread back to the thread pool, where this all happens behind the scenes. The same thing's with cloud computation expression, but it operates cluster machines instead of threads and it is defined inside MBrace framework rather than F# core.
+</p>
+<h3>What happens inside?</h3>
+<p>
+In this part of F# and cloud programming series, before diving into all the features of MBrace and looking into lots of examples of what is possible to do with the cloud, it will be interesting to lift the veil of what is happening inside, to have a full picture.
+</p>
+<h3>What <code>cloud</code> block hides.</h3>
+<p>
+If we get back and look at the example, we'll remember that the code in our function was surrounded in a cloud block. If we look inside the framework we will see that the name of the block...
+<br><br>
+<code align="center"> cloud { (* code logic *) } </code>
+<br><br>
+... is the same as the name of an instance of <code>CloudBuilder</code> class:
+<br><br>
+<code align="center"> let cloud = new CloudBuilder() </code>
+<br><br>
+The builder class usually consists of methods that contain the logic for dealing with side effect. In our case, MBrace has <code>CloudBuilder</code> class with the logic for distribution of tasks across the cloud cluster. 
+</p>
+<script src="https://gist.github.com/lenadroid/ecda4c5c38d4f5459d42.js"></script>
+<p>
+In F# all let statements form the structure, whcich is similar to continuation passing style. So each method of the builder class takes operation and continuation and uses them inside the body to spread the code through cloud cluster machines. For example, <code>Bind</code> method from the <code>CloudBuilder</code> class is executed when we use <code>let!</code> within our <code>cloud</code> block.
+</p>
+<img style="align:left" src="https://lenadroid.github.io/presentations/dotnetfringe/bangs.png"/>
+<p>
+Simply, in other words, when the compiler meets <code>let!</code> it takes the operation, calls <code>Bind</code>, which distributes the operation through the cloud, and returns the result of deferred execution in a <code>Cloud&lt'T&gt</code> wrapper type. When the result of deferred computation is ready, its value is unwrapped from generic <code>Cloud&lt'T&gt</code> type to concrete type <code>'T</code>, ready for usage. 
+</p>
+<p>
+If we look a little bit closer on how the distribution occurs, the logic of <code>Bind</code> method inside MBrace is the following. First, it obtains the execution context and continuation. MBrace contains distributed runtime provider definition, so for parallel execution of workflows their execution context should be passed an instance of <code>ICloudRuntimeProvider</code>. Next, method checks if the cancellation is requested and if no - prepares the continuation object. And finally, it executes the specified <code>Cloud&lt'T&gt</code> workflow in the execution context with given continuation. It also uses trampolining mechanism for offloading execution stack in the thread pool, for environments where tail call optimizations are not handled, so it checks for bind counts and computes if the threshold is reached.
+</p>
+<p>
+<code>Bind</code> method is one interesting thing. Another one is <code>Cloud.Parallel</code> combinator used in the first example:
+<br><br><code>let! lengths = Cloud.Parallel lengthsJob</code><br><br>
+We pass a sequence of some specific computations to <code>Cloud.Parallel</code>, we expect from it to parallelize the work somehow and get the ready results.
+</p>
+<h3>How does it parallelize?</h3>
+<p>How does it make it happen? First, it obtains the object resolved from execution context registered resources. Then it passes the computations to be performed in parallel to ScheduleParallel method of the runtime object, which is implemented as a parallel fork/join. And finally, it runs the workflow and preserves the exception information by appending a function information entry to the symbolic stack trace in the exception continuation:</p>
+<script src="https://gist.github.com/lenadroid/dc4d52af7487799d554b.js"></script>
+<h3>A short summary...</h3>
+<p>
+So, if you get back to our first example, you already know what <code>cloud</code> block means and how it works. You know that within the <code>cloud</code> block there are special rules and when it meets keywords with exclamation mark, like <code>let!</code>, it triggers <code>Bind</code> method for the given operation. You also know what <code>Cloud.Parallel</code> does with obtained sequence of jobs, and because of "exclamation mark" keywords results are unwrapped from the <code>Cloud&lt'T&gt</code> type of deferred execution to the concrete type <code>'T</code>.
+</p>
+<h3>Let's save it in our memory!</h3>
+<p>
+<ul>
+<li>Contain actions for deferred execution in the cloud</li>
+<li>Use a set of worker machines to perform jobs</li>
+<li>Implemented inside MBrace Framework</li>
+<li>Built as F# computation expressions/monads</li>
+<li>Inspired by async workflows</li>
+<li>Use CloudBuilder methods to handle side effects</li>
+<li>Operate the <code>Cloud&lt'T&gt</code> wrapper type</li>
+</ul>
+</p>
+<br>
+                </div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  19.04.2015
+               </div> |
+               <div class='keywords' >
+                     <span class='keyword' >
+                        fsharp
+                     </span>
+                     <span class='keyword' >
+                        cloud
+                     </span>
+                     <span class='keyword' >
+                        big data
+                     </span>
+                     <span class='keyword' >
+                        functional programming
+                     </span>
+               </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+
+		</script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+        
+        
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2015 - Lena Droid</p>
+        </footer>
+
+  </body>
+</html>
