@@ -8,13 +8,53 @@
         <name>Lenadroid</name>
         <email>lenadroid@yandex.com</email>
     </author>
-    <updated>2014-07-07T00:00:00Z</updated>
+    <updated>2015-05-19T00:00:00Z</updated>
     <entry>
         <title>How I feel Big Data. Getting started!</title>
         <link href="https://lenadroid.github.io/posts/big-data-getting-started.html" />
         <id>https://lenadroid.github.io/posts/big-data-getting-started.html</id>
         <published>2014-07-07T00:00:00Z</published>
         <updated>2014-07-07T00:00:00Z</updated>
+        <summary type="html"><![CDATA[Lenadroid]]></summary>
+    </entry>
+    <entry>
+        <title>Monads O_o Not a tutorial.</title>
+        <link href="https://lenadroid.github.io/posts/monads.html" />
+        <id>https://lenadroid.github.io/posts/monads.html</id>
+        <published>2015-03-31T00:00:00Z</published>
+        <updated>2015-03-31T00:00:00Z</updated>
+        <summary type="html"><![CDATA[Lenadroid]]></summary>
+    </entry>
+    <entry>
+        <title>Selling F# to enterprise.. Or, how to speak with managers?</title>
+        <link href="https://lenadroid.github.io/posts/sell-fsharp-to-enterprise-management.html" />
+        <id>https://lenadroid.github.io/posts/sell-fsharp-to-enterprise-management.html</id>
+        <published>2015-04-19T00:00:00Z</published>
+        <updated>2015-04-19T00:00:00Z</updated>
+        <summary type="html"><![CDATA[Lenadroid]]></summary>
+    </entry>
+    <entry>
+        <title>Distributed computations and Big Data with F# cloud monads - Part I.</title>
+        <link href="https://lenadroid.github.io/posts/fsharp-cloud-monads-part-1.html" />
+        <id>https://lenadroid.github.io/posts/fsharp-cloud-monads-part-1.html</id>
+        <published>2015-05-19T00:00:00Z</published>
+        <updated>2015-05-19T00:00:00Z</updated>
+        <summary type="html"><![CDATA[Lenadroid]]></summary>
+    </entry>
+    <entry>
+        <title>Distributed computations and Big Data with F# cloud monads - Part II.</title>
+        <link href="https://lenadroid.github.io/posts/fsharp-cloud-monads-part-2.html" />
+        <id>https://lenadroid.github.io/posts/fsharp-cloud-monads-part-2.html</id>
+        <published>2015-05-19T00:00:00Z</published>
+        <updated>2015-05-19T00:00:00Z</updated>
+        <summary type="html"><![CDATA[Lenadroid]]></summary>
+    </entry>
+    <entry>
+        <title>Distributed computations and Big Data with F# cloud monads - Part III.</title>
+        <link href="https://lenadroid.github.io/posts/fsharp-cloud-monads-part-3.html" />
+        <id>https://lenadroid.github.io/posts/fsharp-cloud-monads-part-3.html</id>
+        <published>2015-05-19T00:00:00Z</published>
+        <updated>2015-05-19T00:00:00Z</updated>
         <summary type="html"><![CDATA[Lenadroid]]></summary>
     </entry>
 </feed>
