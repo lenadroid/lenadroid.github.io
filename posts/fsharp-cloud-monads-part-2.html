@@ -77,7 +77,7 @@ If you decide to use custom machines, take into account that they should be visi
 <h3>Azure IaaS cluster</h3>
 <p>
 Another option is to use Azure Infrastructure as a Service. If you have Azure subscription and account you may create a
-Virtual Network <a href="https://msdn.microsoft.com/en-us/library/azure/dn133792.aspx">following the instructions</a> and then add the desired number of virtual machines there. After you have your cloud <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-tutorial/">VMs</a> created it is necessary to configure them as MBrace nodes with MBrace Runtime and correct settings in <code>mbraced.exe.config</code> file. <br>Both with Azure or custom cluster configuration there should bea client with MBrace runtime and F# - any F# supporting environment, e.g. F# Interactive, VS or any other - to initiate requests to the distributed system.
+Virtual Network <a href="https://msdn.microsoft.com/en-us/library/azure/dn133792.aspx">following the instructions</a> and then add the desired number of virtual machines there. After you have your cloud <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-tutorial/">VMs</a> created it is necessary to configure them as MBrace nodes with MBrace Runtime and correct settings in <code>mbraced.exe.config</code> file. <br>Both with Azure or custom cluster configuration there should be a client with MBrace runtime and F# - any F# supporting environment, e.g. F# Interactive, VS or any other - to initiate requests to the distributed system.
 </p>
 
 <h3>Brisk cluster for MBrace</h3>
@@ -101,10 +101,10 @@ If you are not using Brisk and use Azure IaaS or your specific machines, it is n
 <script src="https://gist.github.com/lenadroid/62a7902360669100f494.js"></script>
 
 Here we specify either IP addresses or the nodes or the hostnames, with the ports, sure.
-<br><br>Another setting we'd like to indicate is the <code>defaultStore</code>, which our runtime will use. Currently, MBrace supports filesystem store...<br>
-<script src="https://gist.github.com/lenadroid/516c8c55c687c0c97145.js"></script>
-... Azure store... <br>
-<script src="https://gist.github.com/lenadroid/24dd2802c5e0a8aa89f2.js"></script>
+<br><br>Another setting we'd like to indicate is the <code>defaultStore</code>, which our runtime will use. Currently, MBrace supports filesystem store...
+<br><br><script src="https://gist.github.com/lenadroid/516c8c55c687c0c97145.js"></script>
+... Azure store... 
+<br><br><script src="https://gist.github.com/lenadroid/24dd2802c5e0a8aa89f2.js"></script>
 ... and SQL Server store. So choose the suitable one. Now there is work in progress to add more store types available.
 
 <br><br>
@@ -113,8 +113,7 @@ However, if you are using Brisk you can just go to Brisk administration page: <b
 <img src="https://lenadroid.github.io/presentations/dotnetfringe/brisk_connection_strings.png"/>
 <br>
 And indicate <code>StorageConnectionString</code> and <code>ServiceBusConnectionString</code> by copying those right from there:
-<br>
-<script src="https://gist.github.com/lenadroid/c28e04ced3dc8b9e190c.js"></script>
+<br><br><script src="https://gist.github.com/lenadroid/c28e04ced3dc8b9e190c.js"></script>
 
 </p>
 
@@ -126,12 +125,11 @@ Now all the things are ready! The final step is to boot the runtime.
 <script src="https://gist.github.com/lenadroid/8ccf7f8cb4216137dd3f.js"></script>
 <br><script src="https://gist.github.com/lenadroid/2d69236081dd634468f7.js"></script>
 <br>For Brisk you can use <code>Runtime.GetHandle</code>:
-<br>
-<script src="https://gist.github.com/lenadroid/6aea8ee67d6c327d9519.js"></script>
+<br><br><script src="https://gist.github.com/lenadroid/6aea8ee67d6c327d9519.js"></script>
 </p>
 
 <h3>Congratulations!</h3>
-<p>We have everything ready to explore all the exciting features of MBrace. If you are curious - jump into the next part (cooming soon).</p>
+<p>We have everything ready to explore all the exciting features of MBrace. If you are curious - jump into the next <a href="fsharp-cloud-monads-part-3.html">part!</a></p>
 
 
 
@@ -140,7 +138,7 @@ Now all the things are ready! The final step is to boot the runtime.
 
                <!-- <hr id="hr"> -->
                <div class='date' >
-                  14.05.2015
+                  19.05.2015
                </div> |
                <div class='keywords' >
                      <span class='keyword' >
@@ -151,6 +149,9 @@ Now all the things are ready! The final step is to boot the runtime.
                      </span>
                      <span class='keyword' >
                         big data
+                     </span>
+                     <span class='keyword' >
+                        mbrace
                      </span>
                      <span class='keyword' >
                         functional programming
