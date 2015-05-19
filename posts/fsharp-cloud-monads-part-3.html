@@ -36,7 +36,7 @@
 <p>MBrace is fully open source framework written in F# and offers very clear and easy programming model. It aims to create all the necessary conditions to make distributed cloud scale computations and data as simple as possible. At the same time it is totally straightforward to setup MBrace clusters. In this series you will get the concept of "cloud monads" or cloud computation expressions, find out how to create a cluster and configure the environment, explore the features and opportunities we have with new F# functional cloud programming model and view the code of MBrace examples. </p>
 
 <h3>Background</h3>
-<p>Here, in the Part III of the series you will have a look at the features of MBrace framework. If you want to know more about the concepts and the approach behind MBrace - it may be interesting to have a look at <a href="posts/fsharp-cloud-monads-part-1.html">Part I</a>. If you want to learn more about the infrastructural options of creating the cluster for MBrace - it may be interesting to have a look at <a href="posts/fsharp-cloud-monads-part-2.html">Part II</a>. </p>
+<p>Here, in the Part III of the series you will have a look at the features of MBrace framework. If you want to know more about the concepts and the approach behind MBrace - it may be interesting to have a look at <a href="fsharp-cloud-monads-part-1.html">Part I</a>. If you want to learn more about the infrastructural options of creating the cluster for MBrace - it may be interesting to have a look at <a href="fsharp-cloud-monads-part-2.html">Part II</a>. </p>
 
 <h3>MBrace features</h3>
 <p>
@@ -55,7 +55,7 @@
 
 <h3>Cloud Combinators</h3>
 <p>
-As you already seen in <a href="posts/fsharp-cloud-monads-part-1.html">Part I</a>, we may use cloud <a href="https://github.com/mbraceproject/MBrace.Core/blob/86bdb66a1ee07b3cc73a14f25177c77459acf2af/src/MBrace.Core/CloudCombinators.fs">combinators</a> in our code. <code>Cloud.Parallel</code> takes a sequence of cloud computations and executes them in parallel, then it returns an array of gathered results or throws an exception. But there are other interesting combinators. 
+As you already seen in <a href="fsharp-cloud-monads-part-1.html">Part I</a>, we may use cloud <a href="https://github.com/mbraceproject/MBrace.Core/blob/86bdb66a1ee07b3cc73a14f25177c77459acf2af/src/MBrace.Core/CloudCombinators.fs">combinators</a> in our code. <code>Cloud.Parallel</code> takes a sequence of cloud computations and executes them in parallel, then it returns an array of gathered results or throws an exception. But there are other interesting combinators. 
 <br><br>Take for example <code>Cloud.Choice</code>, it also performs cloud computations in parallel, but it will return only when any of these computations returned a successful value, or if all of them failed to succeed. So we pass there computations returning <code>Option</code> type - either <code>Some</code> or <code>None</code>. 
 <br><br>We can also wrap our asynchronous function into a cloud workflow using <code>Cloud.OfAsync</code>. This combinator is useful if we already have existing async functions and want to use them in cloud worklows.
 <br><br>There are other combinators, like <code>Cloud.Raise</code> and <code>Cloud.Catch</code> for raising and catching exceptions from the cloud workflow, <code>Cloud.Dispose</code> for disposing cloud resources, and <code>Cloud.Ignore</code> to discard the results of the cloud computation. You can find other combinators in the API or just check out the code on github.
