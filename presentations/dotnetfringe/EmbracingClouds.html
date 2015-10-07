@@ -247,12 +247,7 @@
 
 <p style="text-align:justify"> </p>
 </div></div>
-<div class="sl-block" data-block-type="code" data-block-id="6d151292d337d41d308bb7f0593674e8" style="min-width: 30px; min-height: 30px; width: 800px; height: 125px; left: 80px; top: 232px;"><div class="sl-block-content" style="z-index: 13; font-size: 95%;"><pre><code>let config = 
-    { 
-        Configuration.Default with
-            StorageConnectionString    = "&lt;storage connection string&gt;"
-            ServiceBusConnectionString = "&lt;service bus connection string&gt;" 
-    }</code></pre></div></div>
+<div class="sl-block" data-block-type="code" data-block-id="6d151292d337d41d308bb7f0593674e8" style="min-width: 30px; min-height: 30px; width: 800px; height: 50px; left: 80px; top: 232px;"><div class="sl-block-content" style="z-index: 13; font-size: 100%;padding:10px"><pre><code>let config = Configuration(myStorageConnectionString, myServiceBusConnectionString)</code></pre></div></div>
 <div class="sl-block" data-block-type="text" data-block-id="f04ebb6541a9241192ab8446b6024174" style="height: auto; min-width: 30px; min-height: 30px; width: 275px; left: 605px; top: 400px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
 <p style="text-align:left"><span style="font-size:24px"><span style="text-align:justify">The </span><em>storage connection string</em><span style="text-align:justify"> and </span><em>service bus connection string </em><span style="text-align:justify">may be obtained from brisk.</span></span></p>
 </div></div>
@@ -276,17 +271,17 @@
 </div></div>
 <div class="sl-block" data-block-type="code" data-block-id="a569104744cb81a1457a9411f6862e65" style="min-width: 30px; min-height: 30px; width: 800px; height: 49px; left: 80px; top: 231px;"><div class="sl-block-content" style="z-index: 13; font-size: 161%;"><pre class="fsharp"><code>let runtime = MBrace.Boot nodes</code></pre></div></div>
 <div class="sl-block" data-block-type="code" data-block-id="b52f7f2d82372bf22ce53167cabddb82" style="min-width: 30px; min-height: 30px; width: 800px; height: 49px; left: 80px; top: 371px;"><div class="sl-block-content" style="z-index: 14; font-size: 161%;"><pre class="fsharp"><code>let runtime = MBrace.Boot(nodes, store = azureStore)</code></pre></div></div>
-<div class="sl-block" data-block-type="code" data-block-id="d98b2d6ea393bce02bcf708265d2ee09" style="min-width: 30px; min-height: 30px; width: 800px; height: 51px; left: 80px; top: 509px;"><div class="sl-block-content" style="z-index: 15; font-size: 161%;"><pre class="fsharp"><code>let runtime = Runtime.GetHandle(config)</code></pre></div></div></section><section><div class="sl-block" data-block-type="image" data-block-id="fd23ebaee694e1d7805e4864e288ff88" style="min-width: 30px; min-height: 30px; width: 587.110220440882px; height: 626px; left: 146.944889779559px; top: 32px;"><div class="sl-block-content" style="z-index: 11;"><img style="visibility: visible;" data-natural-width="468" data-natural-height="499" data-src="whowearepink.png"></div></div></section><section data-id="728a276855469ef7e47551878cca22df"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 103px; height: auto;" data-block-id="3155a21e889074005ac47a65af2ad55e"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text">
+<div class="sl-block" data-block-type="code" data-block-id="d98b2d6ea393bce02bcf708265d2ee09" style="min-width: 30px; min-height: 30px; width: 800px; height: 51px; left: 80px; top: 509px;"><div class="sl-block-content" style="z-index: 15; font-size: 161%;"><pre class="fsharp"><code>let runtime = AzureCluster.Connect(config)</code></pre></div></div></section><section><div class="sl-block" data-block-type="image" data-block-id="fd23ebaee694e1d7805e4864e288ff88" style="min-width: 30px; min-height: 30px; width: 587.110220440882px; height: 626px; left: 146.944889779559px; top: 32px;"><div class="sl-block-content" style="z-index: 11;"><img style="visibility: visible;" data-natural-width="468" data-natural-height="499" data-src="whowearepink.png"></div></div></section><section data-id="728a276855469ef7e47551878cca22df"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 103px; height: auto;" data-block-id="3155a21e889074005ac47a65af2ad55e"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text">
 <h2>MBrace Features</h2>
 </div></div>
 <div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 202px; height: auto;" data-block-id="de4580225be1564d36a1491c774e29fd"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text">
 <ul>
 	<li>Cloud combinators</li>
-	<li>CloudCells and CloudVectors</li>
+	<li>CloudValues</li>
 	<li>CloudAtoms</li>
 	<li>CloudFiles</li>
 	<li>CloudFlows</li>
-	<li>CloudChannels</li>
+	<li>CloudQueues</li>
 	<li>Cloud disposable resources</li>
 	<li>Exception handling</li>
 	<li>And many more!</li>
@@ -306,27 +301,26 @@
 	<li style="text-align:left"><span style="font-size:48px">Other...</span></li>
 </ul>
 </div></div></section><section data-id="c02b56f853e09be39e4a1bf3c24e5a76"><div class="sl-block" data-block-type="text" style="width: 880px; left: 80px; top: 22px; height: auto;" data-block-id="874f4220f4d0b94a7d37c6ae667598b0"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
-<h2>Cloud Cells and Vectors</h2>
+<h2>Cloud Values and Persistent Cloud Flows</h2>
 </div></div>
-<div class="sl-block" data-block-type="text" data-block-id="5e911fc53b875af585abafe26fcf7758" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 80px; top: 121px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;">
+<div class="sl-block" data-block-type="text" data-block-id="5e911fc53b875af585abafe26fcf7758" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 80px; top: 181px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;">
 <p style="text-align:justify"><span style="font-size:32px">Store distributed data entities. Immutable.</span></p>
 </div></div>
-<div class="sl-block" data-block-type="code" data-block-id="296c51dd9618177dd6d8c2126898d3f0" style="min-width: 30px; min-height: 30px; width: 880px; height: 51px; left: 80px; top: 218px;"><div class="sl-block-content" style="z-index: 12; font-size: 149%;"><pre class="none"><code> let dataInTheCloud = localData |&gt; CloudCell.New |&gt; runtime.Run</code></pre></div></div>
+<div class="sl-block" data-block-type="code" data-block-id="296c51dd9618177dd6d8c2126898d3f0" style="min-width: 30px; min-height: 30px; width: 880px; height: 51px; left: 80px; top: 258px;"><div class="sl-block-content" style="z-index: 12; font-size: 149%;"><pre class="none"><code> let dataInTheCloud = localData |&gt; CloudValue.New |&gt; runtime.Run</code></pre></div></div>
 
 
-<div class="sl-block" data-block-type="text" data-block-id="ab3ab1578b1db7da6fc814d5faeba6b9" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 319px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;">
+<div class="sl-block" data-block-type="text" data-block-id="ab3ab1578b1db7da6fc814d5faeba6b9" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 359px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;">
 <p style="text-align:left">Can be read anytime in the future:</p>
 </div></div>
-<div class="sl-block" data-block-type="code" data-block-id="a5712c11c80e18dda631255145baffad" style="min-width: 30px; min-height: 30px; width: 880px; height: 112px; left: 80px; top: 364px;"><div class="sl-block-content" style="z-index: 16; font-size: 127%;"><pre class="fsharp"><code> cloud { 
-     let! dataFromCloudCell = CloudCell.Read dataInTheCloud
+<div class="sl-block" data-block-type="code" data-block-id="a5712c11c80e18dda631255145baffad" style="min-width: 30px; min-height: 30px; width: 880px; height: 112px; left: 80px; top: 400px;"><div class="sl-block-content" style="z-index: 16; font-size: 127%;"><pre class="fsharp"><code> cloud { 
+     let! dataFromCloudValue = CloudValue.Read dataInTheCloud
      // actions with data
  }</code></pre></div></div>
-<div class="sl-block" data-block-type="code" style="min-width: 30px; min-height: 30px; width: 880px; height: 51px; left: 80px; top: 554px;" data-block-id="ab9232472eb12a45b536da2616e37cac"><div class="sl-block-content" style="z-index: 17; font-size: 141%;"><pre class="none"><code> let cloudVector = CloudVector.New(localArray,1000L) |&gt; runtime.Run</code></pre></div></div>
+<div class="sl-block" data-block-type="code" style="min-width: 30px; min-height: 30px; width: 880px; height: 51px; left: 80px; top: 554px;" data-block-id="ab9232472eb12a45b536da2616e37cac"><div class="sl-block-content" style="z-index: 17; font-size: 141%;"><pre class="none"></pre></div></div>
 <div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 80px; top: 515px;" data-block-id="5631582c198edcd36a178bfe8d5e78f6"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18;">
-<p style="text-align:left">CloudVector:</p>
 </div></div>
-<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 80px; top: 179px;" data-block-id="2c67be04ff31022b3e6a2c92d281c233"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 20;">
-<p style="text-align:left">CloudCell:</p>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 80px; top: 219px;" data-block-id="2c67be04ff31022b3e6a2c92d281c233"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 20;">
+<p style="text-align:left">CloudValue:</p>
 </div></div></section><section data-id="94af43a22e9b914d570a159d6d1c8e93"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 21px; height: auto;" data-block-id="68c4271b3ec0b2e34fee396dd5d078bd"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 11;">
 <h2>CloudAtoms</h2>
 </div></div>
@@ -378,12 +372,12 @@ cloud {
 </div></div>
 <div class="sl-block" data-block-type="code" style="width: 880px; height: 252px; left: 80px; top: 387px;" data-block-id="e3cbd9deb6048e67fd4a7aef2936c5f8"><div class="sl-block-content" style="z-index: 13; font-size: 138%;"><pre class="fsharp"><code> let songNames = 
      songsUrls 
-     |&gt; CloudFlow.ofArray
+     |&gt; CloudFlow.OfArray
      |&gt; CloudFlow.map download
      |&gt; CloudFlow.filter (fun s -&gt; s.Length &gt; 300)
      |&gt; CloudFlow.map (fun s -&gt; s.Substring(0, s.IndexOf("\n") - 1))
      |&gt; CloudFlow.toArray
-     |&gt; runtime.CreateProcess</code></pre></div></div>
+     |&gt; runtime.Submit</code></pre></div></div>
 
 
 
@@ -428,12 +422,12 @@ cloud {
 </div></div></section><section data-id="8a96338c35f2534182c382e2469538bd"><div class="sl-block" data-block-type="text" style="width: 800px; left: 50px; top: 10px; height: auto;" data-block-id="63650a660b95cb920c4db5ac7aa28411"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
 <h2>CloudFiles</h2>
 </div></div>
-<div class="sl-block" data-block-type="code" data-block-id="51322c1a9d76d13bca54f10c66571265" style="min-width: 30px; min-height: 30px; width: 960px; height: 168px; left: 0px; top: 196px;"><div class="sl-block-content" style="z-index: 11; font-size: 123%;"><pre class="fsharp"><code> let songCloudFile (song:string) = cloud { 
-    let songName = song.Substring(0, song.IndexOf("\n") - 1).Trim()
+<div class="sl-block" data-block-type="code" data-block-id="51322c1a9d76d13bca54f10c66571265" style="min-width: 30px; min-height: 30px; width: 960px; height: 168px; left: 0px; top: 196px;"><div class="sl-block-content" style="z-index: 11; font-size: 123%;"><pre class="fsharp"><code> let songCloudFile (song:string) (dir: CloudDirectoryInfo) = cloud { 
+    let songName = song.Substring(0, song.IndexOf("\n") - 1).Trim().Replace("\"", "")
     let fileName = Path.Combine(dir.Path, songName)
     do! CloudFile.Delete fileName 
-    return! CloudFile.WriteAllText(song, path = fileName) 
- }</code></pre></div></div>
+    return! CloudFile.WriteAllText(path = fileName,text = song)
+}</code></pre></div></div>
 <div class="sl-block" data-block-type="text" data-block-id="a410f0d3e05ee3c227ecd1f762ff53bc" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 101px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
 <p style="text-align:justify">Store data <span style="font-size:30px">in the cloud using </span>the binary blobs representation.</p>
 </div></div>
@@ -454,9 +448,8 @@ cloud {
 </div></div>
 <div class="sl-block" data-block-type="code" style="width: 960px; height: 190px; left: 0px; top: 133px;" data-block-id="583f339f459d388ed7f189c899b0591c"><div class="sl-block-content" style="z-index: 11; font-size: 123%;"><pre class="fsharp"><code> let displayLyrics (song: string) = cloud {
     let fileName = Path.Combine(dir.Path, song)
-    let! text = CloudFile.ReadAllText fileName
-    return text
- }
+    return! CloudFile.ReadAllText fileName 
+}
 
  let songLyrics = displayLyrics "Smells Like Teen Spirit" |&gt; runtime.Run</code></pre></div></div>
 <div class="sl-block" data-block-type="text" style="height: auto; width: 960px; left: 0px; top: 86px;" data-block-id="936d0b3d62e1295859fcfaaa89284791"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
@@ -474,22 +467,29 @@ cloud {
 <div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 555px;" data-block-id="8db5d33d41c1c9fbaf64a82703ff914b"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 19;">
 <p style="text-align:left">Enumeration:</p>
 </div></div></section><section data-id="f304968aba3976422df259466f13e6af"><div class="sl-block" data-block-type="text" style="width: 886px; left: 0px; top: 6px; height: auto;" data-block-id="83a702d1b35c3d5ceeea837b11335462"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
-<h2>CloudChannels</h2>
+<h2>CloudQueues</h2>
 </div></div>
-<div class="sl-block" data-block-type="code" data-block-id="814ad6c78d181713ce406bf7fb05cbba" style="min-width: 30px; min-height: 30px; width: 960px; height: 220px; left: 0px; top: 140px;"><div class="sl-block-content" style="z-index: 11; font-size: 115%;"><pre class="fsharp"><code> // This job in the cloud perform some actions with obtained messages
- let replicateMessage (receive : IReceivePort&lt;string&gt;) (send : ISendPort&lt;string&gt;) = cloud {
-         while true do
-             let! result = Cloud.Catch &lt;| receive.Receive()
-             let x = (new System.Random()).Next(1, 7)
-             match result with
-             | Choice1Of2 x -&gt; do! send.Send(String.replicate x)
-             | Choice2Of2 _ -&gt; ()
- }</code></pre></div></div>
+<div class="sl-block" data-block-type="code" data-block-id="814ad6c78d181713ce406bf7fb05cbba" style="min-width: 30px; min-height: 30px; width: 960px; height: 220px; left: 0px; top: 140px;"><div class="sl-block-content" style="z-index: 11; font-size: 115%;"><pre class="fsharp"><code>// Creating an anonumous cloud queue and sending the message
+let queue = CloudQueue.New<string>() |> cluster.Run
+
+// Sending
+CloudQueue.Enqueue (queue, "Monads") |> cluster.Run
+
+// Receiving
+let msg = CloudQueue.Dequeue(queue) |> cluster.Run
+ </code></pre></div></div>
 <div class="sl-block" data-block-type="text" data-block-id="a1ed76958a43583fd925300d6f9395b0" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 94px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
 <p style="text-align:left">Send and receive messages with cloud workflows, reactive things!</p>
 </div></div>
-<div class="sl-block" data-block-type="code" data-block-id="cbf322a2e8bc423fd41cb5e29b6d741f" style="min-width: 30px; min-height: 30px; width: 960px; height: 50px; left: 0px; top: 420px;"><div class="sl-block-content" style="z-index: 14; font-size: 123%;"><pre><code> let sendSomething message = async { return! channel.SendAsync(sendPort1, message) } </code></pre></div></div>
-<div class="sl-block" data-block-type="code" data-block-id="bb564d8276c883449733d2b0a88e5dfd" style="min-width: 30px; min-height: 30px; width: 960px; height: 134px; left: 0px; top: 535px;"><div class="sl-block-content" style="z-index: 15; font-size: 123%;"><pre><code>let receiveMessages = async {
+<div class="sl-block" data-block-type="code" data-block-id="cbf322a2e8bc423fd41cb5e29b6d741f" style="min-width: 30px; min-height: 30px; width: 960px; height: 200px; left: 0px; top: 420px;"><div class="sl-block-content" style="z-index: 17; font-size: 123%;"><pre><code>
+let sendTask = 
+    cloud { for i in [ 0 .. 100 ] do 
+                do! queue.Enqueue (sprintf "FSharp%d" i) }
+     |> cluster.Submit
+
+sendTask.ShowInfo() 
+</code></pre></div></div>
+<div class="sl-block" data-block-type="code" data-block-id="bb564d8276c883449733d2b0a88e5dfd" style="min-width: 30px; min-height: 30px; width: 960px; height: 10px; left: 0px; top: 535px;"><div class="sl-block-content" style="z-index: 15; font-size: 123%;"><pre><code>let receiveMessages = async {
         while true do
             let! result = channel.ReceiveAsync(receivePort2) 
             printfn "Received: %A" result
@@ -498,9 +498,8 @@ cloud {
 <p style="text-align:left">Send messages from client:</p>
 </div></div>
 <div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 496px;" data-block-id="b5846c41bba7ec311035f736368b870b"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17;">
-<p style="text-align:left">Receive answers:</p>
 </div></div></section><section><div class="sl-block" data-block-type="text" style="width: 886px; left: 0px; top: 27px; height: auto;" data-block-id="beb135621f1250d92a825d85f00cad94"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 11;">
-<h2>CloudChannels!</h2>
+<h2>CloudQueues!</h2>
 </div></div>
 <div class="sl-block" data-block-type="code" style="width: 960px; height: 129px; left: 0px; top: 544px;" data-block-id="f7fd8b3d8b7ac9202711cb47f7d1eea3"><div class="sl-block-content" style="z-index: 12; font-size: 115%;"><pre class="fsharp"><code> // kill all jobs
  receiveCancel.Cancel()
@@ -508,18 +507,21 @@ cloud {
  channel.Delete receivePort1
  channel.Delete receivePort2</code></pre></div></div>
 <div class="sl-block" data-block-type="text" style="height: auto; width: 960px; left: 0px; top: 101px;" data-block-id="d3f334e6ffa8fa64d33b983c705221d4"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
-<p style="text-align:left">As a result, we may send any message to our cloud job to get the results as soon as they are available:</p>
+<p style="text-align:left">And the receiving job:</p>
 </div></div>
-<div class="sl-block" data-block-type="code" data-block-id="0890899b80c39f6968c93aebce660a12" style="min-width: 30px; min-height: 30px; width: 960px; height: 113px; left: 0px; top: 188px;"><div class="sl-block-content" style="z-index: 14; font-size: 115%;"><pre class="fsharp"><code> // send some messages
- sendSomething "FSharp "|&gt; Async.Start
- sendSomething "Cloud " |&gt; Async.Start
- sendSomething "Monad " |&gt; Async.Start</code></pre></div></div>
-<div class="sl-block" data-block-type="image" data-block-id="236fe8c3364d17b354d7fdc841668a2f" style="min-width: 30px; min-height: 30px; width: 960px; height: 117.894736842105px; left: 0px; top: 361px;"><div class="sl-block-content" style="z-index: 15;"><img data-natural-width="741" data-natural-height="91" style="visibility: visible;" data-src="CloudChannels.png"></div></div>
-<div class="sl-block" data-block-type="text" data-block-id="531833cb06662c83870cffb8a9a31b16" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 322px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16;">
+<div class="sl-block" data-block-type="code" data-block-id="0890899b80c39f6968c93aebce660a12" style="min-width: 30px; min-height: 30px; width: 960px; height: 175px; left: 0px; top: 150px;"><div class="sl-block-content" style="z-index: 14; font-size: 115%;"><pre class="fsharp"><code>let receiveTask = 
+    cloud { let results = new ResizeArray&lt_&gt()
+            for i in [ 0 .. 100 ] do 
+               let! msg = CloudQueue.Dequeue(queue)
+               results.Add msg
+            return results.ToArray() }
+     |> cluster.Submit
+</code></pre></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="236fe8c3364d17b354d7fdc841668a2f" style="min-width: 30px; min-height: 30px; width: 960px; height: 300px; left: 0px; top: 375px;"><div class="sl-block-content" style="z-index: 15;"><img data-natural-width="801" data-natural-height="225" style="visibility: visible;" data-src="CloudChannels.png"></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="531833cb06662c83870cffb8a9a31b16" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 325px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16;">
 <p style="text-align: left;">Send some messages and see the results!</p>
 </div></div>
 <div class="sl-block" data-block-type="text" data-block-id="7c77877fcc2ad7df039010a41a2d4491" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 505px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17;">
-<p style="text-align: left;">And ... don't forget to kill the jobs when you're done:</p>
 </div></div></section><section data-id="a83a93a7414d6d1f439feec1b627a75a"><div class="sl-block" data-block-type="text" style="width: 672px; left: 80px; top: 55px; height: auto;" data-block-id="059e316da85b00d335a7e18b26c42f04"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
 <h2>Disposing cloud things!</h2>
 </div></div>
@@ -586,13 +588,13 @@ runtime.ShowProcesses()
 runtime.ShowWorkers()
 
 // Gets runtime logs as an array of LogRecords
-runtime.GetLogs()
+runtime.GetSystemLogs()
 
 // Attaches specified logger to the runtime
-runtime.AttachClientLogger(ConsoleLogger())
+runtime.AttachLogger(...)
 
 // Kills the process by name
-runtime.GetProcess("someprocess").Kill()
+runtime.GetProcessById("someprocess").Cancel()
 
 // Deletes runtime records for all the processes
 runtime.ClearAllProcesses()
