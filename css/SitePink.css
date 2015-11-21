@@ -171,6 +171,8 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 #contentSection {
   min-height: 250px;
   background-color: #F0F0F0;
+  font-size: 18px;
+  line-height: 20px;
 }
 
 ::selection 
@@ -539,4 +541,18 @@ footer#mainFooter a:hover {
 .clear
 {
     clear:both;
+}
+
+a {
+    text-decoration:  none;
+    color: #FE1C61;
+    text-shadow: 0 0 1px white;
+    transition-property: text-shadow, color;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+}
+
+a:hover {
+    color:#FE006A;
+    text-shadow:0 0 1px #FE006A;
 }
