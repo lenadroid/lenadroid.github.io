@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vital things an Architect must know about adjustable and flexible system design</title> 
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <!-- <link rel="stylesheet" href="../css/SitePostsPink.css" /> -->
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" /> 
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" /> 
+</head>
+<html>
+   <body>
+
+   <section id="mainMenuSection" >
+		                  <section id="mainMenu">
+		                      <a href="http://lenadroid.github.io">Home</a>
+		                      <a href="http://lenadroid.github.io/posts.html">Posts</a>
+		                      <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+		                      <a href="http://lenadroid.github.io/videos.html">Videos</a>
+		                      <a href="http://lenadroid.github.io/about.html">About</a>
+		                        <div class="clear"></div>
+		                    </section>
+  </section
+  <!-- generated content starts -->
+      <section class='posts' >
+         <article class='post' >
+               <header class='title' >
+                  Vital things an Architect must know about adjustable and flexible system design
+               </header>
+               <div class='description' >
+
+<h3>Introduction </h3>
+<p>You can call it new SOA, you can call it microservices, or something else. Architectural best practices tend to change and/or appear under different names after certain periods of time. However, there is just one thing unchanged - logic. Terms "flexible" and "adjustable" are pretty dark and broad. I want to tell about the key aspects of advanced, not legacy and safe architectures. Another way you may look at this article is as a guide for auditing the solution architecture as well as planning the design upgrade according to the technical priorities of the business system.
+</p>
+
+<p>
+If you're a good Architect, you can figure out the most reasonable architecture for some specific system at some specific point of time, based on known priorities. The major problem is - there is no general perfect architecture. Industry, science and business are moving forward fast as a light-speed rocket, so does technology. In the era of data all over the place, technologies and frameworks are polishing themselves, offering new innovative approaches. The moment will come when you have to make changes to the architecture that used to be perfect, and it's not bad - we just have to be armed and ready for that.
+</p>
+
+<h3>Not really about code</h3>
+
+
+<p>Note: 
+<blockquote>The term Architect is pretty broad too. In this context, I assume that there is a Software Architect, responsible for the code parts of the software module. Some companies don't have such a position. They just have Technical Leads for some specific functionalities. The Architect I am talking about is assumed to be responsible for a much wider area than Software Architects and look less at the code and more at the integration parts of the overall system. They take into account the dirtiest parts that are almost always left without attention, their goal is to make sure all the parts of it will be developed, tested and delivered with a proper quality and on time. Such people are very valuable and usually work across multiple projects within a company.
+</blockquote>
+</p>
+<p> <b>Imagine...</b> two different architects building a spaceship. First one decided to use paper and built/glue a nice ship.
+<br><br>
+<img width="95%" src="../images/paper-ship.jpg"/>
+<br>
+He also decided to put his spaceship into the nice transparent protection screen, that fit the spaceship size perfectly.
+<br><br>
+The second architect decided to build a spaceship from Lego parts. Lego parts are composable and firm enough so they don't need a special protection screen.
+<br>
+<img width="100%" src="../images/lego-ship.jpg"/>
+<br>
+Both ships worked fine and served their purpose. However, the new power blocks were introduced sometime later and the architects were challenged to introduce the change in their systems. 
+<br><br>
+The paper architect started stressing out, because they have to land the ship to the station to remove the old screen, glue the new power blocks and apply the new bigger sized protection screen. He had to rebuild the spaceship and deliver the new version of the spaceship. He had all the construction templates, so rebuilding the ship wasn't a new thing for him, but he and all his team spent a lot of time to perform the operation.
+<br><br>
+The Lego architect didn't have to land the spaceship. He had figured out which part of it is affected by the change and gathered the power team together to perform the power system replacement on the fly. They have developed the new blocks and added them to the spaceship as soon as they were ready, without distracting other spaceship crew.
+<br><br>
+Later, the Lego architect spent some time in the research laboratory thinking about how he can optimize the build and deployment process, because the team spends a lot of time on it. He figured out that for spaceship development purposes he and his team can use another kind of materials and a smaller construction, which they want to be able to make experiments with. So, they requested a 3D printer, uploaded all the construction templates, created the build pipeline and were able to automate some routine tasks.
+<br><br>
+Of course, this is a toy example. <b>But what can we learn from it?</b> Even though both architects performed the task and it was successfully functioning for some period of time, they had to face with changes and adopt their system. Complexities started to appear on the integration phase, related not to the fulfillment of the original goal, but more to operational flexibility and adjustability, modularity.
+<br><br>
+Of course, software architecture is extremely important. But it's not enough to <b>just</b> have a good code to deliver and maintain a decent solution. Because it's not only about code architecture. It's about what is happening between the software components that we write, about where they are stored, developed, tested and deployed, how they discover each other, how they interact with each other, what is happening between them, what is the approach for integration, how easy it is to introduce changes, etc.
+<br><br>
+These kinds of activities are not just <b>writing code</b> are very important part of building the solution, take time and influence the result a lot.
+</p>
+<br>
+<h3>Characteristics to take into account</h3>
+<p>
+Follow such principles as modularity, loose coupling, share-nothing architecture, reduce the number of dependencies between components, watch the dependencies tree of your services to be aware of potential chained failures and other consequences.
+<br><br>
+Determine responsibilities of separate components based on the specific domain context or business capabilities. DDD is a good architectural foundation.
+<br><br>
+Compose your services in an isolated fashion to provide the ability to operate and change the functionality within the service without affecting other services. If there is a need to synchronize updates of many services that means (in the most cases) they're not loosely coupled enough. Of course, there are exceptions to any smart rule. For example, you might want to deploy your system on some IoT device, then you may decide to deploy all components at once, and it's absolutely fine. The point is, keep your services smartly loosely coupled to allow the flexibility of deployment on various platforms you have to support. However, don't think that you can fully escape coupling, it will always be there to some extent. Sometimes trying to put additional abstraction layers for the sake of loose coupling makes the solution on the contrary more complicated than flexible. The important thing is to find the the pieces of software the functionality of which is rarely intersected and changed together. Try to pick out those parts and see if they are worth being a separate all-sufficient service. If yes - it may be the right decision to put them close together in the microservice, following the high cohesion principle.
+<br><br>
+Keep in mind that it should be easy to introduce new components of the system and replace existing ones.
+<br><br>
+Aim for the stateless architecture which is a ground to support easy system scale out.
+<br><br>
+Bring your close attention to how the communication between services and components is done. Do a research of interaction protocols to determine which of them are most suitable for you, i.e. in terms of speed or ease of usage.
+</p>
+<br>
+
+<h3>Infrastructure, configuration, testing, deployment, operations</h3>
+
+<p>
+Define the strategy for configuration management because the same-moment propagation of configuration changes is very important in the systems that need atomic updates and in general.
+<br><br>
+Today, it is a suicide to have a big data-intense solution without automated infrastructure and well-established processes for building, testing and deploying it.
+<br><br>
+Spare enough time to plan the environments and infrastructure for development, testing, production and whatever else.
+<br><br>
+Testing process and strategy are crazy important. Some of the practical best practices are to use Blue-Green deployments, Canary releases/Dark canaries, A/B testing.  Build your test environment as much like production environment as you can. At least a topology should always be the same. Always do stress and load testing, try to perform testing on the production environment as soon as possible, because it is the most precise way of finding out the real-world failures.
+<br><br>
+Adjustable architecture also means flexible and independent deployments and ease of infrastructural operations of your services. 
+<br><br>
+Take advantage of immutable infrastructure approach. It makes sure that the build/continuous integration process is based on the pipeline that is stored somewhere and it is the good practice if no changes can be made on the running servers (i.e. disable ssh) - all of the applied changes should go through the defined configuration and build pipeline of operations, which will be then applied on all systems required. This is done to prevent configuration drift, when, for example, one person makes manual changes in one environment, which makes other environments inconsistent (e.g. changing the database schema).
+<br><br>
+It should not be critical for the development teams what infrastructure to rely on. One day you might have to step away from the current infrastructure, so don't tie yourself to it.
+</p>
+<br>
+
+<h3>In-between the code</h3>
+
+<p>What is in-between the code? Service discovery, requests routing, communication networking layers, proxying, load balancing, just to name a few.
+<br><br>
+A lot of the production errors appear to happen because of the integration points fail or other things that originate not from the business logic of the system itself, but from the incorrect or poor integration of composing all the pieces together and interactions between them.
+<br><br>
+With the increased rate of change, keep an eye on all the moving pieces of the system, always keeping availability in mind, think about scaling, respond to issues in a predictable and defined way and build the plan to mitigate risks. 
+</p>
+<br>
+<h3>Failures everywhere</h3>
+
+<p>Be paranoid. Design the architecture for failure - enumerate everything that might go wrong and it will. Brainstorm and question all the things that can fail and protect such places.
+<br><br>
+What if the connection cannot be established or fails?
+<br>
+What if it takes more than expected?
+<br>
+What if the request fails with no clear response or incorrect answer?
+<br>
+What if there is no acknowledgement returning back?
+<br>
+What if billion requests appear concurrently?
+<br>
+What if the server crashes? A rack? A data center?
+<br>
+What if the database gets corrupted?
+<br>
+What if deployment fails during the install?
+<br>
+What if production system new piece fails after new deployment?
+<br><br>
+
+Integration kind of errors can be amazingly different. So, what can we do to avoid them?
+<br><br>
+Use techniques such as circuit breaker, timeouts, handshaking, bulkheads - they will help you to protect the integration points of the system.
+<br><br>
+<a target="_blank" href="http://stackoverflow.com/questions/30391809/what-is-bulkhead-pattern-used-by-hystrix">Bulkheads</a> can prevent chain reactions from ruining the entire service, partitions capacity to preserve partial functionality when something bad happens. 
+<br><br>
+<a target="_blank" href="http://martinfowler.com/bliki/CircuitBreaker.html ">Circuit Breaker</a> protects your system by preventing calls to the failed integration point. It is helpful for the clients of the parts of the system that are down. If the Circuit Breaker became active - it means, there is a big problem that you should investigate, analyze and log.
+
+<br><br>
+Be careful with the code you cannot directly see, watch your dependencies and any shared resources.
+<br><br>
+In addition to having the correct testing and deployment processes, aim to use realistic data volumes and quantitative ratios between the topological elements of the system when testing.
+<br><br>
+To prevent common issues like loosing the availability - track the responsiveness of your system, notice when the average response time is getting increasingly slow (programmatically) and take action. 
+<br><br>
+It is a must have practice to use logging, monitoring and automation of the system operations. In case of microservices monitoring becomes easier because services are isolated, which helps to detect the fault. Some of the great approaches are to use correlation IDs, common log format while collecting and analyzing logs. Keep in mind that logs can take a lot of space, so consider log aging, i.e. configure log file rotation based on size. There are some nice tools for visualization and dashboards to provide the structured view of important processes.
+<br><br>
+It's important to maintain the correct versioning of services to make sure that changes to one service do not affect existing clients. It's also pretty common to run several versions of a service side-by-side as separate deployments. Be ready to support backward compatibility for a long time. 
+</p>
+<br>
+<h3>Concerns and things to always keep in mind</h3>
+
+<p>In most cases you already have some working solution, which has the problems with deployment, operations and architectural flexibility. You might want split your monolith into the services and it should be done carefully. When your solution is split into incorrect components or wrongly bounded services - it's not going to work in the future. Most of the applications started out as monolithic applications and were migrated to microservices.
+<br><br>
+Here are some basic notes to keep in mind while dividing into services.
+<br><br>
+Know specific business requirements and the domain before the start of partitioning. 
+<br><br>
+Watch out for shared capabilities and data, it should be modeled correctly. 
+Migration is better to do by step by step approach, do only reasonable logical things suitable for your system.
+<br><br>
+It's important that the domain is well understood before you begin partitioning it, as refactoring boundaries is expensive.
+<br><br>
+Have clear and distinct team/teams structure of working on the services for your solutions. 
+</p>
+
+<br>
+<h3>People, teams, organizational impact</h3>
+
+<p>This topic deserves a separate article, because the flexibility of the architecture and the established process described here affects the structural organization of the teams. It gives the teams much more flexibility and opportunities for continuous innovation, where they can efficiently work with their according paces. People are not organized into teams by the technology stack aspect and usually the most efficient way is to keep teams responsible for specific microservices, which would most likely require knowledge of multiple technical stacks.
+As services may be written in different languages it gives teams some atonomy and freedom.
+</p>
+<br>
+<h3>All this theory is nothing without knowing how to apply it for real in production</h3>
+<h4>Containerization and clustering tools</h4>
+Docker<br>
+Docker Swarm<br>
+Kubernetes<br>
+Mesos<br>
+Serf<br>
+Nomad<br>
+<br>
+<h4>Infrastructure automation / deployment</h4>
+Jenkins<br>
+Terraform<br>
+Vagrant<br>
+Packer<br>
+Otto<br>
+Chef, Puppet, Ansible<br>
+<br>
+<h4>Configuration</h4>
+Edda<br>
+Archaius<br>
+Decider<br>
+Zookeeper<br>
+<br>
+<h4>Service Discovery</h4>
+Eureka<br>
+Prana<br>
+Finagle<br>
+Zookeeper<br>
+Consul<br>
+<br>
+<h4>Routing and Load balancing</h4>
+Denominator<br>
+Zuul<br>
+Netty<br>
+Ribbon<br>
+HAProxy<br>
+NGINX<br>
+<br>
+<h4>Monitoring, tracing, logs</h4>
+Hystrix<br>
+Consul health checks<br>
+Zipkin<br>
+Pytheus<br>
+SALP<br>
+Elasticsearch logstash<br>
+<br>
+<h4>Communication Protocols</h4>
+Protocol Buffers<br>
+Thrift<br>
+JSON/XML/Other text<br>
+<br>
+Etc.
+<br>
+<br>
+
+<h3>Practical references for some tools to apply</h3>
+<br>
+<a target="_blank" href="https://www.docker.com/products/docker-swarm"> Docker Swarm </a>
+<br>
+Provides native clustering capabilities to turn a group of Docker engines into a single, virtual Docker Engine, where a pool of Docker nodes that can be managed as if they were a single machine.
+<br>
+Docker monitoring tools - AppDynamics, Datadog, New Relic, Scout, SignalFx, Sysdig.
+<br>
+<br>
+<a target="_blank" href="http://kubernetes.io/"> Kubernetes</a>
+<br>
+An open-source platform for automating deployment, scaling, and operations of application containers across clusters of hosts, providing container-centric infrastructure.
+<br>
+<br>
+<a target="_blank" href="http://mesos.apache.org/"> Apache Mesos</a>
+<br>
+Abstracts CPU, memory, storage, and other compute resources away from machines (physical or virtual), enabling fault-tolerant and elastic distributed systems to easily be built and run effectively.
+
+<br>
+<br>
+<a href="https://mesosphere.com/">Mesosphere</a>
+<br>
+Official documentation says : "The DCOS is a new kind of operating system that spans all of the machines in your datacenter or cloud and treats them as a single computer, providing a highly elastic and highly scalable way of deploying applications, services, and big data infrastructure on shared resources. The DCOS consists of everything necessary to build out a self-healing, fault-tolerant, and scalable solution."
+To have a better understanding of what exactly Mesosphere is look at this <a href="http://filipv.net/2015/08/27/introduction-to-apache-mesos-and-mesosphere-dcos/" target="_blank">post</a>. 
+<br>
+<br>
+<a href="http://aurora.apache.org/">Mesos Aurora </a> <br>
+Runs applications and services across a shared pool of machines, and is responsible for keeping them running, forever. When machines experience failure, Aurora intelligently reschedules those jobs onto healthy machines.
+Supports rolling updates with automatic rollback, which is useful while doing rolling deployments of microservices. 
+<br>
+<br>
+<a target="_blank" href="https://www.vagrantup.com/"> Vagrant </a>
+<br>
+A tool for building complete development environments in a virtual machine. 
+<br>
+<br>
+<a target="_blank" href="https://www.packer.io/"> Packer </a>
+ <br>
+A tool for creating machine and container images for multiple platforms from a single source configuration. A good <a href="http://pretengineer.com/post/packer-vagrant-infra/" target="_blank">article</a> on Vagrant and Packer that gives a lot of intuition about the use cases and differences. 
+<br>
+<br>
+<a target="_blank" href="https://www.terraform.io/"> Terraform </a>
+ <br>
+A tool for building, changing, and versioning infrastructure safely and efficiently, multi vendor cloud infrastructure automation.
+<br>
+<br>
+<a target="_blank" href="https://www.consul.io/"> Consul </a>
+ <br>
+Provides an HTTP API that we can use for service announcement and discovery as well as a DNS interface. In addition to service discovery Consul can perform service health checks, which can be used for monitoring or service discovery routing. Consul also has a very nice templating client, which can be used to monitor service announcement changes and generate proxy client configurations. Other features include a key/value store, multi-datacenter support.
+<br>
+<br>
+<a target="_blank" href="https://github.com/Netflix/eureka"> Eureka </a>
+<br>
+REST based service that is primarily used in the AWS cloud for locating services for the purpose of load balancing and failover of middle-tier servers.
+<br>
+<br>
+<a target="_blank" href="https://github.com/Netflix/ribbon"> Ribbon </a>
+ <br>
+An Inter Process Communication, remote procedure calls, library with built in software load balancers. The primary usage model involves REST calls with various serialization scheme support.
+<br>
+<br>
+<a target="_blank" href="https://github.com/Netflix/zuul/"> Zuul </a>
+<br>
+Zuul is the front door for all requests from devices and web sites to the backend of the Netflix streaming application. As an edge service application, Zuul is built to enable dynamic routing, monitoring, resiliency and security. It also has the ability to route requests to multiple Amazon Auto Scaling Groups as appropriate.
+<br>
+<br>
+<a target="_blank" href="https://twitter.github.io/finagle/"> Finagle </a>
+ <br>
+An extensible RPC system for the JVM, used to construct high-concurrency servers. Finagle implements uniform client and server APIs for several protocols, and is designed for high performance and concurrency. Most of Finagle's code is protocol agnostic, simplifying the implementation of new protocols.
+<br>
+<br>
+<a target="_blank" href="http://twitter.github.io/zipkin/"> Zipkin </a>
+ <br>
+A distributed tracing system that helps to gather timing data.
+<br>
+<br>
+<a target="_blank" href="https://github.com/Netflix/Hystrix"> Hystrix </a>
+<br>
+A latency and fault tolerance library designed to isolate points of access to remote systems, services and 3rd party libraries, stop cascading failure and enable resilience in complex distributed systems where failure is inevitable.
+<br>
+<br>
+<a target="_blank" href="https://zookeeper.apache.org/"> Zookeeper </a>
+ <br>
+A centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.. Mesos uses zookeeper for coordination.
+<br>
+<br>
+<a target="_blank" href="https://github.com/coreos/etcd"> Etcd </a>
+ <br>
+Distributed, consistent key-value store for shared configuration and service discovery. Supports curl'able user-facing API (HTTP+JSON), optional SSL client cert authentication, benchmarked 1000s of writes/s per instance, distributed using Raft.
+<br>
+<br>
+<a target="_blank" href="https://developers.google.com/protocol-buffers/"> Protocol Buffers </a>
+ <br>
+Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data. You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages.
+<br>
+<br>
+<a target="_blank" href="https://thrift.apache.org/"> Thrift </a>
+ <br>
+Allows you to define data types and service interfaces in a simple definition file. Taking that file as input, the compiler generates code to be used to easily build RPC clients and servers that communicate seamlessly across programming languages.
+<br>
+<br>
+
+<h3>Materials on architecture, SOA and microservices</h3>
+<a href="http://www.amazon.com/Service-Oriented-Architecture-SOA-Concepts-Technology/dp/0131858580">Service-Oriented Architecture: Concepts, Technology, and Design</a>
+<br>
+<br>
+<a href="https://www.manning.com/books/soa-patterns">SOA Patterns</a>
+<br>
+<br>
+<a href="https://www.safaribooksonline.com/library/view/release-it/9781680500264/">Release It!</a>
+<br>
+<br>
+<a href="https://www.safaribooksonline.com/library/view/building-microservices/9781491950340/">Building Microservices</a>
+<br>
+<br>
+<a href="http://www.amazon.com/Microservices-Flexible-Architectures-Eberhard-Wolff-ebook/dp/B01AESEMPQ">Microservices: Flexible Software Architectures</a>
+<br>
+<br>
+<a href="https://www.safaribooksonline.com/library/view/architecting-for-scale/9781491943380/">Architecting for Scale</a>
+<br>
+<br>
+<a href="https://www.safaribooksonline.com/library/view/microservices-with-docker/9780134218229/">Microservices with Docker on Microsoft Azure Unleashed</a>
+<br>
+<br>
+<a href="projects.spring.io/spring-cloud">Spring Cloud</a>
+<br>
+<br>
+
+</div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  28.03.2016
+               </div> |
+               <div class='keywords' >
+                     <span class='keyword' >
+                        SOA
+                     </span>
+                     <span class='keyword' >
+                         microservices
+                     </span>
+                     <span class='keyword' >
+                        architecture
+                     </span>
+                     <span class='keyword' >
+                        distributed systems
+                     </span>
+                     <span class='keyword' >
+                         devops
+                     </span>
+                     <span class='keyword' >
+                        cloud-native
+                     </span>
+                     <span class='keyword' >
+                        infrastructure
+                     </span>
+                     <span class='keyword' >
+                         best practices
+                     </span>                    
+               </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+        
+        
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2016 - Lena Droid</p>
+        </footer>
+
+  </body>
+</html>
