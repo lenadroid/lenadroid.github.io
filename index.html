@@ -7,9 +7,14 @@
     <link rel="shortcut icon" type="image/png" href="images/logo.png"/>
     <!-- Mobile CSS -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="css/mobile.css" /> 
-    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="css/SitePink.css" /> 
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="css/SitePostsPinkModile.css" /> 
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="css/SitePostsPink.css" /> 
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body style="display:none;">
 <script type="text/javascript">
@@ -35,16 +40,8 @@
     document.getElementsByTagName("body")[0].style.display = "block";
 
 </script>
-        <header id="mainHeader">
-	        <div id="headerbackground">
-             <div></div>   
-            </div>
-	        <div id="headercontent">
-	            <span id="mainTitle"><p></p></span>
-	            <!-- <span id="mainDescription">Love programming and challenges. Learning every day, every hour and every second. Convinced that way to excellence goes through hard work and effort.</span>   -->  
-	            <div class="scroller_anchor"></div>
-	            <section id="mainMenuSection" class="scroller">
-	                <section id="mainMenu">
+        <section id="mainMenuSection" >
+                  <section id="mainMenu">
                       <a href="http://lenadroid.github.io">Home</a>
                       <a href="posts.html">Posts</a>
                       <a href="presentations.html">Presentations</a>
@@ -52,29 +49,58 @@
                       <a href="about.html">About</a>
                       <a href="hireme.html">Hire me</a>
                         <div class="clear"></div>
-                    </section>
-	            </section>
-	        </div>
-        </header>
-        <section id="contentSection">
-        <section id="firstsection">
-        	<div id="firstround">
-        		<a target="_blank" href="http://twitter.com/lenadroid"><span></span></a>
-        	</div>
-        	<div id="secondround">
-        		<a target="_blank" href="http://github.com/lenadroid"><span></span></a>
-        	</div>
-        	<div id="thirdround">
-        		<a target="_blank" href="https://www.linkedin.com/in/alenadzenisenka"><span></span></a>
-        	</div>
+                  </section>
         </section>
+        <div id="headerwrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <h1>LENA'S BLOG</h1>
+                    </div>
+                </div><! --/row -->
+            </div> <!-- /container -->
+        </div><! --/headerwrap -->
+    
+        <div id="social">
+            <div class="container">
+                <div class="row centered">
+                    <div class="row col-lg-2 soc">
+                        <a target="_blank" href="http://twitter.com/lenadroid"><i class="fa fa-twitter"></i></a>
+                    </div>
+                    <div class="row col-lg-2 soc">
+                        <a target="_blank" href="https://www.linkedin.com/in/alenadzenisenka"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                    <div class="row col-lg-2 soc">
+                       <a target="_blank" href="http://github.com/lenadroid"><i class="fa fa-github"></i></a>
+                    </div>
+                
+                </div><! --/row -->
+            </div><! --/container -->
+        </div><! --/social -->
 
-        <!-- Yandex.Metrika informer -->
-        <!-- /Yandex.Metrika counter -->
+        <div id="footerwrap">
+            <div class="container">
+                <div class="row centered">
+                    <div class="col-lg-4">
+                        <p><b>Data-intensive, distributed, cloud-native systems</b></p>
+                    </div>
+                
+                    <div class="col-lg-4">
+                        <p>Living in beautiful Portland, Oregon</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <p>Say hi! <br> lenokhall@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div><! --/footerwrap -->
+    
 
-        </section>
-        <footer id="mainFooter">
-            <p>&copy; 2015 | Lena Droid | <a target="_blank" href="https://lenadroid.github.io/atom.xml">RSS</a></p>
-        </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     </body>
 </html>
