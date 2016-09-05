@@ -49,6 +49,11 @@ body
 header 
 {
     letter-spacing: 0.5px;
+    font-family: Philosopher;
+}
+
+h3 {
+    font-family: Philosopher;
 }
 
 .twitter-timeline 
