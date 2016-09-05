@@ -101,9 +101,9 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 
 #headerwrap {
-	background: url(../img/Lena_green.jpg) no-repeat center top;
+	background: url(../img/Lena.jpg) no-repeat center top;
 	margin-top: -70px;
-	padding-top: 400px;
+	padding-top: 380px;
 	padding-left: 350px;
 	background-attachment: relative;
 	background-position: center center;
@@ -146,6 +146,7 @@ h1, h2, h3, h4, h5, h6 {
 	padding-bottom: 50px;
 	margin-top: -20px;
 	background-color: #f2f2f2;
+	border-top: 10px solid #2f2f2f;
 }
 
 #social i {
