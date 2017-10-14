@@ -1,0 +1,1369 @@
+Last login: Thu Oct  5 16:46:57 on ttys000
+Alenas-MBP:~ lenok$ cd $GITHUB
+Alenas-MBP:Github lenok$ mkdir ScalaOnAzure
+Alenas-MBP:Github lenok$ cd ScalaOnAzure/
+Alenas-MBP:ScalaOnAzure lenok$ sbt sbt-version
+[warn] No sbt.version set in project/build.properties, base directory: /Users/lenok/Documents/Programming/Github/ScalaOnAzure
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Set current project to scalaonazure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/)
+[error] Not a valid command: sbt-version (similar: write-sbt-version, session)
+[error] Not a valid project ID: sbt-version
+[error] Expected ':' (if selecting a configuration)
+[error] Not a valid key: sbt-version (similar: sbtVersion, version, sbtBinaryVersion)
+[error] sbt-version
+[error]            ^
+Alenas-MBP:ScalaOnAzure lenok$ sbt new playframework/play-scala-seed.g8
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Set current project to scalaonazure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+
+This template generates a Play Scala project
+
+name [play-scala-seed]: ScalaOnAzure
+organization [com.example]:
+play_version [maven(com.typesafe.play, play_2.12, stable)]: 2.6.6
+sbt_version [maven(org.scala-sbt, sbt, stable)]: 1.0.2
+scalatestplusplay_version [maven(org.scalatestplus.play, scalatestplus-play_2.12, stable)]: 3.1.2
+
+Template applied in ./scalaonazure
+
+Alenas-MBP:ScalaOnAzure lenok$ open .
+Alenas-MBP:ScalaOnAzure lenok$ sbt compile
+[warn] No sbt.version set in project/build.properties, base directory: /Users/lenok/Documents/Programming/Github/ScalaOnAzure
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Set current project to scalaonazure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/)
+[info] Executing in batch mode. For better performance use sbt's shell
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/}scalaonazure...
+[info] Done updating.
+[success] Total time: 1 s, completed Oct 10, 2017 6:55:30 PM
+Alenas-MBP:ScalaOnAzure lenok$ sbt run
+[warn] No sbt.version set in project/build.properties, base directory: /Users/lenok/Documents/Programming/Github/ScalaOnAzure
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Set current project to scalaonazure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/target/scala-2.12/scalaonazure_2.12-0.1-SNAPSHOT.jar ...
+[info] Done packaging.
+[error] java.lang.RuntimeException: No main class detected.
+[error] 	at scala.sys.package$.error(package.scala:27)
+[error] 	at sbt.Defaults$.$anonfun$bgRunTask$4(Defaults.scala:1146)
+[error] 	at scala.Option.getOrElse(Option.scala:121)
+[error] 	at sbt.Defaults$.$anonfun$bgRunTask$3(Defaults.scala:1146)
+[error] 	at scala.Function1.$anonfun$compose$1(Function1.scala:44)
+[error] 	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:42)
+[error] 	at sbt.std.Transform$$anon$4.work(System.scala:64)
+[error] 	at sbt.Execute.$anonfun$submit$2(Execute.scala:257)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+[error] 	at sbt.Execute.work(Execute.scala:266)
+[error] 	at sbt.Execute.$anonfun$submit$1(Execute.scala:257)
+[error] 	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:167)
+[error] 	at sbt.CompletionService$$anon$2.call(CompletionService.scala:32)
+[error] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[error] 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+[error] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[error] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[error] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[error] 	at java.lang.Thread.run(Thread.java:745)
+[error] (compile:bgRun) No main class detected.
+[error] Total time: 1 s, completed Oct 10, 2017 6:55:48 PM
+Alenas-MBP:ScalaOnAzure lenok$ ls
+scalaonazure	target
+Alenas-MBP:ScalaOnAzure lenok$ cd scalaonazure/
+Alenas-MBP:scalaonazure lenok$ cd ..
+Alenas-MBP:ScalaOnAzure lenok$ sbt run
+[info] Updated file /Users/lenok/Documents/Programming/Github/ScalaOnAzure/project/build.properties: set sbt.version to 1.0.2
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading project definition from /Users/lenok/Documents/Programming/Github/ScalaOnAzure/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/project/}scalaonazure-build...
+[info] Done updating.
+/Users/lenok/Documents/Programming/Github/ScalaOnAzure/build.sbt:6: error: not found: value PlayScala
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
+                                                     ^
+[error] sbt.compiler.EvalException: Type error in expression
+[error] sbt.compiler.EvalException: Type error in expression
+[error] Use 'last' for the full log.
+Project loading failed: (r)etry, (q)uit, (l)ast, or (i)gnore? i
+[warn] Ignoring load failure: no project loaded.
+[error] java.lang.RuntimeException: Session not initialized.
+[error] 	at scala.sys.package$.error(package.scala:27)
+[error] 	at sbt.Project$.$anonfun$getOrError$1(Project.scala:442)
+[error] 	at scala.Option.getOrElse(Option.scala:121)
+[error] 	at sbt.Project$.getOrError(Project.scala:442)
+[error] 	at sbt.Project$.session(Project.scala:448)
+[error] 	at sbt.Project$.extract(Project.scala:453)
+[error] 	at sbt.BuiltinCommands$.notifyUsersAboutShell(Main.scala:796)
+[error] 	at sbt.BuiltinCommands$.$anonfun$notifyUsersAboutShell$3(Main.scala:805)
+[error] 	at sbt.Command$.$anonfun$command$2(Command.scala:79)
+[error] 	at sbt.MainLoop$.processCommand(MainLoop.scala:121)
+[error] 	at sbt.MainLoop$.$anonfun$next$2(MainLoop.scala:105)
+[error] 	at sbt.State$$anon$1.runCmd$1(State.scala:227)
+[error] 	at sbt.State$$anon$1.process(State.scala:233)
+[error] 	at sbt.MainLoop$.$anonfun$next$1(MainLoop.scala:105)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+[error] 	at sbt.MainLoop$.next(MainLoop.scala:105)
+[error] 	at sbt.MainLoop$.run(MainLoop.scala:98)
+[error] 	at sbt.MainLoop$.$anonfun$runWithNewLog$1(MainLoop.scala:76)
+[error] 	at sbt.io.Using.apply(Using.scala:22)
+[error] 	at sbt.MainLoop$.runWithNewLog(MainLoop.scala:70)
+[error] 	at sbt.MainLoop$.runAndClearLast(MainLoop.scala:52)
+[error] 	at sbt.MainLoop$.runLoggedLoop(MainLoop.scala:37)
+[error] 	at sbt.MainLoop$.runLogged(MainLoop.scala:29)
+[error] 	at sbt.StandardMain$.runManaged(Main.scala:104)
+[error] 	at sbt.xMain.run(Main.scala:71)
+[error] 	at xsbt.boot.Launch$$anonfun$run$1.apply(Launch.scala:109)
+[error] 	at xsbt.boot.Launch$.withContextLoader(Launch.scala:128)
+[error] 	at xsbt.boot.Launch$.run(Launch.scala:109)
+[error] 	at xsbt.boot.Launch$$anonfun$apply$1.apply(Launch.scala:35)
+[error] 	at xsbt.boot.Launch$.launch(Launch.scala:117)
+[error] 	at xsbt.boot.Launch$.apply(Launch.scala:18)
+[error] 	at xsbt.boot.Boot$.runImpl(Boot.scala:41)
+[error] 	at xsbt.boot.Boot$.main(Boot.scala:17)
+[error] 	at xsbt.boot.Boot.main(Boot.scala)
+[error] Session not initialized.
+[error] Use 'last' for the full log.
+Alenas-MBP:ScalaOnAzure lenok$ cd scalaonazure/
+Alenas-MBP:scalaonazure lenok$ ls
+app		conf		public
+build.sbt	project		test
+Alenas-MBP:scalaonazure lenok$ sbt
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/project/}scalaonazure-build...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* org.codehaus.plexus:plexus-utils:3.0.17 is selected over {2.1, 1.5.5}
+[warn] 	    +- org.apache.maven:maven-settings:3.2.2              (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-repository-metadata:3.2.2   (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-aether-provider:3.2.2       (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-model:3.2.2                 (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-core:3.2.2                  (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-artifact:3.2.2              (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-settings-builder:3.2.2      (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-model-builder:3.2.2         (depends on 3.0.17)
+[warn] 	    +- org.sonatype.plexus:plexus-sec-dispatcher:1.3      (depends on 1.5.5)
+[warn] 	    +- org.eclipse.sisu:org.eclipse.sisu.plexus:0.0.0.M5  (depends on 2.1)
+[warn] 	* com.google.guava:guava:23.0 is selected over {10.0.1, 15.0, 18.0}
+[warn] 	    +- io.methvin:directory-watcher:0.1.3                 (depends on 23.0)
+[warn] 	    +- org.eclipse.sisu:org.eclipse.sisu.plexus:0.0.0.M5  (depends on 10.0.1)
+[warn] 	    +- com.fasterxml.jackson.datatype:jackson-datatype-guava:2.6.0 (depends on 10.0.1)
+[warn] 	    +- com.spotify:docker-client:3.5.13                   (depends on 10.0.1)
+[warn] Run 'evicted' to see detailed eviction warnings
+[info] Loading settings from build.sbt ...
+[info] Set current project to ScalaOnAzure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/)
+[info] sbt server started at 127.0.0.1:5522
+[ScalaOnAzure] $ exit
+[INFO] [10/10/2017 18:58:52.076] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:scalaonazure lenok$ sbt run
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to ScalaOnAzure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/)
+[info] Updating {file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/}root...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* com.google.guava:guava:22.0 is selected over 19.0
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 22.0)
+[warn] 	    +- com.google.inject:guice:4.1.0                      (depends on 19.0)
+[warn] 	* com.typesafe.akka:akka-stream_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.play:play-streams_2.12:2.6.6          (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-http-core_2.12:10.0.10      (depends on 2.4.19)
+[warn] 	* com.typesafe.akka:akka-actor_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.akka:akka-slf4j_2.12:2.5.4            (depends on 2.5.4)
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-stream_2.12:2.5.4           (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-parsing_2.12:10.0.10        (depends on 2.4.19)
+[warn] Run 'evicted' to see detailed eviction warnings
+
+--- (Running the application, auto-reloading is enabled) ---
+
+[info] p.c.s.AkkaHttpServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+(Server started, use Enter to stop and go back to the console...)
+
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Compiling 7 Scala sources and 1 Java source to /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/classes ...
+[info] Done compiling.
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] p.a.h.EnabledFilters - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+[info] play.api.Play - Application started (Dev)
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[INFO] [10/10/2017 18:59:32.308] [Thread-4] [CoordinatedShutdown(akka://play-dev-mode)] Starting coordinated shutdown from JVM shutdown hook
+[INFO] [10/10/2017 18:59:32.308] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:scalaonazure lenok$ sbt compile
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/project/}scalaonazure-build...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* org.codehaus.plexus:plexus-utils:3.0.17 is selected over {2.1, 1.5.5}
+[warn] 	    +- org.apache.maven:maven-settings:3.2.2              (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-repository-metadata:3.2.2   (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-aether-provider:3.2.2       (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-model:3.2.2                 (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-core:3.2.2                  (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-artifact:3.2.2              (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-settings-builder:3.2.2      (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-model-builder:3.2.2         (depends on 3.0.17)
+[warn] 	    +- org.sonatype.plexus:plexus-sec-dispatcher:1.3      (depends on 1.5.5)
+[warn] 	    +- org.eclipse.sisu:org.eclipse.sisu.plexus:0.0.0.M5  (depends on 2.1)
+[warn] 	* com.google.guava:guava:23.0 is selected over {10.0.1, 15.0, 18.0}
+[warn] 	    +- io.methvin:directory-watcher:0.1.3                 (depends on 23.0)
+[warn] 	    +- org.eclipse.sisu:org.eclipse.sisu.plexus:0.0.0.M5  (depends on 10.0.1)
+[warn] 	    +- com.fasterxml.jackson.datatype:jackson-datatype-guava:2.6.0 (depends on 10.0.1)
+[warn] 	    +- com.spotify:docker-client:3.5.13                   (depends on 10.0.1)
+[warn] Run 'evicted' to see detailed eviction warnings
+[info] Loading settings from build.sbt ...
+[info] Set current project to ScalaOnAzure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/)
+[info] Executing in batch mode. For better performance use sbt's shell
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/}root...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* com.google.guava:guava:22.0 is selected over 19.0
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 22.0)
+[warn] 	    +- com.google.inject:guice:4.1.0                      (depends on 19.0)
+[warn] 	* com.typesafe.akka:akka-stream_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.play:play-streams_2.12:2.6.6          (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-http-core_2.12:10.0.10      (depends on 2.4.19)
+[warn] 	* com.typesafe.akka:akka-actor_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.akka:akka-slf4j_2.12:2.5.4            (depends on 2.5.4)
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-stream_2.12:2.5.4           (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-parsing_2.12:10.0.10        (depends on 2.4.19)
+[warn] Run 'evicted' to see detailed eviction warnings
+[success] Total time: 3 s, completed Oct 10, 2017 7:03:01 PM
+[INFO] [10/10/2017 19:03:01.653] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:scalaonazure lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to ScalaOnAzure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT-sources.jar ...
+[info] Done packaging.
+[info] Wrote /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT.pom
+[info] Main Scala API documentation to /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/api...
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT-web-assets.jar ...
+[info] Done packaging.
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+model contains 16 documentable templates
+[info] Main Scala API documentation successful.
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT-javadoc.jar ...
+[info] Done packaging.
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT-sans-externalized.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  36.09MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> daeedfc9bd7b
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in fd5ce226f9bd
+[info]  ---> 6dbcd5e73df6
+[info] Removing intermediate container fd5ce226f9bd
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in 7837c6950544
+[info]  ---> e228a3f623a1
+[info] Removing intermediate container 7837c6950544
+[info] Step 6/7 : ENTRYPOINT bin/scalaonazure
+[info]  ---> Running in cc567a0bad33
+[info]  ---> 9d1c7a2fc1a3
+[info] Removing intermediate container cc567a0bad33
+[info] Step 7/7 : CMD
+[info]  ---> Running in 591f602f42f1
+[info]  ---> 5171f86944d0
+[info] Removing intermediate container 591f602f42f1
+[info] Successfully built 5171f86944d0
+[info] Successfully tagged scalaonazure:1.0-SNAPSHOT
+[info] Built image scalaonazure:1.0-SNAPSHOT
+[success] Total time: 7 s, completed Oct 10, 2017 7:03:26 PM
+[INFO] [10/10/2017 19:03:26.790] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:scalaonazure lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+scalaonazure            1.0-SNAPSHOT        5171f86944d0        5 seconds ago       812MB
+lenadroid/playstarter   latest              309a384681fd        About an hour ago   811MB
+playstarter             1.0-SNAPSHOT        309a384681fd        About an hour ago   811MB
+<none>                  <none>              43131f9d792f        2 hours ago         811MB
+<none>                  <none>              02007f022db6        2 hours ago         812MB
+<none>                  <none>              3fe3f7c7552f        3 hours ago         812MB
+hello-world-sbt         1.0                 81c43c0427ba        4 hours ago         751MB
+openjdk                 latest              74c95c985a85        25 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:scalaonazure lenok$ docker tag scalaonazure:1.0-SNAPSHOT lenadroid/azscala
+Alenas-MBP:scalaonazure lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+lenadroid/azscala       latest              5171f86944d0        12 minutes ago      812MB
+scalaonazure            1.0-SNAPSHOT        5171f86944d0        12 minutes ago      812MB
+lenadroid/playstarter   latest              309a384681fd        2 hours ago         811MB
+playstarter             1.0-SNAPSHOT        309a384681fd        2 hours ago         811MB
+<none>                  <none>              43131f9d792f        2 hours ago         811MB
+<none>                  <none>              02007f022db6        2 hours ago         812MB
+<none>                  <none>              3fe3f7c7552f        4 hours ago         812MB
+hello-world-sbt         1.0                 81c43c0427ba        4 hours ago         751MB
+openjdk                 latest              74c95c985a85        25 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:scalaonazure lenok$ docker login -u lenadroid
+Password:
+Login Succeeded
+Alenas-MBP:scalaonazure lenok$ docker push lenadroid/azscala
+The push refers to a repository [docker.io/lenadroid/azscala]
+8c804b3dd108: Pushed
+208467ab8ddd: Pushed
+fa25080a24b9: Mounted from lenadroid/playstarter
+9b790cee2175: Mounted from lenadroid/playstarter
+348667646bbd: Mounted from lenadroid/playstarter
+1d381f39fece: Mounted from lenadroid/playstarter
+e6683fd09097: Mounted from lenadroid/playstarter
+ffe8422597ee: Mounted from lenadroid/playstarter
+c2dca236d8e6: Mounted from lenadroid/playstarter
+d4417cb76edb: Mounted from lenadroid/playstarter
+0dc1ec77adb3: Mounted from lenadroid/playstarter
+a75caa09eb1f: Mounted from lenadroid/playstarter
+latest: digest: sha256:0dde45e679a22822718f0f2e7dbc1be74a87e8188a803ee8880ed4d3bab93210 size: 2842
+Alenas-MBP:scalaonazure lenok$ az create group LinuxyThings
+az: error: argument _command_package: invalid choice: create
+usage: az [-h] [--output {json,tsv,table,jsonc}] [--verbose] [--debug]
+          [--query JMESPATH]
+          {appservice,managedapp,monitor,feedback,account,batch,functionapp,snapshot,acr,acs,sf,find,resource,extension,ad,lock,image,group,vm,cdn,backup,tag,mysql,disk,cloud,consumption,feature,storage,dla,container,billing,network,vmss,redis,logout,role,provider,dls,policy,postgres,cognitiveservices,lab,keyvault,iot,component,sql,eventgrid,configure,webapp,login,cosmosdb,interactive}
+          ...
+Alenas-MBP:scalaonazure lenok$ az create group -n LinuxyThings -l westus
+az: error: argument _command_package: invalid choice: create
+usage: az [-h] [--output {json,tsv,table,jsonc}] [--verbose] [--debug]
+          [--query JMESPATH]
+          {appservice,managedapp,monitor,feedback,account,batch,functionapp,snapshot,acr,acs,sf,find,resource,extension,ad,lock,image,group,vm,cdn,backup,tag,mysql,disk,cloud,consumption,feature,storage,dla,container,billing,network,vmss,redis,logout,role,provider,dls,policy,postgres,cognitiveservices,lab,keyvault,iot,component,sql,eventgrid,configure,webapp,login,cosmosdb,interactive}
+          ...
+Alenas-MBP:scalaonazure lenok$ az group create -n LinuxyThings -l westus
+{
+  "id": "/subscriptions/35df86c8-113e-4745-90c7-9776b00afee8/resourceGroups/LinuxyThings",
+  "location": "westus",
+  "managedBy": null,
+  "name": "LinuxyThings",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null
+}
+Alenas-MBP:scalaonazure lenok$ az appservice plan create --name LinuxPlan --resource-group LinuxyThings -sku S1 --is-linux
+az: error: unrecognized arguments: -sku S1
+usage: az [-h] [--output {json,tsv,table,jsonc}] [--verbose] [--debug]
+          [--query JMESPATH]
+          {appservice} ...
+Alenas-MBP:scalaonazure lenok$ az appservice plan create --name LinuxPlan --resource-group LinuxyThings --sku S1 --is-linux
+{
+  "adminSiteName": null,
+  "appServicePlanName": "LinuxPlan",
+  "geoRegion": "West US",
+  "hostingEnvironmentProfile": null,
+  "id": "/subscriptions/35df86c8-113e-4745-90c7-9776b00afee8/resourceGroups/LinuxyThings/providers/Microsoft.Web/serverfarms/LinuxPlan",
+  "kind": "linux",
+  "location": "West US",
+  "maximumNumberOfWorkers": 10,
+  "name": "LinuxPlan",
+  "numberOfSites": 0,
+  "perSiteScaling": false,
+  "provisioningState": "Succeeded",
+  "reserved": true,
+  "resourceGroup": "LinuxyThings",
+  "sku": {
+    "capabilities": null,
+    "capacity": 1,
+    "family": "S",
+    "locations": null,
+    "name": "S1",
+    "size": "S1",
+    "skuCapacity": null,
+    "tier": "Standard"
+  },
+  "status": "Ready",
+  "subscription": "35df86c8-113e-4745-90c7-9776b00afee8",
+  "tags": null,
+  "targetWorkerCount": 0,
+  "targetWorkerSizeId": 0,
+  "type": "Microsoft.Web/serverfarms",
+  "workerTierName": null
+}
+Alenas-MBP:scalaonazure lenok$ az webapp create --resource-group LinuxyThings --plan LinuxPlan --name ScalaOnAzure --deployment-container-image-name lenadroid/azscala
+{
+  "availabilityState": "Normal",
+  "clientAffinityEnabled": true,
+  "clientCertEnabled": false,
+  "cloningInfo": null,
+  "containerSize": 0,
+  "dailyMemoryTimeQuota": 0,
+  "defaultHostName": "scalaonazure.azurewebsites.net",
+  "enabled": true,
+  "enabledHostNames": [
+    "scalaonazure.azurewebsites.net",
+    "scalaonazure.scm.azurewebsites.net"
+  ],
+  "ftpPublishingUrl": "ftp://waws-prod-bay-081.ftp.azurewebsites.windows.net/site/wwwroot",
+  "gatewaySiteName": null,
+  "hostNameSslStates": [
+    {
+      "hostType": "Standard",
+      "name": "scalaonazure.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "virtualIp": null
+    },
+    {
+      "hostType": "Repository",
+      "name": "scalaonazure.scm.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "virtualIp": null
+    }
+  ],
+  "hostNames": [
+    "scalaonazure.azurewebsites.net"
+  ],
+  "hostNamesDisabled": false,
+  "hostingEnvironmentProfile": null,
+  "id": "/subscriptions/35df86c8-113e-4745-90c7-9776b00afee8/resourceGroups/LinuxyThings/providers/Microsoft.Web/sites/ScalaOnAzure",
+  "isDefaultContainer": null,
+  "kind": "app",
+  "lastModifiedTimeUtc": "2017-10-11T02:32:23.150000",
+  "location": "West US",
+  "maxNumberOfWorkers": null,
+  "microService": null,
+  "name": "ScalaOnAzure",
+  "outboundIpAddresses": "13.64.73.110,40.118.133.8,40.118.169.141,40.118.253.162,13.64.147.140",
+  "premiumAppDeployed": null,
+  "repositorySiteName": "ScalaOnAzure",
+  "reserved": true,
+  "resourceGroup": "LinuxyThings",
+  "scmSiteAlsoStopped": false,
+  "serverFarmId": "/subscriptions/35df86c8-113e-4745-90c7-9776b00afee8/resourceGroups/LinuxyThings/providers/Microsoft.Web/serverfarms/LinuxPlan",
+  "siteConfig": null,
+  "slotSwapStatus": null,
+  "state": "Running",
+  "suspendedTill": null,
+  "tags": null,
+  "targetSwapSlot": null,
+  "trafficManagerHostNames": null,
+  "type": "Microsoft.Web/sites",
+  "usageState": "Normal"
+}
+Alenas-MBP:scalaonazure lenok$ az webapp config appsettings set --resource-group myResourceGroup --name <web-app-name> --settings WEBSITES_PORT=2222
+-bash: web-app-name: No such file or directory
+Alenas-MBP:scalaonazure lenok$ az webapp config appsettings set --resource-group LinuxyThings --name ScalaOnAzure --settings WEBSITES_PORT=9000
+[
+  {
+    "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+    "slotSetting": false,
+    "value": "false"
+  },
+  {
+    "name": "WEBSITES_PORT",
+    "slotSetting": false,
+    "value": "9000"
+  }
+]
+Alenas-MBP:scalaonazure lenok$ sbt run
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to ScalaOnAzure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/)
+
+--- (Running the application, auto-reloading is enabled) ---
+
+[info] p.c.s.AkkaHttpServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+(Server started, use Enter to stop and go back to the console...)
+
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] p.a.h.EnabledFilters - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+[info] play.api.Play - Application started (Dev)
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[INFO] [10/10/2017 19:56:30.863] [Thread-4] [CoordinatedShutdown(akka://play-dev-mode)] Starting coordinated shutdown from JVM shutdown hook
+[INFO] [10/10/2017 19:56:30.863] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:scalaonazure lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+lenadroid/azscala       latest              5171f86944d0        About an hour ago   812MB
+scalaonazure            1.0-SNAPSHOT        5171f86944d0        About an hour ago   812MB
+lenadroid/playstarter   latest              309a384681fd        2 hours ago         811MB
+playstarter             1.0-SNAPSHOT        309a384681fd        2 hours ago         811MB
+<none>                  <none>              43131f9d792f        3 hours ago         811MB
+<none>                  <none>              02007f022db6        3 hours ago         812MB
+<none>                  <none>              3fe3f7c7552f        4 hours ago         812MB
+hello-world-sbt         1.0                 81c43c0427ba        5 hours ago         751MB
+openjdk                 latest              74c95c985a85        26 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:scalaonazure lenok$ docker rmi lenadroid/azscala
+Untagged: lenadroid/azscala:latest
+Untagged: lenadroid/azscala@sha256:0dde45e679a22822718f0f2e7dbc1be74a87e8188a803ee8880ed4d3bab93210
+Alenas-MBP:scalaonazure lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+scalaonazure            1.0-SNAPSHOT        5171f86944d0        About an hour ago   812MB
+lenadroid/playstarter   latest              309a384681fd        2 hours ago         811MB
+playstarter             1.0-SNAPSHOT        309a384681fd        2 hours ago         811MB
+<none>                  <none>              43131f9d792f        3 hours ago         811MB
+<none>                  <none>              02007f022db6        3 hours ago         812MB
+<none>                  <none>              3fe3f7c7552f        4 hours ago         812MB
+hello-world-sbt         1.0                 81c43c0427ba        5 hours ago         751MB
+openjdk                 latest              74c95c985a85        26 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:scalaonazure lenok$ sbt run
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to ScalaOnAzure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/)
+[info] Updating {file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/}root...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* com.google.guava:guava:22.0 is selected over 19.0
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 22.0)
+[warn] 	    +- com.google.inject:guice:4.1.0                      (depends on 19.0)
+[warn] 	* com.typesafe.akka:akka-stream_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.play:play-streams_2.12:2.6.6          (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-http-core_2.12:10.0.10      (depends on 2.4.19)
+[warn] 	* com.typesafe.akka:akka-actor_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.akka:akka-slf4j_2.12:2.5.4            (depends on 2.5.4)
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-stream_2.12:2.5.4           (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-parsing_2.12:10.0.10        (depends on 2.4.19)
+[warn] Run 'evicted' to see detailed eviction warnings
+
+--- (Running the application, auto-reloading is enabled) ---
+
+[info] p.c.s.AkkaHttpServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+(Server started, use Enter to stop and go back to the console...)
+
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Compiling 1 Scala source to /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/classes ...
+[info] Done compiling.
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] p.a.h.EnabledFilters - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+
+[info] play.api.Play - Application started (Dev)
+[INFO] [10/10/2017 19:58:23.482] [Thread-4] [CoordinatedShutdown(akka://play-dev-mode)] Starting coordinated shutdown from JVM shutdown hook
+[INFO] [10/10/2017 19:58:23.482] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:scalaonazure lenok$ docker tag scalaonazure:1.0-SNAPSHOT lenadroid/azscala
+Alenas-MBP:scalaonazure lenok$ docker push
+"docker push" requires exactly 1 argument.
+See 'docker push --help'.
+
+Usage:  docker push [OPTIONS] NAME[:TAG]
+
+Push an image or a repository to a registry
+Alenas-MBP:scalaonazure lenok$ docker push lenadroid/azscala
+The push refers to a repository [docker.io/lenadroid/azscala]
+8c804b3dd108: Layer already exists
+208467ab8ddd: Layer already exists
+fa25080a24b9: Layer already exists
+9b790cee2175: Layer already exists
+348667646bbd: Layer already exists
+1d381f39fece: Layer already exists
+e6683fd09097: Layer already exists
+ffe8422597ee: Layer already exists
+c2dca236d8e6: Layer already exists
+d4417cb76edb: Layer already exists
+0dc1ec77adb3: Layer already exists
+a75caa09eb1f: Layer already exists
+latest: digest: sha256:0dde45e679a22822718f0f2e7dbc1be74a87e8188a803ee8880ed4d3bab93210 size: 2842
+Alenas-MBP:scalaonazure lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+lenadroid/azscala       latest              5171f86944d0        About an hour ago   812MB
+scalaonazure            1.0-SNAPSHOT        5171f86944d0        About an hour ago   812MB
+lenadroid/playstarter   latest              309a384681fd        2 hours ago         811MB
+playstarter             1.0-SNAPSHOT        309a384681fd        2 hours ago         811MB
+<none>                  <none>              43131f9d792f        3 hours ago         811MB
+<none>                  <none>              02007f022db6        3 hours ago         812MB
+<none>                  <none>              3fe3f7c7552f        4 hours ago         812MB
+hello-world-sbt         1.0                 81c43c0427ba        5 hours ago         751MB
+openjdk                 latest              74c95c985a85        26 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:scalaonazure lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to ScalaOnAzure (in build file:/Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT-sources.jar ...
+[info] Done packaging.
+[info] Wrote /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT.pom
+[info] Main Scala API documentation to /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/api...
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT-web-assets.jar ...
+[info] Done packaging.
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+model contains 16 documentable templates
+[info] Main Scala API documentation successful.
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT-javadoc.jar ...
+[info] Done packaging.
+[info] Packaging /Users/lenok/Documents/Programming/Github/ScalaOnAzure/scalaonazure/target/scala-2.12/scalaonazure_2.12-1.0-SNAPSHOT-sans-externalized.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  35.81MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> 453724fc179d
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in 9db7f0819173
+[info]  ---> e6dd130cf308
+[info] Removing intermediate container 9db7f0819173
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in d0a17fd9e8e9
+[info]  ---> 4bbd45e6d5a3
+[info] Removing intermediate container d0a17fd9e8e9
+[info] Step 6/7 : ENTRYPOINT bin/scalaonazure
+[info]  ---> Running in 71d1c7d38db1
+[info]  ---> 2fe11e177f6f
+[info] Removing intermediate container 71d1c7d38db1
+[info] Step 7/7 : CMD
+[info]  ---> Running in 15bea02d8d5e
+[info]  ---> a176ea2abc97
+[info] Removing intermediate container 15bea02d8d5e
+[info] Successfully built a176ea2abc97
+[info] Successfully tagged scalaonazure:1.0-SNAPSHOT
+[info] Built image scalaonazure:1.0-SNAPSHOT
+[success] Total time: 8 s, completed Oct 10, 2017 7:59:52 PM
+[INFO] [10/10/2017 19:59:52.785] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:scalaonazure lenok$ docker rmi lenadroid/azscala
+Untagged: lenadroid/azscala:latest
+Untagged: lenadroid/azscala@sha256:0dde45e679a22822718f0f2e7dbc1be74a87e8188a803ee8880ed4d3bab93210
+Deleted: sha256:5171f86944d08898fc98796e8b21af4a8c28aa2cafb73e26355b9b8923d04f16
+Deleted: sha256:9d1c7a2fc1a3ebee08854d449821aef614636e93827fac6c8d8b07a01bff0257
+Deleted: sha256:e228a3f623a178489a3faaf6056950a50c7606d9e4b8a4ef89fcc2d30c67c8e7
+Deleted: sha256:6dbcd5e73df69b9d527602109e8ea8127493d62dc44bd551b6ac49809ee6b775
+Deleted: sha256:4bc85008206b779b9364ace60ec52a99c31cb0bf1aae96623661405ebc2ec122
+Deleted: sha256:daeedfc9bd7b15e9b0f9cd66d6e515bc1451203b6d1601918b4636e7f37a851c
+Deleted: sha256:a2c044ea98022882e2f66b6fecd238c28873530266ab5c2eb557807bb33e804e
+Alenas-MBP:scalaonazure lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+scalaonazure            1.0-SNAPSHOT        a176ea2abc97        14 seconds ago      811MB
+playstarter             1.0-SNAPSHOT        309a384681fd        2 hours ago         811MB
+lenadroid/playstarter   latest              309a384681fd        2 hours ago         811MB
+<none>                  <none>              43131f9d792f        3 hours ago         811MB
+<none>                  <none>              02007f022db6        3 hours ago         812MB
+<none>                  <none>              3fe3f7c7552f        4 hours ago         812MB
+hello-world-sbt         1.0                 81c43c0427ba        5 hours ago         751MB
+openjdk                 latest              74c95c985a85        26 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:scalaonazure lenok$ docker tag scalaonazure:1.0-SNAPSHOT lenadroid/azscala
+Alenas-MBP:scalaonazure lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+lenadroid/azscala       latest              a176ea2abc97        22 seconds ago      811MB
+scalaonazure            1.0-SNAPSHOT        a176ea2abc97        22 seconds ago      811MB
+lenadroid/playstarter   latest              309a384681fd        2 hours ago         811MB
+playstarter             1.0-SNAPSHOT        309a384681fd        2 hours ago         811MB
+<none>                  <none>              43131f9d792f        3 hours ago         811MB
+<none>                  <none>              02007f022db6        3 hours ago         812MB
+<none>                  <none>              3fe3f7c7552f        4 hours ago         812MB
+hello-world-sbt         1.0                 81c43c0427ba        5 hours ago         751MB
+openjdk                 latest              74c95c985a85        26 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:scalaonazure lenok$ docker push lenadroid/azscala
+The push refers to a repository [docker.io/lenadroid/azscala]
+ccafff23eb29: Pushed
+f29739d032f9: Pushed
+fa25080a24b9: Layer already exists
+9b790cee2175: Layer already exists
+348667646bbd: Layer already exists
+1d381f39fece: Layer already exists
+e6683fd09097: Layer already exists
+ffe8422597ee: Layer already exists
+c2dca236d8e6: Layer already exists
+d4417cb76edb: Layer already exists
+0dc1ec77adb3: Layer already exists
+a75caa09eb1f: Layer already exists
+latest: digest: sha256:485efd4e2138b67608fcac4a1b78583b48fff7f309deee4e0d5b02bc1f7873b0 size: 2842
+Alenas-MBP:scalaonazure lenok$ az webapp create -n ScalaOnAzure -g LinuxyThings -p LinuxPlan -i lenadroid/azscala
+{
+  "availabilityState": "Normal",
+  "clientAffinityEnabled": true,
+  "clientCertEnabled": false,
+  "cloningInfo": null,
+  "containerSize": 0,
+  "dailyMemoryTimeQuota": 0,
+  "defaultHostName": "scalaonazure.azurewebsites.net",
+  "enabled": true,
+  "enabledHostNames": [
+    "scalaonazure.azurewebsites.net",
+    "scalaonazure.scm.azurewebsites.net"
+  ],
+  "ftpPublishingUrl": "ftp://waws-prod-bay-081.ftp.azurewebsites.windows.net/site/wwwroot",
+  "gatewaySiteName": null,
+  "hostNameSslStates": [
+    {
+      "hostType": "Standard",
+      "name": "scalaonazure.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "virtualIp": null
+    },
+    {
+      "hostType": "Repository",
+      "name": "scalaonazure.scm.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "virtualIp": null
+    }
+  ],
+  "hostNames": [
+    "scalaonazure.azurewebsites.net"
+  ],
+  "hostNamesDisabled": false,
+  "hostingEnvironmentProfile": null,
+  "id": "/subscriptions/35df86c8-113e-4745-90c7-9776b00afee8/resourceGroups/LinuxyThings/providers/Microsoft.Web/sites/ScalaOnAzure",
+  "isDefaultContainer": null,
+  "kind": "app",
+  "lastModifiedTimeUtc": "2017-10-11T03:22:13.310000",
+  "location": "West US",
+  "maxNumberOfWorkers": null,
+  "microService": null,
+  "name": "ScalaOnAzure",
+  "outboundIpAddresses": "13.64.73.110,40.118.133.8,40.118.169.141,40.118.253.162,13.64.147.140",
+  "premiumAppDeployed": null,
+  "repositorySiteName": "ScalaOnAzure",
+  "reserved": true,
+  "resourceGroup": "LinuxyThings",
+  "scmSiteAlsoStopped": false,
+  "serverFarmId": "/subscriptions/35df86c8-113e-4745-90c7-9776b00afee8/resourceGroups/LinuxyThings/providers/Microsoft.Web/serverfarms/LinuxPlan",
+  "siteConfig": null,
+  "slotSwapStatus": null,
+  "state": "Running",
+  "suspendedTill": null,
+  "tags": null,
+  "targetSwapSlot": null,
+  "trafficManagerHostNames": null,
+  "type": "Microsoft.Web/sites",
+  "usageState": "Normal"
+}
+Alenas-MBP:scalaonazure lenok$ az webapp log config -n ScalaOnAzure -g LinuxyThings --web-server-logging filesystem
+{
+  "applicationLogs": {
+    "azureBlobStorage": {
+      "level": "Off",
+      "retentionInDays": null,
+      "sasUrl": null
+    },
+    "azureTableStorage": {
+      "level": "Off",
+      "sasUrl": null
+    },
+    "fileSystem": {
+      "level": "Off"
+    }
+  },
+  "detailedErrorMessages": {
+    "enabled": false
+  },
+  "failedRequestsTracing": {
+    "enabled": false
+  },
+  "httpLogs": {
+    "azureBlobStorage": {
+      "enabled": false,
+      "retentionInDays": 3,
+      "sasUrl": null
+    },
+    "fileSystem": {
+      "enabled": true,
+      "retentionInDays": 3,
+      "retentionInMb": 100
+    }
+  },
+  "id": "/subscriptions/35df86c8-113e-4745-90c7-9776b00afee8/resourceGroups/LinuxyThings/providers/Microsoft.Web/sites/ScalaOnAzure/config/logs",
+  "kind": null,
+  "location": "West US",
+  "name": "logs",
+  "resourceGroup": "LinuxyThings",
+  "tags": null,
+  "type": "Microsoft.Web/sites/config"
+}
+Alenas-MBP:scalaonazure lenok$ az webapp config appsettings set --resource-group myResourceGroup --name <web-app-name> --settings WEBSITES_PORT=2222
+Alenas-MBP:scalaonazure lenok$ az webapp config appsettings set --resource-group LinuxyThings --name ScalaOnAzure --settings WEBSITES_PORT=9000
+T=9000:scalaonazure lenok$ az webapp config appsettings set --resource-group LinuxyThings --name ScalaOnAzure --settings WEBSITES_
+[RT=9000
+  {
+    "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+    "slotSetting": false,
+    "value": "false"
+  },
+  {
+    "name": "WEBSITE_HTTPLOGGING_RETENTION_DAYS",
+    "slotSetting": false,
+    "value": "3"
+  },
+  {
+    "name": "PORT",
+    "slotSetting": false,
+    "value": "9000"
+  },
+  {
+    "name": "WEBSITES_PORT",
+    "slotSetting": false,
+    "value": "9000"
+  }
+]
+Alenas-MBP:scalaonazure lenok$
+Alenas-MBP:scalaonazure lenok$ az webapp config appsettings set --resource-group LinuxyThings --name ScalaOnAzure --settings WEBSITES_PORT=9000
+[
+  {
+    "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+    "slotSetting": false,
+    "value": "false"
+  },
+  {
+    "name": "WEBSITE_HTTPLOGGING_RETENTION_DAYS",
+    "slotSetting": false,
+    "value": "3"
+  },
+  {
+    "name": "PORT",
+    "slotSetting": false,
+    "value": "9000"
+  },
+  {
+    "name": "WEBSITES_PORT",
+    "slotSetting": false,
+    "value": "9000"
+  }
+]
+Alenas-MBP:scalaonazure lenok$ az webapp create -n ScalaAzure -g LinuxyThings -p LinuxPlan -i lenadroid/azscala -
+--debug                            --name                             --startup-file                     -l
+--deployment-container-image-name  --output                           --verbose                          -n
+--deployment-local-git             --plan                             -b                                 -o
+--deployment-source-branch         --query                            -g                                 -p
+--deployment-source-url            --resource-group                   -h                                 -r
+--help                             --runtime                          -i                                 -u
+Alenas-MBP:scalaonazure lenok$ az webapp create -n ScalaAzure -g LinuxyThings -p LinuxPlan -i lenadroid/azscala --runtime "java|1.8"
+usage error: --runtime | --deployment-container-image-name
+Alenas-MBP:scalaonazure lenok$ az webapp create -n ScalaAzure -g LinuxyThings -p LinuxPlan --deployment-container-image-name "lenadroid/azscala" --runtime "java|1.8"
+usage error: --runtime | --deployment-container-image-name
+Alenas-MBP:scalaonazure lenok$ az webapp create -n ScalaAzure -g LinuxyThings -p LinuxPlan --deployment-container-image-name "lenadroid/azscala" --runtime "java|1.8|Jetty|9.3"
+usage error: --runtime | --deployment-container-image-name
+Alenas-MBP:scalaonazure lenok$ az webapp create -n ScalaAzure -g LinuxyThings -p LinuxPlan --deployment-container-image-name "lenadroid/azscala"
+{
+  "availabilityState": "Normal",
+  "clientAffinityEnabled": true,
+  "clientCertEnabled": false,
+  "cloningInfo": null,
+  "containerSize": 0,
+  "dailyMemoryTimeQuota": 0,
+  "defaultHostName": "scalaazure.azurewebsites.net",
+  "enabled": true,
+  "enabledHostNames": [
+    "scalaazure.azurewebsites.net",
+    "scalaazure.scm.azurewebsites.net"
+  ],
+  "ftpPublishingUrl": "ftp://waws-prod-bay-081.ftp.azurewebsites.windows.net/site/wwwroot",
+  "gatewaySiteName": null,
+  "hostNameSslStates": [
+    {
+      "hostType": "Standard",
+      "name": "scalaazure.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "virtualIp": null
+    },
+    {
+      "hostType": "Repository",
+      "name": "scalaazure.scm.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "virtualIp": null
+    }
+  ],
+  "hostNames": [
+    "scalaazure.azurewebsites.net"
+  ],
+  "hostNamesDisabled": false,
+  "hostingEnvironmentProfile": null,
+  "id": "/subscriptions/35df86c8-113e-4745-90c7-9776b00afee8/resourceGroups/LinuxyThings/providers/Microsoft.Web/sites/ScalaAzure",
+  "isDefaultContainer": null,
+  "kind": "app",
+  "lastModifiedTimeUtc": "2017-10-11T16:26:59.810000",
+  "location": "West US",
+  "maxNumberOfWorkers": null,
+  "microService": null,
+  "name": "ScalaAzure",
+  "outboundIpAddresses": "13.64.73.110,40.118.133.8,40.118.169.141,40.118.253.162,13.64.147.140",
+  "premiumAppDeployed": null,
+  "repositorySiteName": "ScalaAzure",
+  "reserved": true,
+  "resourceGroup": "LinuxyThings",
+  "scmSiteAlsoStopped": false,
+  "serverFarmId": "/subscriptions/35df86c8-113e-4745-90c7-9776b00afee8/resourceGroups/LinuxyThings/providers/Microsoft.Web/serverfarms/LinuxPlan",
+  "siteConfig": null,
+  "slotSwapStatus": null,
+  "state": "Running",
+  "suspendedTill": null,
+  "tags": null,
+  "targetSwapSlot": null,
+  "trafficManagerHostNames": null,
+  "type": "Microsoft.Web/sites",
+  "usageState": "Normal"
+}
+Alenas-MBP:scalaonazure lenok$ az webapp config appsettings set --resource-group LinuxyThings --name ScalaAzure --settings WEBSITES_PORT=9000
+[
+  {
+    "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+    "slotSetting": false,
+    "value": "false"
+  },
+  {
+    "name": "WEBSITES_PORT",
+    "slotSetting": false,
+    "value": "9000"
+  }
+]
+Alenas-MBP:scalaonazure lenok$ ls
+app		build.sbt	conf		logs		project		public		target		test
+Alenas-MBP:scalaonazure lenok$ cat build.sbt
+name := """ScalaOnAzure"""
+organization := "com.example"
+
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala).disablePlugins(PlayFilters)
+
+scalaVersion := "2.12.3"
+
+libraryDependencies += guice
+libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
+
+// Adds additional packages into Twirl
+//TwirlKeys.templateImports += "com.example.controllers._"
+
+// Adds additional packages into conf/routes
+// play.sbt.routes.RoutesKeys.routesImport += "com.example.binders._"
+
+enablePlugins(DockerPlugin)
+Alenas-MBP:scalaonazure lenok$ cd ..
+Alenas-MBP:ScalaOnAzure lenok$ ls
+project		scalaonazure	target
+Alenas-MBP:ScalaOnAzure lenok$ cd ..
+Alenas-MBP:Github lenok$ ls
+CassandraAndFSharp		ProjectScaffold0		chandy-lamport-snapshot		kube-key-pair.pem		sciwhim.github.io
+DistributedScala		ScalaIdea			distributed-poppy		kubectl				spray-template
+Distropy1			ScalaOnAzure			distropy			kubernetes			spring-cloud
+DistyComms			ScalaTry			docker-spray-example		lenadroid.github.io		suaveondocker
+FSharpStorm			StarWars-social-network		dotnetfringe.github.io		lenadron.github.io		vagrant_getting_started
+GameOfThronesFSharp		TrustPolicy.json		fsharp-packer			microservice
+GoT				aws				google-cloud-sdk		my-project
+HackersExplosion.github.io	cassandra-kubernetes		hackersexplosion		notes
+PermissionsPolicy.json		cassandra-phantom		infrastructure			scala-service
+Alenas-MBP:Github lenok$ cd /Users/lenok/Documents/DeveloperAdvocateWork/
+Alenas-MBP:DeveloperAdvocateWork lenok$ ls
+Cassandra Kubernetes talk images	ScalaOnAzurePictures			hello-world-sbt
+Cassandra with Kubernetes Experiment	Tokens					play-scala-starter-example
+PlayStarter				cloud-developer-advocates		sbtexperiment
+Alenas-MBP:DeveloperAdvocateWork lenok$ cd play-scala-starter-example/
+Alenas-MBP:play-scala-starter-example lenok$ cd ..
+Alenas-MBP:DeveloperAdvocateWork lenok$ cd PlayStarter/
+Alenas-MBP:PlayStarter lenok$ ls
+playstarter	target
+Alenas-MBP:PlayStarter lenok$ cd playstarter/
+Alenas-MBP:playstarter lenok$ ls
+app		build.sbt	conf		logs		project		public		target		test
+Alenas-MBP:playstarter lenok$ cat build.sbt
+name := """PlayStarter"""
+organization := "com.example"
+
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala).disablePlugins(PlayFilters)
+
+scalaVersion := "2.12.3"
+
+libraryDependencies += guice
+libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
+
+libraryDependencies += "com.microsoft.azure" % "applicationinsights-web" % "1.0.10"
+
+
+// Adds additional packages into Twirl
+//TwirlKeys.templateImports += "com.example.controllers._"
+
+// Adds additional packages into conf/routes
+// play.sbt.routes.RoutesKeys.routesImport += "com.example.binders._"
+
+enablePlugins(DockerPlugin)Alenas-MBP:playstarter lenok$ sbt compile
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[info] Executing in batch mode. For better performance use sbt's shell
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/}root...
+[info] downloading https://repo1.maven.org/maven2/com/microsoft/azure/applicationinsights-web/1.0.10/applicationinsights-web-1.0.10.jar ...
+[info] downloading https://repo1.maven.org/maven2/com/microsoft/azure/applicationinsights-core/1.0.10/applicationinsights-core-1.0.10.jar ...
+[info] 	[SUCCESSFUL ] com.microsoft.azure#applicationinsights-web;1.0.10!applicationinsights-web.jar (57ms)
+[info] 	[SUCCESSFUL ] com.microsoft.azure#applicationinsights-core;1.0.10!applicationinsights-core.jar (688ms)
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* com.google.guava:guava:22.0 is selected over 19.0
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 22.0)
+[warn] 	    +- com.google.inject:guice:4.1.0                      (depends on 19.0)
+[warn] 	* com.typesafe.akka:akka-stream_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.play:play-streams_2.12:2.6.6          (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-http-core_2.12:10.0.10      (depends on 2.4.19)
+[warn] 	* com.typesafe.akka:akka-actor_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.akka:akka-slf4j_2.12:2.5.4            (depends on 2.5.4)
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-stream_2.12:2.5.4           (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-parsing_2.12:10.0.10        (depends on 2.4.19)
+[warn] Run 'evicted' to see detailed eviction warnings
+[success] Total time: 7 s, completed Oct 11, 2017 7:51:29 PM
+[INFO] [10/11/2017 19:51:29.385] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt compile
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[info] Executing in batch mode. For better performance use sbt's shell
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[success] Total time: 1 s, completed Oct 11, 2017 7:53:49 PM
+[INFO] [10/11/2017 19:53:49.305] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-sources.jar ...
+[info] Done packaging.
+[info] Wrote /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.pom
+[info] Main Scala API documentation to /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/api...
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+model contains 16 documentable templates
+[info] Main Scala API documentation successful.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-javadoc.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  42.28MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> 1d198bea0513
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in f5d0f253ef25
+[info]  ---> 35ab3a90869e
+[info] Removing intermediate container f5d0f253ef25
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in 5fbe928a9acf
+[info]  ---> 2e05575c70ec
+[info] Removing intermediate container 5fbe928a9acf
+[info] Step 6/7 : ENTRYPOINT bin/playstarter
+[info]  ---> Running in f213f3f2419b
+[info]  ---> bd799e095698
+[info] Removing intermediate container f213f3f2419b
+[info] Step 7/7 : CMD
+[info]  ---> Running in 4ce9f7465c04
+[info]  ---> 011c0e4a1f8c
+[info] Removing intermediate container 4ce9f7465c04
+[info] Successfully built 011c0e4a1f8c
+[info] Successfully tagged playstarter:1.0-SNAPSHOT
+[info] Built image playstarter:1.0-SNAPSHOT
+[success] Total time: 8 s, completed Oct 11, 2017 7:59:12 PM
+[INFO] [10/11/2017 19:59:12.764] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+playstarter             1.0-SNAPSHOT        011c0e4a1f8c        5 seconds ago       824MB
+lenadroid/azscala       latest              a176ea2abc97        24 hours ago        811MB
+scalaonazure            1.0-SNAPSHOT        a176ea2abc97        24 hours ago        811MB
+lenadroid/playstarter   latest              309a384681fd        26 hours ago        811MB
+<none>                  <none>              43131f9d792f        27 hours ago        811MB
+<none>                  <none>              02007f022db6        27 hours ago        812MB
+<none>                  <none>              3fe3f7c7552f        28 hours ago        812MB
+hello-world-sbt         1.0                 81c43c0427ba        29 hours ago        751MB
+openjdk                 latest              74c95c985a85        2 days ago          740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker rmi lenadroid/playstarter
+Untagged: lenadroid/playstarter:latest
+Untagged: lenadroid/playstarter@sha256:9f1811385abb3e2319e59ae3316a83f01830b0d243549ca7b378623f49ad0bd6
+Deleted: sha256:309a384681fd7e9a2224107290aa7361f753be9401d7aafe4ce90274df2b214c
+Deleted: sha256:30cb780720af1e368f57420422d125953a0d6b99adeff987936e2069e3fef259
+Deleted: sha256:82d5d3fb5eaa39640a84b9729eef599f8c86d23509e43c94cb308b3e93486612
+Deleted: sha256:9c5432b80b19a36476189d1580534f6322bdc8337d5a3ab821b8b0c93fcfbd3a
+Deleted: sha256:657aae77b35bad8aaaeee0d31205159794550ecc954975c8f73cce46d1f91d05
+Deleted: sha256:d7436148cb00830da67f7cb1bb4d36f02469bcfe4bbb7ed5f053add6c02aff98
+Deleted: sha256:366567e2efd25341e5d71062c0f783777a60b8279c0d8124c2b998f3bc2125d7
+Alenas-MBP:playstarter lenok$ docker tag playstarter:1.0-SNAPSHOT lenadroid/playstarter
+Alenas-MBP:playstarter lenok$ docker push lenadroid/playstarter
+The push refers to a repository [docker.io/lenadroid/playstarter]
+23532208569c: Pushed
+5ee3b456b1f2: Pushed
+fa25080a24b9: Layer already exists
+9b790cee2175: Layer already exists
+348667646bbd: Layer already exists
+1d381f39fece: Layer already exists
+e6683fd09097: Layer already exists
+ffe8422597ee: Layer already exists
+c2dca236d8e6: Layer already exists
+d4417cb76edb: Layer already exists
+0dc1ec77adb3: Layer already exists
+a75caa09eb1f: Layer already exists
+latest: digest: sha256:f5e2d54d5b3f6922598ccbc857d347425a47621954462f558b194e00ab1b6e3d size: 2842
+Alenas-MBP:playstarter lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-sources.jar ...
+[info] Done packaging.
+[info] Wrote /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.pom
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  42.28MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> 40f68ec7fe56
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in f31616b33396
+[info]  ---> a9d9d7336af7
+[info] Removing intermediate container f31616b33396
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in 8b217bbdf12d
+[info]  ---> ce64c6748fb3
+[info] Removing intermediate container 8b217bbdf12d
+[info] Step 6/7 : ENTRYPOINT bin/playstarter
+[info]  ---> Running in dc0598605b18
+[info]  ---> eca9fc8180c5
+[info] Removing intermediate container dc0598605b18
+[info] Step 7/7 : CMD
+[info]  ---> Running in 138066083cfc
+[info]  ---> f81ec92b7a26
+[info] Removing intermediate container 138066083cfc
+[info] Successfully built f81ec92b7a26
+[info] Successfully tagged playstarter:1.0-SNAPSHOT
+[info] Built image playstarter:1.0-SNAPSHOT
+[success] Total time: 6 s, completed Oct 11, 2017 8:16:44 PM
+[INFO] [10/11/2017 20:16:44.319] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt compile
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[info] Executing in batch mode. For better performance use sbt's shell
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[success] Total time: 1 s, completed Oct 11, 2017 8:16:56 PM
+[INFO] [10/11/2017 20:16:56.783] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+playstarter             1.0-SNAPSHOT        f81ec92b7a26        26 seconds ago      824MB
+lenadroid/playstarter   latest              011c0e4a1f8c        17 minutes ago      824MB
+lenadroid/azscala       latest              a176ea2abc97        24 hours ago        811MB
+scalaonazure            1.0-SNAPSHOT        a176ea2abc97        24 hours ago        811MB
+<none>                  <none>              43131f9d792f        27 hours ago        811MB
+<none>                  <none>              02007f022db6        27 hours ago        812MB
+<none>                  <none>              3fe3f7c7552f        29 hours ago        812MB
+hello-world-sbt         1.0                 81c43c0427ba        29 hours ago        751MB
+openjdk                 latest              74c95c985a85        2 days ago          740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker rmi lenadroid/playstarter
+Untagged: lenadroid/playstarter:latest
+Untagged: lenadroid/playstarter@sha256:f5e2d54d5b3f6922598ccbc857d347425a47621954462f558b194e00ab1b6e3d
+Deleted: sha256:011c0e4a1f8ce1d7680a6756cd7803e488e9b9bf7fad44925bd58edd06d4b155
+Deleted: sha256:bd799e0956984bb7f56b879c8e3f62e9c36a05f9d2933fc23efbe017689224a0
+Deleted: sha256:2e05575c70ec98dc1d67c7367ba21d384f29c70558151c65edb62678e3fc926f
+Deleted: sha256:35ab3a90869e05d487b5becab35d0f4d5a7270e35aa613f42e77b64001a5ad4f
+Deleted: sha256:16a0775722ced6506923bbfb1d60f2c8ca9549bec67454ef9e1ef759565a3e62
+Deleted: sha256:1d198bea0513b281ba3207df4f1f7ba2e2869114070e939064802580631b3c69
+Deleted: sha256:b1a2efe281dee94f8d5d588020626d17d90cc6010bdd4e5cd92b2d6945477b44
+Alenas-MBP:playstarter lenok$ docker tag playstarter:1.0-SNAPSHOT lenadroid/playstarter
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+lenadroid/playstarter   latest              f81ec92b7a26        36 seconds ago      824MB
+playstarter             1.0-SNAPSHOT        f81ec92b7a26        36 seconds ago      824MB
+lenadroid/azscala       latest              a176ea2abc97        24 hours ago        811MB
+scalaonazure            1.0-SNAPSHOT        a176ea2abc97        24 hours ago        811MB
+<none>                  <none>              43131f9d792f        27 hours ago        811MB
+<none>                  <none>              02007f022db6        27 hours ago        812MB
+<none>                  <none>              3fe3f7c7552f        29 hours ago        812MB
+hello-world-sbt         1.0                 81c43c0427ba        29 hours ago        751MB
+openjdk                 latest              74c95c985a85        2 days ago          740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker push lenadroid/playstarter
+The push refers to a repository [docker.io/lenadroid/playstarter]
+0321f55e5543: Pushed
+340ea4d49b5d: Pushed
+fa25080a24b9: Layer already exists
+9b790cee2175: Layer already exists
+348667646bbd: Layer already exists
+1d381f39fece: Layer already exists
+e6683fd09097: Layer already exists
+ffe8422597ee: Layer already exists
+c2dca236d8e6: Layer already exists
+d4417cb76edb: Layer already exists
+0dc1ec77adb3: Layer already exists
+a75caa09eb1f: Layer already exists
+latest: digest: sha256:dc80dbf200f278baecb9780d56eac43bf3edd11d0e57833e677982d4ca5ad7ba size: 2842
+Alenas-MBP:playstarter lenok$

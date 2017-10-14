@@ -1,0 +1,2376 @@
+Last login: Fri Oct  6 15:38:12 on ttys000
+Alenas-MBP:~ lenok$ cd /Users/lenok/Documents/DeveloperAdvocateWork/
+Alenas-MBP:DeveloperAdvocateWork lenok$ cd hello-world-sbt/
+Alenas-MBP:hello-world-sbt lenok$ docker-machine start defaukt
+Host does not exist: "defaukt"
+Alenas-MBP:hello-world-sbt lenok$ docker-machine start default
+Machine "default" is already running.
+Alenas-MBP:hello-world-sbt lenok$ docker run hello-world
+Cannot connect to the Docker daemon. Is the docker daemon running on this host?
+Alenas-MBP:hello-world-sbt lenok$ eval $(docker-machine env default)
+Alenas-MBP:hello-world-sbt lenok$ docker-machine restart
+Error: Expected to get one or more machine names as arguments
+Alenas-MBP:hello-world-sbt lenok$ docker-machine restart default
+(default) Stopping VM...
+(default) Starting VM...
+unexpected EOF
+Alenas-MBP:hello-world-sbt lenok$ eval $(docker-machine env default)
+Error checking TLS connection: Error getting driver URL: unexpected EOF
+Alenas-MBP:hello-world-sbt lenok$ docker-machine rm default
+Do you really want to remove "default"? (y/n): y
+Provider error removing machine "default": unexpected EOF
+Alenas-MBP:hello-world-sbt lenok$ docker-machine stop default
+Machine "default" is already stopped.
+Alenas-MBP:hello-world-sbt lenok$ docker-machine rm default
+Do you really want to remove "default"? (y/n): y
+Successfully removed default
+Alenas-MBP:hello-world-sbt lenok$ docker-machine create default --driver virtualbox
+Running pre-create checks...
+Creating machine...
+(default) Creating VirtualBox VM...
+(default) Creating SSH key...
+Error attempting heartbeat call to plugin server: connection is shut down
+Error creating machine: Error in driver during machine creation: unexpected EOF
+Alenas-MBP:hello-world-sbt lenok$ docker version
+could not read CA certificate "/Users/lenok/.docker/machine/machines/default/ca.pem": open /Users/lenok/.docker/machine/machines/default/ca.pem: no such file or directory
+Alenas-MBP:hello-world-sbt lenok$ docker info
+could not read CA certificate "/Users/lenok/.docker/machine/machines/default/ca.pem": open /Users/lenok/.docker/machine/machines/default/ca.pem: no such file or directory
+Alenas-MBP:hello-world-sbt lenok$ unset ${!DOCKER*}
+Alenas-MBP:hello-world-sbt lenok$ docker info
+Containers: 0
+ Running: 0
+ Paused: 0
+ Stopped: 0
+Images: 0
+Server Version: 17.09.0-ce
+Storage Driver: overlay2
+ Backing Filesystem: extfs
+ Supports d_type: true
+ Native Overlay Diff: true
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge host ipvlan macvlan null overlay
+ Log: awslogs fluentd gcplogs gelf journald json-file logentries splunk syslog
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: 06b9cb35161009dcb7123345749fef02f7cea8e0
+runc version: 3f2f8b84a77f73d38244dd690525642a72156c64
+init version: 949e6fa
+Security Options:
+ seccomp
+  Profile: default
+Kernel Version: 4.9.49-moby
+Operating System: Alpine Linux v3.5
+OSType: linux
+Architecture: x86_64
+CPUs: 4
+Total Memory: 1.952GiB
+Name: moby
+ID: RFQ3:DYCH:VGIW:DSAX:MXMC:S2XA:ARYM:4FWO:54N7:GYEQ:2OAQ:7ZJL
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): true
+ File Descriptors: 18
+ Goroutines: 29
+ System Time: 2017-10-10T22:01:56.809989102Z
+ EventsListeners: 1
+No Proxy: *.local, 169.254/16
+Registry: https://index.docker.io/v1/
+Experimental: true
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
+
+Alenas-MBP:hello-world-sbt lenok$ docker version
+Client:
+ Version:      17.09.0-ce
+ API version:  1.32
+ Go version:   go1.8.3
+ Git commit:   afdb6d4
+ Built:        Tue Sep 26 22:40:09 2017
+ OS/Arch:      darwin/amd64
+
+Server:
+ Version:      17.09.0-ce
+ API version:  1.32 (minimum version 1.12)
+ Go version:   go1.8.3
+ Git commit:   afdb6d4
+ Built:        Tue Sep 26 22:45:38 2017
+ OS/Arch:      linux/amd64
+ Experimental: true
+Alenas-MBP:hello-world-sbt lenok$ docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+5b0f327be733: Pull complete
+Digest: sha256:b2ba691d8aac9e5ac3644c0788e3d3823f9e97f757f01d2ddc6eb5458df9d801
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://cloud.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/engine/userguide/
+
+Alenas-MBP:hello-world-sbt lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from assembly.sbt,plugins.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/hello-world-sbt/project/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/hello-world-sbt/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to hello-world-sbt (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/hello-world-sbt/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/hello-world-sbt/}hello-world-sbt...
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/hello-world-sbt/target/scala-2.12/hello-world-sbt_2.12-1.0-sources.jar ...
+[info] Done packaging.
+[info] Done updating.
+[info] Wrote /Users/lenok/Documents/DeveloperAdvocateWork/hello-world-sbt/target/scala-2.12/hello-world-sbt_2.12-1.0.pom
+[info] Main Scala API documentation to /Users/lenok/Documents/DeveloperAdvocateWork/hello-world-sbt/target/scala-2.12/api...
+model contains 3 documentable templates
+[info] Main Scala API documentation successful.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/hello-world-sbt/target/scala-2.12/hello-world-sbt_2.12-1.0-javadoc.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  5.271MB
+[info] Step 1/7 : FROM openjdk:latest
+[info] latest: Pulling from library/openjdk
+[info] 3e17c6eae66c: Pulling fs layer
+[info] 74d44b20f851: Pulling fs layer
+[info] a156217f3fa4: Pulling fs layer
+[info] 4a1ed13b6faa: Pulling fs layer
+[info] 77980e5d0a6d: Pulling fs layer
+[info] 5458607a81d3: Pulling fs layer
+[info] e34cf8338f42: Pulling fs layer
+[info] 2f3d3da5c56e: Pulling fs layer
+[info] 2ade7a861e3f: Pulling fs layer
+[info] 5458607a81d3: Waiting
+[info] e34cf8338f42: Waiting
+[info] 2ade7a861e3f: Waiting
+[info] 2f3d3da5c56e: Waiting
+[info] 77980e5d0a6d: Waiting
+[info] 4a1ed13b6faa: Waiting
+[info] a156217f3fa4: Verifying Checksum
+[info] a156217f3fa4: Download complete
+[info] 74d44b20f851: Verifying Checksum
+[info] 74d44b20f851: Download complete
+[info] 77980e5d0a6d: Verifying Checksum
+[info] 77980e5d0a6d: Download complete
+[info] 5458607a81d3: Download complete
+[info] e34cf8338f42: Verifying Checksum
+[info] e34cf8338f42: Download complete
+[info] 3e17c6eae66c: Verifying Checksum
+[info] 3e17c6eae66c: Download complete
+[info] 2ade7a861e3f: Verifying Checksum
+[info] 2ade7a861e3f: Download complete
+[info] 3e17c6eae66c: Pull complete
+[info] 74d44b20f851: Pull complete
+[info] a156217f3fa4: Pull complete
+[info] 4a1ed13b6faa: Verifying Checksum
+[info] 4a1ed13b6faa: Download complete
+[info] 4a1ed13b6faa: Pull complete
+[info] 77980e5d0a6d: Pull complete
+[info] 5458607a81d3: Pull complete
+[info] e34cf8338f42: Pull complete
+[info] 2f3d3da5c56e: Verifying Checksum
+[info] 2f3d3da5c56e: Download complete
+[info] 2f3d3da5c56e: Pull complete
+[info] 2ade7a861e3f: Pull complete
+[info] Digest: sha256:9745ed74401b23fb845b4eb7ae07ecb7dc2d40bece6bdb089975a20f76766401
+[info] Status: Downloaded newer image for openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> 8ef8db634b70
+[info] Removing intermediate container aa70eb3b7659
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> baa9195264e2
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in 925f143cecc2
+[info]  ---> 73171c4b33aa
+[info] Removing intermediate container 925f143cecc2
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in 8a7258eaa611
+[info]  ---> cf0b85a6bb0c
+[info] Removing intermediate container 8a7258eaa611
+[info] Step 6/7 : ENTRYPOINT bin/hello-world-sbt
+[info]  ---> Running in 87490b605b8e
+[info]  ---> 5796d86915bd
+[info] Removing intermediate container 87490b605b8e
+[info] Step 7/7 : CMD
+[info]  ---> Running in 149d8e46b54a
+[info]  ---> 81c43c0427ba
+[info] Removing intermediate container 149d8e46b54a
+[info] Successfully built 81c43c0427ba
+[info] Successfully tagged hello-world-sbt:1.0
+[info] Built image hello-world-sbt:1.0
+[success] Total time: 73 s, completed Oct 10, 2017 3:04:54 PM
+Alenas-MBP:hello-world-sbt lenok$ docker run hello-world-sbt:1.0
+Hello world SBT / Scala App
+Alenas-MBP:hello-world-sbt lenok$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+Alenas-MBP:hello-world-sbt lenok$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+hello-world-sbt     1.0                 81c43c0427ba        2 minutes ago       751MB
+openjdk             latest              74c95c985a85        21 hours ago        740MB
+hello-world         latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:hello-world-sbt lenok$ cd ..
+Alenas-MBP:DeveloperAdvocateWork lenok$ ls
+Cassandra Kubernetes talk images	Tokens					hello-world-sbt				sbtexperiment
+Cassandra with Kubernetes Experiment	cloud-developer-advocates		play-scala-starter-example
+Alenas-MBP:DeveloperAdvocateWork lenok$ sbt new playframework/play-scala-seed.g8
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Set current project to developeradvocatework (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+
+This template generates a Play Scala project
+
+name [play-scala-seed]: PlayStarter
+organization [com.example]:
+scalatestplusplay_version [maven(org.scalatestplus.play, scalatestplus-play_2.12, stable)]:
+play_version [maven(com.typesafe.play, play_2.12, stable)]:
+sbt_version [maven(org.scala-sbt, sbt, stable)]:
+
+Template applied in ./playstarter
+
+Alenas-MBP:DeveloperAdvocateWork lenok$ ls
+Cassandra Kubernetes talk images	Tokens					hello-world-sbt				playstarter				target
+Cassandra with Kubernetes Experiment	cloud-developer-advocates		play-scala-starter-example		sbtexperiment
+Alenas-MBP:DeveloperAdvocateWork lenok$ open .
+Alenas-MBP:DeveloperAdvocateWork lenok$ cd PlayStarter/
+Alenas-MBP:PlayStarter lenok$ sbt run
+[warn] No sbt.version set in project/build.properties, base directory: /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Set current project to playstarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/}playstarter...
+[info] Done updating.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/target/scala-2.12/playstarter_2.12-0.1-SNAPSHOT.jar ...
+[info] Done packaging.
+[error] java.lang.RuntimeException: No main class detected.
+[error] 	at scala.sys.package$.error(package.scala:27)
+[error] 	at sbt.Defaults$.$anonfun$bgRunTask$4(Defaults.scala:1146)
+[error] 	at scala.Option.getOrElse(Option.scala:121)
+[error] 	at sbt.Defaults$.$anonfun$bgRunTask$3(Defaults.scala:1146)
+[error] 	at scala.Function1.$anonfun$compose$1(Function1.scala:44)
+[error] 	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:42)
+[error] 	at sbt.std.Transform$$anon$4.work(System.scala:64)
+[error] 	at sbt.Execute.$anonfun$submit$2(Execute.scala:257)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+[error] 	at sbt.Execute.work(Execute.scala:266)
+[error] 	at sbt.Execute.$anonfun$submit$1(Execute.scala:257)
+[error] 	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:167)
+[error] 	at sbt.CompletionService$$anon$2.call(CompletionService.scala:32)
+[error] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[error] 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+[error] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[error] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[error] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[error] 	at java.lang.Thread.run(Thread.java:745)
+[error] (compile:bgRun) No main class detected.
+[error] Total time: 2 s, completed Oct 10, 2017 3:18:58 PM
+Alenas-MBP:PlayStarter lenok$ cd playstarter/
+Alenas-MBP:playstarter lenok$ ls
+app		build.sbt	conf		project		public		test
+Alenas-MBP:playstarter lenok$ sbt run
+Getting org.scala-sbt sbt maven(org.scala-sbt, sbt, stable) ...
+
+:: problems summary ::
+:::: WARNINGS
+		module not found: org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)
+
+	==== local: tried
+
+	  /Users/lenok/.ivy2/local/org.scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/ivys/ivy.xml
+
+	  -- artifact org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)!sbt.jar:
+
+	  /Users/lenok/.ivy2/local/org.scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/jars/sbt.jar
+
+	==== local-preloaded-ivy: tried
+
+	  file:////Users/lenok/.sbt/preloaded/org.scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/ivys/ivy.xml
+
+	==== local-preloaded: tried
+
+	  file:////Users/lenok/.sbt/preloaded/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).pom
+
+	  -- artifact org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)!sbt.jar:
+
+	  file:////Users/lenok/.sbt/preloaded/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).jar
+
+	==== Maven Central: tried
+
+	  https://repo1.maven.org/maven2/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).pom
+
+	  -- artifact org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)!sbt.jar:
+
+	  https://repo1.maven.org/maven2/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).jar
+
+	==== sbt-maven-releases: tried
+
+	  https://repo.scala-sbt.org/scalasbt/maven-releases/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).pom
+
+	  -- artifact org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)!sbt.jar:
+
+	  https://repo.scala-sbt.org/scalasbt/maven-releases/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).jar
+
+	==== sbt-maven-snapshots: tried
+
+	  https://repo.scala-sbt.org/scalasbt/maven-snapshots/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).pom
+
+	  -- artifact org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)!sbt.jar:
+
+	  https://repo.scala-sbt.org/scalasbt/maven-snapshots/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).jar
+
+	==== typesafe-ivy-releases: tried
+
+	  https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/ivys/ivy.xml
+
+	==== sbt-ivy-snapshots: tried
+
+	  https://repo.scala-sbt.org/scalasbt/ivy-snapshots/org.scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/ivys/ivy.xml
+
+		::::::::::::::::::::::::::::::::::::::::::::::
+
+		::          UNRESOLVED DEPENDENCIES         ::
+
+		::::::::::::::::::::::::::::::::::::::::::::::
+
+		:: org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable): not found
+
+		::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+:: USE VERBOSE OR DEBUG MESSAGE LEVEL FOR MORE DETAILS
+unresolved dependency: org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable): not found
+Error during sbt execution: Error retrieving required libraries
+  (see /Users/lenok/.sbt/boot/update.log for complete log)
+Error: Could not retrieve sbt maven(org.scala-sbt, sbt, stable)
+Alenas-MBP:playstarter lenok$ sbt run
+Getting org.scala-sbt sbt maven(org.scala-sbt, sbt, stable) ...
+
+:: problems summary ::
+:::: WARNINGS
+		module not found: org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)
+
+	==== local: tried
+
+	  /Users/lenok/.ivy2/local/org.scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/ivys/ivy.xml
+
+	  -- artifact org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)!sbt.jar:
+
+	  /Users/lenok/.ivy2/local/org.scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/jars/sbt.jar
+
+	==== local-preloaded-ivy: tried
+
+	  file:////Users/lenok/.sbt/preloaded/org.scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/ivys/ivy.xml
+
+	==== local-preloaded: tried
+
+	  file:////Users/lenok/.sbt/preloaded/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).pom
+
+	  -- artifact org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)!sbt.jar:
+
+	  file:////Users/lenok/.sbt/preloaded/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).jar
+
+	==== Maven Central: tried
+
+	  https://repo1.maven.org/maven2/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).pom
+
+	  -- artifact org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)!sbt.jar:
+
+	  https://repo1.maven.org/maven2/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).jar
+
+	==== sbt-maven-releases: tried
+
+	  https://repo.scala-sbt.org/scalasbt/maven-releases/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).pom
+
+	  -- artifact org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)!sbt.jar:
+
+	  https://repo.scala-sbt.org/scalasbt/maven-releases/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).jar
+
+	==== sbt-maven-snapshots: tried
+
+	  https://repo.scala-sbt.org/scalasbt/maven-snapshots/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).pom
+
+	  -- artifact org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable)!sbt.jar:
+
+	  https://repo.scala-sbt.org/scalasbt/maven-snapshots/org/scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/sbt-maven(org.scala-sbt, sbt, stable).jar
+
+	==== typesafe-ivy-releases: tried
+
+	  https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/ivys/ivy.xml
+
+	==== sbt-ivy-snapshots: tried
+
+	  https://repo.scala-sbt.org/scalasbt/ivy-snapshots/org.scala-sbt/sbt/maven(org.scala-sbt, sbt, stable)/ivys/ivy.xml
+
+		::::::::::::::::::::::::::::::::::::::::::::::
+
+		::          UNRESOLVED DEPENDENCIES         ::
+
+		::::::::::::::::::::::::::::::::::::::::::::::
+
+		:: org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable): not found
+
+		::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+:: USE VERBOSE OR DEBUG MESSAGE LEVEL FOR MORE DETAILS
+unresolved dependency: org.scala-sbt#sbt;maven(org.scala-sbt, sbt, stable): not found
+Error during sbt execution: Error retrieving required libraries
+  (see /Users/lenok/.sbt/boot/update.log for complete log)
+Error: Could not retrieve sbt maven(org.scala-sbt, sbt, stable)
+Alenas-MBP:playstarter lenok$ sbt run
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project/}playstarter-build...
+[warn] 	module not found: com.typesafe.play#sbt-plugin;play_2.12
+[warn] ==== typesafe-ivy-releases: tried
+[warn]   https://repo.typesafe.com/typesafe/ivy-releases/com.typesafe.play/sbt-plugin/scala_2.12/sbt_1.0//play_2.12/ivys/ivy.xml
+[warn] ==== sbt-plugin-releases: tried
+[warn]   https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/com.typesafe.play/sbt-plugin/scala_2.12/sbt_1.0//play_2.12/ivys/ivy.xml
+[warn] ==== local: tried
+[warn]   /Users/lenok/.ivy2/local/com.typesafe.play/sbt-plugin/scala_2.12/sbt_1.0//play_2.12/ivys/ivy.xml
+[warn] ==== public: tried
+[warn]   https://repo1.maven.org/maven2/com/typesafe/play/sbt-plugin_2.12_1.0/play_2.12/sbt-plugin-play_2.12.pom
+[warn] ==== local-preloaded-ivy: tried
+[warn]   /Users/lenok/.sbt/preloaded/com.typesafe.play/sbt-plugin/play_2.12/ivys/ivy.xml
+[warn] ==== local-preloaded: tried
+[warn]   file:////Users/lenok/.sbt/preloaded/com/typesafe/play/sbt-plugin_2.12_1.0/play_2.12/sbt-plugin-play_2.12.pom
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn] 	::          UNRESOLVED DEPENDENCIES         ::
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn] 	:: com.typesafe.play#sbt-plugin;play_2.12: not found
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn]
+[warn] 	Note: Some unresolved dependencies have extra attributes.  Check that these dependencies exist with the requested attributes.
+[warn] 		com.typesafe.play:sbt-plugin:play_2.12 (scalaVersion=2.12, sbtVersion=1.0)
+[warn]
+[warn] 	Note: Unresolved dependencies path:
+[warn] 		com.typesafe.play:sbt-plugin:play_2.12 (scalaVersion=2.12, sbtVersion=1.0) (/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project/plugins.sbt#L1-2)
+[warn] 		  +- default:playstarter-build:0.1-SNAPSHOT (scalaVersion=2.12, sbtVersion=1.0)
+[error] sbt.librarymanagement.ResolveException: unresolved dependency: com.typesafe.play#sbt-plugin;play_2.12: not found
+[error] 	at sbt.internal.librarymanagement.IvyActions$.resolveAndRetrieve(IvyActions.scala:331)
+[error] 	at sbt.internal.librarymanagement.IvyActions$.$anonfun$updateEither$1(IvyActions.scala:205)
+[error] 	at sbt.internal.librarymanagement.IvySbt$Module.$anonfun$withModule$1(Ivy.scala:229)
+[error] 	at sbt.internal.librarymanagement.IvySbt.$anonfun$withIvy$1(Ivy.scala:190)
+[error] 	at sbt.internal.librarymanagement.IvySbt.sbt$internal$librarymanagement$IvySbt$$action$1(Ivy.scala:70)
+[error] 	at sbt.internal.librarymanagement.IvySbt$$anon$3.call(Ivy.scala:77)
+[error] 	at xsbt.boot.Locks$GlobalLock.withChannel$1(Locks.scala:93)
+[error] 	at xsbt.boot.Locks$GlobalLock.xsbt$boot$Locks$GlobalLock$$withChannelRetries$1(Locks.scala:78)
+[error] 	at xsbt.boot.Locks$GlobalLock$$anonfun$withFileLock$1.apply(Locks.scala:97)
+[error] 	at xsbt.boot.Using$.withResource(Using.scala:10)
+[error] 	at xsbt.boot.Using$.apply(Using.scala:9)
+[error] 	at xsbt.boot.Locks$GlobalLock.ignoringDeadlockAvoided(Locks.scala:58)
+[error] 	at xsbt.boot.Locks$GlobalLock.withLock(Locks.scala:48)
+[error] 	at xsbt.boot.Locks$.apply0(Locks.scala:31)
+[error] 	at xsbt.boot.Locks$.apply(Locks.scala:28)
+[error] 	at sbt.internal.librarymanagement.IvySbt.withDefaultLogger(Ivy.scala:77)
+[error] 	at sbt.internal.librarymanagement.IvySbt.withIvy(Ivy.scala:185)
+[error] 	at sbt.internal.librarymanagement.IvySbt.withIvy(Ivy.scala:182)
+[error] 	at sbt.internal.librarymanagement.IvySbt$Module.withModule(Ivy.scala:228)
+[error] 	at sbt.internal.librarymanagement.IvyActions$.updateEither(IvyActions.scala:190)
+[error] 	at sbt.librarymanagement.ivy.IvyDependencyResolution.update(IvyDependencyResolution.scala:20)
+[error] 	at sbt.librarymanagement.DependencyResolution.update(DependencyResolution.scala:56)
+[error] 	at sbt.internal.LibraryManagement$.resolve$1(LibraryManagement.scala:38)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$12(LibraryManagement.scala:91)
+[error] 	at sbt.util.Tracked$.$anonfun$lastOutput$1(Tracked.scala:68)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$19(LibraryManagement.scala:104)
+[error] 	at scala.util.control.Exception$Catch.apply(Exception.scala:224)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$11(LibraryManagement.scala:104)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$11$adapted(LibraryManagement.scala:87)
+[error] 	at sbt.util.Tracked$.$anonfun$inputChanged$1(Tracked.scala:149)
+[error] 	at sbt.internal.LibraryManagement$.cachedUpdate(LibraryManagement.scala:118)
+[error] 	at sbt.Classpaths$.$anonfun$updateTask$5(Defaults.scala:2353)
+[error] 	at scala.Function1.$anonfun$compose$1(Function1.scala:44)
+[error] 	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:42)
+[error] 	at sbt.std.Transform$$anon$4.work(System.scala:64)
+[error] 	at sbt.Execute.$anonfun$submit$2(Execute.scala:257)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+[error] 	at sbt.Execute.work(Execute.scala:266)
+[error] 	at sbt.Execute.$anonfun$submit$1(Execute.scala:257)
+[error] 	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:167)
+[error] 	at sbt.CompletionService$$anon$2.call(CompletionService.scala:32)
+[error] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[error] 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+[error] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[error] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[error] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[error] 	at java.lang.Thread.run(Thread.java:745)
+[error] (*:update) sbt.librarymanagement.ResolveException: unresolved dependency: com.typesafe.play#sbt-plugin;play_2.12: not found
+Project loading failed: (r)etry, (q)uit, (l)ast, or (i)gnore? i
+[warn] Ignoring load failure: no project loaded.
+[error] java.lang.RuntimeException: Session not initialized.
+[error] 	at scala.sys.package$.error(package.scala:27)
+[error] 	at sbt.Project$.$anonfun$getOrError$1(Project.scala:442)
+[error] 	at scala.Option.getOrElse(Option.scala:121)
+[error] 	at sbt.Project$.getOrError(Project.scala:442)
+[error] 	at sbt.Project$.session(Project.scala:448)
+[error] 	at sbt.Project$.extract(Project.scala:453)
+[error] 	at sbt.BuiltinCommands$.notifyUsersAboutShell(Main.scala:796)
+[error] 	at sbt.BuiltinCommands$.$anonfun$notifyUsersAboutShell$3(Main.scala:805)
+[error] 	at sbt.Command$.$anonfun$command$2(Command.scala:79)
+[error] 	at sbt.MainLoop$.processCommand(MainLoop.scala:121)
+[error] 	at sbt.MainLoop$.$anonfun$next$2(MainLoop.scala:105)
+[error] 	at sbt.State$$anon$1.runCmd$1(State.scala:227)
+[error] 	at sbt.State$$anon$1.process(State.scala:233)
+[error] 	at sbt.MainLoop$.$anonfun$next$1(MainLoop.scala:105)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+[error] 	at sbt.MainLoop$.next(MainLoop.scala:105)
+[error] 	at sbt.MainLoop$.run(MainLoop.scala:98)
+[error] 	at sbt.MainLoop$.$anonfun$runWithNewLog$1(MainLoop.scala:76)
+[error] 	at sbt.io.Using.apply(Using.scala:22)
+[error] 	at sbt.MainLoop$.runWithNewLog(MainLoop.scala:70)
+[error] 	at sbt.MainLoop$.runAndClearLast(MainLoop.scala:52)
+[error] 	at sbt.MainLoop$.runLoggedLoop(MainLoop.scala:37)
+[error] 	at sbt.MainLoop$.runLogged(MainLoop.scala:29)
+[error] 	at sbt.StandardMain$.runManaged(Main.scala:104)
+[error] 	at sbt.xMain.run(Main.scala:71)
+[error] 	at xsbt.boot.Launch$$anonfun$run$1.apply(Launch.scala:109)
+[error] 	at xsbt.boot.Launch$.withContextLoader(Launch.scala:128)
+[error] 	at xsbt.boot.Launch$.run(Launch.scala:109)
+[error] 	at xsbt.boot.Launch$$anonfun$apply$1.apply(Launch.scala:35)
+[error] 	at xsbt.boot.Launch$.launch(Launch.scala:117)
+[error] 	at xsbt.boot.Launch$.apply(Launch.scala:18)
+[error] 	at xsbt.boot.Boot$.runImpl(Boot.scala:41)
+[error] 	at xsbt.boot.Boot$.main(Boot.scala:17)
+[error] 	at xsbt.boot.Boot.main(Boot.scala)
+[error] Session not initialized.
+[error] Use 'last' for the full log.
+Alenas-MBP:playstarter lenok$ docker stop
+"docker stop" requires at least 1 argument.
+See 'docker stop --help'.
+
+Usage:  docker stop [OPTIONS] CONTAINER [CONTAINER...]
+
+Stop one or more running containers
+Alenas-MBP:playstarter lenok$ docker-machine stop
+Stopping "default"...
+machine does not exist
+Alenas-MBP:playstarter lenok$ docker-machine stop default
+Stopping "default"...
+machine does not exist
+Alenas-MBP:playstarter lenok$ docker machines
+docker: 'machines' is not a docker command.
+See 'docker --help'
+Alenas-MBP:playstarter lenok$ docker-machine list
+docker-machine: 'list' is not a docker-machine command. See 'docker-machine --help'.
+Alenas-MBP:playstarter lenok$ sbt run
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project/}playstarter-build...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* org.codehaus.plexus:plexus-utils:3.0.17 is selected over {2.1, 1.5.5}
+[warn] 	    +- org.apache.maven:maven-settings:3.2.2              (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-repository-metadata:3.2.2   (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-aether-provider:3.2.2       (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-model:3.2.2                 (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-core:3.2.2                  (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-artifact:3.2.2              (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-settings-builder:3.2.2      (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-model-builder:3.2.2         (depends on 3.0.17)
+[warn] 	    +- org.sonatype.plexus:plexus-sec-dispatcher:1.3      (depends on 1.5.5)
+[warn] 	    +- org.eclipse.sisu:org.eclipse.sisu.plexus:0.0.0.M5  (depends on 2.1)
+[warn] 	* com.google.guava:guava:23.0 is selected over {10.0.1, 15.0, 18.0}
+[warn] 	    +- io.methvin:directory-watcher:0.1.3                 (depends on 23.0)
+[warn] 	    +- org.eclipse.sisu:org.eclipse.sisu.plexus:0.0.0.M5  (depends on 10.0.1)
+[warn] 	    +- com.fasterxml.jackson.datatype:jackson-datatype-guava:2.6.0 (depends on 10.0.1)
+[warn] 	    +- com.spotify:docker-client:3.5.13                   (depends on 10.0.1)
+[warn] Run 'evicted' to see detailed eviction warnings
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/}root...
+[warn] 	module not found: org.scalatestplus.play#scalatestplus-play_2.12;scalatestplus-play_2.12
+[warn] ==== local: tried
+[warn]   /Users/lenok/.ivy2/local/org.scalatestplus.play/scalatestplus-play_2.12//scalatestplus-play_2.12/ivys/ivy.xml
+[warn] ==== public: tried
+[warn]   https://repo1.maven.org/maven2/org/scalatestplus/play/scalatestplus-play_2.12/scalatestplus-play_2.12/scalatestplus-play_2.12-scalatestplus-play_2.12.pom
+[warn] ==== local-preloaded-ivy: tried
+[warn]   /Users/lenok/.sbt/preloaded/org.scalatestplus.play/scalatestplus-play_2.12/scalatestplus-play_2.12/ivys/ivy.xml
+[warn] ==== local-preloaded: tried
+[warn]   file:////Users/lenok/.sbt/preloaded/org/scalatestplus/play/scalatestplus-play_2.12/scalatestplus-play_2.12/scalatestplus-play_2.12-scalatestplus-play_2.12.pom
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn] 	::          UNRESOLVED DEPENDENCIES         ::
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn] 	:: org.scalatestplus.play#scalatestplus-play_2.12;scalatestplus-play_2.12: not found
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn]
+[warn] 	Note: Unresolved dependencies path:
+[warn] 		org.scalatestplus.play:scalatestplus-play_2.12:scalatestplus-play_2.12 (/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/build.sbt#L11-12)
+[warn] 		  +- com.example:playstarter_2.12:1.0-SNAPSHOT
+[error] sbt.librarymanagement.ResolveException: unresolved dependency: org.scalatestplus.play#scalatestplus-play_2.12;scalatestplus-play_2.12: not found
+[error] 	at sbt.internal.librarymanagement.IvyActions$.resolveAndRetrieve(IvyActions.scala:331)
+[error] 	at sbt.internal.librarymanagement.IvyActions$.$anonfun$updateEither$1(IvyActions.scala:205)
+[error] 	at sbt.internal.librarymanagement.IvySbt$Module.$anonfun$withModule$1(Ivy.scala:229)
+[error] 	at sbt.internal.librarymanagement.IvySbt.$anonfun$withIvy$1(Ivy.scala:190)
+[error] 	at sbt.internal.librarymanagement.IvySbt.sbt$internal$librarymanagement$IvySbt$$action$1(Ivy.scala:70)
+[error] 	at sbt.internal.librarymanagement.IvySbt$$anon$3.call(Ivy.scala:77)
+[error] 	at xsbt.boot.Locks$GlobalLock.withChannel$1(Locks.scala:93)
+[error] 	at xsbt.boot.Locks$GlobalLock.xsbt$boot$Locks$GlobalLock$$withChannelRetries$1(Locks.scala:78)
+[error] 	at xsbt.boot.Locks$GlobalLock$$anonfun$withFileLock$1.apply(Locks.scala:97)
+[error] 	at xsbt.boot.Using$.withResource(Using.scala:10)
+[error] 	at xsbt.boot.Using$.apply(Using.scala:9)
+[error] 	at xsbt.boot.Locks$GlobalLock.ignoringDeadlockAvoided(Locks.scala:58)
+[error] 	at xsbt.boot.Locks$GlobalLock.withLock(Locks.scala:48)
+[error] 	at xsbt.boot.Locks$.apply0(Locks.scala:31)
+[error] 	at xsbt.boot.Locks$.apply(Locks.scala:28)
+[error] 	at sbt.internal.librarymanagement.IvySbt.withDefaultLogger(Ivy.scala:77)
+[error] 	at sbt.internal.librarymanagement.IvySbt.withIvy(Ivy.scala:185)
+[error] 	at sbt.internal.librarymanagement.IvySbt.withIvy(Ivy.scala:182)
+[error] 	at sbt.internal.librarymanagement.IvySbt$Module.withModule(Ivy.scala:228)
+[error] 	at sbt.internal.librarymanagement.IvyActions$.updateEither(IvyActions.scala:190)
+[error] 	at sbt.librarymanagement.ivy.IvyDependencyResolution.update(IvyDependencyResolution.scala:20)
+[error] 	at sbt.librarymanagement.DependencyResolution.update(DependencyResolution.scala:56)
+[error] 	at sbt.internal.LibraryManagement$.resolve$1(LibraryManagement.scala:38)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$12(LibraryManagement.scala:91)
+[error] 	at sbt.util.Tracked$.$anonfun$lastOutput$1(Tracked.scala:68)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$19(LibraryManagement.scala:104)
+[error] 	at scala.util.control.Exception$Catch.apply(Exception.scala:224)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$11(LibraryManagement.scala:104)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$11$adapted(LibraryManagement.scala:87)
+[error] 	at sbt.util.Tracked$.$anonfun$inputChanged$1(Tracked.scala:149)
+[error] 	at sbt.internal.LibraryManagement$.cachedUpdate(LibraryManagement.scala:118)
+[error] 	at sbt.Classpaths$.$anonfun$updateTask$5(Defaults.scala:2353)
+[error] 	at scala.Function1.$anonfun$compose$1(Function1.scala:44)
+[error] 	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:42)
+[error] 	at sbt.std.Transform$$anon$4.work(System.scala:64)
+[error] 	at sbt.Execute.$anonfun$submit$2(Execute.scala:257)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+[error] 	at sbt.Execute.work(Execute.scala:266)
+[error] 	at sbt.Execute.$anonfun$submit$1(Execute.scala:257)
+[error] 	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:167)
+[error] 	at sbt.CompletionService$$anon$2.call(CompletionService.scala:32)
+[error] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[error] 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+[error] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[error] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[error] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[error] 	at java.lang.Thread.run(Thread.java:745)
+[INFO] [10/10/2017 15:31:08.787] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+[error] (*:update) sbt.librarymanagement.ResolveException: unresolved dependency: org.scalatestplus.play#scalatestplus-play_2.12;scalatestplus-play_2.12: not found
+[error] Total time: 4 s, completed Oct 10, 2017 3:31:08 PM
+Alenas-MBP:playstarter lenok$ sbt run
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project/}playstarter-build...
+[warn] 	module not found: com.typesafe.play#sbt-plugin;2.12
+[warn] ==== typesafe-ivy-releases: tried
+[warn]   https://repo.typesafe.com/typesafe/ivy-releases/com.typesafe.play/sbt-plugin/scala_2.12/sbt_1.0//2.12/ivys/ivy.xml
+[warn] ==== sbt-plugin-releases: tried
+[warn]   https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/com.typesafe.play/sbt-plugin/scala_2.12/sbt_1.0//2.12/ivys/ivy.xml
+[warn] ==== local: tried
+[warn]   /Users/lenok/.ivy2/local/com.typesafe.play/sbt-plugin/scala_2.12/sbt_1.0//2.12/ivys/ivy.xml
+[warn] ==== public: tried
+[warn]   https://repo1.maven.org/maven2/com/typesafe/play/sbt-plugin_2.12_1.0/2.12/sbt-plugin-2.12.pom
+[warn] ==== local-preloaded-ivy: tried
+[warn]   /Users/lenok/.sbt/preloaded/com.typesafe.play/sbt-plugin/2.12/ivys/ivy.xml
+[warn] ==== local-preloaded: tried
+[warn]   file:////Users/lenok/.sbt/preloaded/com/typesafe/play/sbt-plugin_2.12_1.0/2.12/sbt-plugin-2.12.pom
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn] 	::          UNRESOLVED DEPENDENCIES         ::
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn] 	:: com.typesafe.play#sbt-plugin;2.12: not found
+[warn] 	::::::::::::::::::::::::::::::::::::::::::::::
+[warn]
+[warn] 	Note: Some unresolved dependencies have extra attributes.  Check that these dependencies exist with the requested attributes.
+[warn] 		com.typesafe.play:sbt-plugin:2.12 (scalaVersion=2.12, sbtVersion=1.0)
+[warn]
+[warn] 	Note: Unresolved dependencies path:
+[warn] 		com.typesafe.play:sbt-plugin:2.12 (scalaVersion=2.12, sbtVersion=1.0) (/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project/plugins.sbt#L1-2)
+[warn] 		  +- default:playstarter-build:0.1-SNAPSHOT (scalaVersion=2.12, sbtVersion=1.0)
+[error] sbt.librarymanagement.ResolveException: unresolved dependency: com.typesafe.play#sbt-plugin;2.12: not found
+[error] 	at sbt.internal.librarymanagement.IvyActions$.resolveAndRetrieve(IvyActions.scala:331)
+[error] 	at sbt.internal.librarymanagement.IvyActions$.$anonfun$updateEither$1(IvyActions.scala:205)
+[error] 	at sbt.internal.librarymanagement.IvySbt$Module.$anonfun$withModule$1(Ivy.scala:229)
+[error] 	at sbt.internal.librarymanagement.IvySbt.$anonfun$withIvy$1(Ivy.scala:190)
+[error] 	at sbt.internal.librarymanagement.IvySbt.sbt$internal$librarymanagement$IvySbt$$action$1(Ivy.scala:70)
+[error] 	at sbt.internal.librarymanagement.IvySbt$$anon$3.call(Ivy.scala:77)
+[error] 	at xsbt.boot.Locks$GlobalLock.withChannel$1(Locks.scala:93)
+[error] 	at xsbt.boot.Locks$GlobalLock.xsbt$boot$Locks$GlobalLock$$withChannelRetries$1(Locks.scala:78)
+[error] 	at xsbt.boot.Locks$GlobalLock$$anonfun$withFileLock$1.apply(Locks.scala:97)
+[error] 	at xsbt.boot.Using$.withResource(Using.scala:10)
+[error] 	at xsbt.boot.Using$.apply(Using.scala:9)
+[error] 	at xsbt.boot.Locks$GlobalLock.ignoringDeadlockAvoided(Locks.scala:58)
+[error] 	at xsbt.boot.Locks$GlobalLock.withLock(Locks.scala:48)
+[error] 	at xsbt.boot.Locks$.apply0(Locks.scala:31)
+[error] 	at xsbt.boot.Locks$.apply(Locks.scala:28)
+[error] 	at sbt.internal.librarymanagement.IvySbt.withDefaultLogger(Ivy.scala:77)
+[error] 	at sbt.internal.librarymanagement.IvySbt.withIvy(Ivy.scala:185)
+[error] 	at sbt.internal.librarymanagement.IvySbt.withIvy(Ivy.scala:182)
+[error] 	at sbt.internal.librarymanagement.IvySbt$Module.withModule(Ivy.scala:228)
+[error] 	at sbt.internal.librarymanagement.IvyActions$.updateEither(IvyActions.scala:190)
+[error] 	at sbt.librarymanagement.ivy.IvyDependencyResolution.update(IvyDependencyResolution.scala:20)
+[error] 	at sbt.librarymanagement.DependencyResolution.update(DependencyResolution.scala:56)
+[error] 	at sbt.internal.LibraryManagement$.resolve$1(LibraryManagement.scala:38)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$12(LibraryManagement.scala:91)
+[error] 	at sbt.util.Tracked$.$anonfun$lastOutput$1(Tracked.scala:68)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$19(LibraryManagement.scala:104)
+[error] 	at scala.util.control.Exception$Catch.apply(Exception.scala:224)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$11(LibraryManagement.scala:104)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$11$adapted(LibraryManagement.scala:87)
+[error] 	at sbt.util.Tracked$.$anonfun$inputChanged$1(Tracked.scala:149)
+[error] 	at sbt.internal.LibraryManagement$.cachedUpdate(LibraryManagement.scala:118)
+[error] 	at sbt.Classpaths$.$anonfun$updateTask$5(Defaults.scala:2353)
+[error] 	at scala.Function1.$anonfun$compose$1(Function1.scala:44)
+[error] 	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:42)
+[error] 	at sbt.std.Transform$$anon$4.work(System.scala:64)
+[error] 	at sbt.Execute.$anonfun$submit$2(Execute.scala:257)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+[error] 	at sbt.Execute.work(Execute.scala:266)
+[error] 	at sbt.Execute.$anonfun$submit$1(Execute.scala:257)
+[error] 	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:167)
+[error] 	at sbt.CompletionService$$anon$2.call(CompletionService.scala:32)
+[error] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[error] 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+[error] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[error] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[error] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[error] 	at java.lang.Thread.run(Thread.java:745)
+[error] (*:update) sbt.librarymanagement.ResolveException: unresolved dependency: com.typesafe.play#sbt-plugin;2.12: not found
+Project loading failed: (r)etry, (q)uit, (l)ast, or (i)gnore? i
+[warn] Ignoring load failure: no project loaded.
+[error] java.lang.RuntimeException: Session not initialized.
+[error] 	at scala.sys.package$.error(package.scala:27)
+[error] 	at sbt.Project$.$anonfun$getOrError$1(Project.scala:442)
+[error] 	at scala.Option.getOrElse(Option.scala:121)
+[error] 	at sbt.Project$.getOrError(Project.scala:442)
+[error] 	at sbt.Project$.session(Project.scala:448)
+[error] 	at sbt.Project$.extract(Project.scala:453)
+[error] 	at sbt.BuiltinCommands$.notifyUsersAboutShell(Main.scala:796)
+[error] 	at sbt.BuiltinCommands$.$anonfun$notifyUsersAboutShell$3(Main.scala:805)
+[error] 	at sbt.Command$.$anonfun$command$2(Command.scala:79)
+[error] 	at sbt.MainLoop$.processCommand(MainLoop.scala:121)
+[error] 	at sbt.MainLoop$.$anonfun$next$2(MainLoop.scala:105)
+[error] 	at sbt.State$$anon$1.runCmd$1(State.scala:227)
+[error] 	at sbt.State$$anon$1.process(State.scala:233)
+[error] 	at sbt.MainLoop$.$anonfun$next$1(MainLoop.scala:105)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+[error] 	at sbt.MainLoop$.next(MainLoop.scala:105)
+[error] 	at sbt.MainLoop$.run(MainLoop.scala:98)
+[error] 	at sbt.MainLoop$.$anonfun$runWithNewLog$1(MainLoop.scala:76)
+[error] 	at sbt.io.Using.apply(Using.scala:22)
+[error] 	at sbt.MainLoop$.runWithNewLog(MainLoop.scala:70)
+[error] 	at sbt.MainLoop$.runAndClearLast(MainLoop.scala:52)
+[error] 	at sbt.MainLoop$.runLoggedLoop(MainLoop.scala:37)
+[error] 	at sbt.MainLoop$.runLogged(MainLoop.scala:29)
+[error] 	at sbt.StandardMain$.runManaged(Main.scala:104)
+[error] 	at sbt.xMain.run(Main.scala:71)
+[error] 	at xsbt.boot.Launch$$anonfun$run$1.apply(Launch.scala:109)
+[error] 	at xsbt.boot.Launch$.withContextLoader(Launch.scala:128)
+[error] 	at xsbt.boot.Launch$.run(Launch.scala:109)
+[error] 	at xsbt.boot.Launch$$anonfun$apply$1.apply(Launch.scala:35)
+[error] 	at xsbt.boot.Launch$.launch(Launch.scala:117)
+[error] 	at xsbt.boot.Launch$.apply(Launch.scala:18)
+[error] 	at xsbt.boot.Boot$.runImpl(Boot.scala:41)
+[error] 	at xsbt.boot.Boot$.main(Boot.scala:17)
+[error] 	at xsbt.boot.Boot.main(Boot.scala)
+[error] Session not initialized.
+[error] Use 'last' for the full log.
+Alenas-MBP:playstarter lenok$ sbt run
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project/}playstarter-build...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* org.codehaus.plexus:plexus-utils:3.0.17 is selected over {2.1, 1.5.5}
+[warn] 	    +- org.apache.maven:maven-settings:3.2.2              (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-repository-metadata:3.2.2   (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-aether-provider:3.2.2       (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-model:3.2.2                 (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-core:3.2.2                  (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-artifact:3.2.2              (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-settings-builder:3.2.2      (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-model-builder:3.2.2         (depends on 3.0.17)
+[warn] 	    +- org.sonatype.plexus:plexus-sec-dispatcher:1.3      (depends on 1.5.5)
+[warn] 	    +- org.eclipse.sisu:org.eclipse.sisu.plexus:0.0.0.M5  (depends on 2.1)
+[warn] 	* com.google.guava:guava:23.0 is selected over {10.0.1, 15.0, 18.0}
+[warn] 	    +- io.methvin:directory-watcher:0.1.3                 (depends on 23.0)
+[warn] 	    +- org.eclipse.sisu:org.eclipse.sisu.plexus:0.0.0.M5  (depends on 10.0.1)
+[warn] 	    +- com.fasterxml.jackson.datatype:jackson-datatype-guava:2.6.0 (depends on 10.0.1)
+[warn] 	    +- com.spotify:docker-client:3.5.13                   (depends on 10.0.1)
+[warn] Run 'evicted' to see detailed eviction warnings
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/}root...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* com.google.guava:guava:22.0 is selected over 19.0
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 22.0)
+[warn] 	    +- com.google.inject:guice:4.1.0                      (depends on 19.0)
+[warn] 	* com.typesafe.akka:akka-stream_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.play:play-streams_2.12:2.6.6          (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-http-core_2.12:10.0.10      (depends on 2.4.19)
+[warn] 	* com.typesafe.akka:akka-actor_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.akka:akka-slf4j_2.12:2.5.4            (depends on 2.5.4)
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-stream_2.12:2.5.4           (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-parsing_2.12:10.0.10        (depends on 2.4.19)
+[warn] Run 'evicted' to see detailed eviction warnings
+
+--- (Running the application, auto-reloading is enabled) ---
+
+[info] p.c.s.AkkaHttpServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+(Server started, use Enter to stop and go back to the console...)
+
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Compiling 7 Scala sources and 1 Java source to /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/classes ...
+[info] Done compiling.
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] p.a.h.EnabledFilters - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+[info] play.api.Play - Application started (Dev)
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+
+[INFO] [10/10/2017 15:35:28.038] [Thread-4] [CoordinatedShutdown(akka://play-dev-mode)] Starting coordinated shutdown from JVM shutdown hook
+[INFO] [10/10/2017 15:35:28.038] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-sources.jar ...
+[info] Done packaging.
+[info] Wrote /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.pom
+[info] Main Scala API documentation to /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/api...
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-web-assets.jar ...
+[info] Done packaging.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+model contains 16 documentable templates
+[info] Main Scala API documentation successful.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-javadoc.jar ...
+[info] Done packaging.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-sans-externalized.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  36.09MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> cb78dbd9adb5
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in 83b00f83d01b
+[info]  ---> c4e40738733b
+[info] Removing intermediate container 83b00f83d01b
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in 86337b537abd
+[info]  ---> f214afb78a07
+[info] Removing intermediate container 86337b537abd
+[info] Step 6/7 : ENTRYPOINT bin/playstarter
+[info]  ---> Running in bd45b4f6b27c
+[info]  ---> f347d9f213c0
+[info] Removing intermediate container bd45b4f6b27c
+[info] Step 7/7 : CMD
+[info]  ---> Running in fd3c7bc151bf
+[info]  ---> 3fe3f7c7552f
+[info] Removing intermediate container fd3c7bc151bf
+[info] Successfully built 3fe3f7c7552f
+[info] Successfully tagged playstarter:1.0-SNAPSHOT
+[info] Built image playstarter:1.0-SNAPSHOT
+[success] Total time: 7 s, completed Oct 10, 2017 3:36:35 PM
+[INFO] [10/10/2017 15:36:35.507] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+playstarter         1.0-SNAPSHOT        3fe3f7c7552f        10 seconds ago      812MB
+hello-world-sbt     1.0                 81c43c0427ba        31 minutes ago      751MB
+openjdk             latest              74c95c985a85        22 hours ago        740MB
+hello-world         latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker run --name playStarter -p 8080:9000 playstarter:1.0-SNAPSHOT
+Oops, cannot start the server.
+Configuration error: Configuration error[
+The application secret has not been set, and we are in prod mode. Your application is not secure.
+To set the application secret, please read http://playframework.com/documentation/latest/ApplicationSecret
+          ]
+	at play.api.Configuration$.configError(Configuration.scala:155)
+	at play.api.Configuration.reportError(Configuration.scala:985)
+	at play.api.http.HttpConfiguration$.getSecretConfiguration(HttpConfiguration.scala:253)
+	at play.api.http.HttpConfiguration$.fromConfiguration(HttpConfiguration.scala:238)
+	at play.api.http.HttpConfiguration$HttpConfigurationProvider.get$lzycompute(HttpConfiguration.scala:284)
+	at play.api.http.HttpConfiguration$HttpConfigurationProvider.get(HttpConfiguration.scala:284)
+	at play.api.http.HttpConfiguration$HttpConfigurationProvider.get(HttpConfiguration.scala:283)
+	at com.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:81)
+	at com.google.inject.internal.BoundProviderFactory.provision(BoundProviderFactory.java:72)
+	at com.google.inject.internal.ProviderInternalFactory.circularGet(ProviderInternalFactory.java:61)
+	at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:62)
+	at com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:38)
+	at com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:62)
+	at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:110)
+	at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:90)
+	at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:268)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(ProviderToInternalFactoryAdapter.java:46)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:194)
+	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:41)
+	at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:61)
+	at com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:38)
+	at com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:62)
+	at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:110)
+	at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:90)
+	at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:268)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(ProviderToInternalFactoryAdapter.java:46)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:194)
+	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:41)
+	at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:61)
+	at com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:38)
+	at com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:62)
+	at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:110)
+	at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:90)
+	at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:268)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(ProviderToInternalFactoryAdapter.java:46)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:194)
+	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:41)
+	at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:61)
+	at com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:38)
+	at com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:62)
+	at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:110)
+	at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:90)
+	at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:268)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(ProviderToInternalFactoryAdapter.java:46)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:194)
+	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:41)
+	at com.google.inject.internal.FactoryProxy.get(FactoryProxy.java:56)
+	at com.google.inject.internal.InternalInjectorCreator$1.call(InternalInjectorCreator.java:205)
+	at com.google.inject.internal.InternalInjectorCreator$1.call(InternalInjectorCreator.java:199)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1085)
+	at com.google.inject.internal.InternalInjectorCreator.loadEagerSingletons(InternalInjectorCreator.java:199)
+	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:180)
+	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:110)
+	at com.google.inject.Guice.createInjector(Guice.java:99)
+	at com.google.inject.Guice.createInjector(Guice.java:84)
+	at play.api.inject.guice.GuiceBuilder.injector(GuiceInjectorBuilder.scala:185)
+	at play.api.inject.guice.GuiceApplicationBuilder.build(GuiceApplicationBuilder.scala:137)
+	at play.api.inject.guice.GuiceApplicationLoader.load(GuiceApplicationLoader.scala:21)
+	at play.core.server.ProdServerStart$.start(ProdServerStart.scala:51)
+	at play.core.server.ProdServerStart$.main(ProdServerStart.scala:25)
+	at play.core.server.ProdServerStart.main(ProdServerStart.scala)
+Alenas-MBP:playstarter lenok$ sbt
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[info] sbt server started at 127.0.0.1:4291
+[PlayStarter] $ playGenerateSecret
+[info] Generated new secret: WK39D7kNWzwXBT@faBR[G6fl?4:Ur/J<pdU<qW2mn[Z<WuBx1eUJSa[29899UiE:
+[success] Total time: 0 s, completed Oct 10, 2017 3:40:31 PM
+[PlayStarter] $ playUpdateSecret
+[info] Generated new secret: GSL44u^jyNBk1In^WIc^:TiXVB>e27MEX<L^8Or;Y=Y=Q6jADEZ0>k]Sc;CAgLQD
+[info] Updating application secret in /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/conf/application.conf
+[warn] Did not find application secret in /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/conf/application.conf
+[warn] Adding application secret to start of file
+[success] Total time: 0 s, completed Oct 10, 2017 3:43:10 PM
+[PlayStarter] $ exit
+[INFO] [10/10/2017 15:43:54.935] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-sources.jar ...
+[info] Done packaging.
+[info] Wrote /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.pom
+[info] Main Scala API documentation to /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/api...
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-web-assets.jar ...
+[info] Done packaging.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+model contains 16 documentable templates
+[info] Main Scala API documentation successful.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-javadoc.jar ...
+[info] Done packaging.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-sans-externalized.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  36.09MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> d017eefb598b
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in 952e4028bf24
+[info]  ---> 94f3074811d7
+[info] Removing intermediate container 952e4028bf24
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in 08d4ac79420e
+[info]  ---> e1c0022a8e97
+[info] Removing intermediate container 08d4ac79420e
+[info] Step 6/7 : ENTRYPOINT bin/playstarter
+[info]  ---> Running in 7d8a32bb4f6e
+[info]  ---> 5219c7e81dcd
+[info] Removing intermediate container 7d8a32bb4f6e
+[info] Step 7/7 : CMD
+[info]  ---> Running in c8d55d82f3c5
+[info]  ---> 6f27495d7ced
+[info] Removing intermediate container c8d55d82f3c5
+[info] Successfully built 6f27495d7ced
+[info] Successfully tagged playstarter:1.0-SNAPSHOT
+[info] Built image playstarter:1.0-SNAPSHOT
+[success] Total time: 7 s, completed Oct 10, 2017 3:44:12 PM
+[INFO] [10/10/2017 15:44:12.686] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ docker run --name playStarter -p 8080:9000 playstarter:1.0-SNAPSHOT
+docker: Error response from daemon: Conflict. The container name "/playStarter" is already in use by container "a3e882416cd594386bb80acfeb3d2c3ec3c9b52db94ff0103b0a4fac63c5cfc7". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+Alenas-MBP:playstarter lenok$ docker stop playStarter
+playStarter
+Alenas-MBP:playstarter lenok$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+Alenas-MBP:playstarter lenok$ docker run --name playStarter -p 8080:9000 playstarter:1.0-SNAPSHOT
+docker: Error response from daemon: Conflict. The container name "/playStarter" is already in use by container "a3e882416cd594386bb80acfeb3d2c3ec3c9b52db94ff0103b0a4fac63c5cfc7". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+Alenas-MBP:playstarter lenok$ docker run --name playStarter2 -p 8080:9000 playstarter:1.0-SNAPSHOT
+[info] play.api.Play - Application started (Prod)
+[info] p.c.s.AkkaHttpServer - Listening for HTTP on /0.0.0.0:9000
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+exit
+^C[info] p.c.s.AkkaHttpServer - Stopping server...
+Alenas-MBP:playstarter lenok$ docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: lenadroid
+Password:
+Login Succeeded
+Alenas-MBP:playstarter lenok$ docker push
+"docker push" requires exactly 1 argument.
+See 'docker push --help'.
+
+Usage:  docker push [OPTIONS] NAME[:TAG]
+
+Push an image or a repository to a registry
+Alenas-MBP:playstarter lenok$ docker push playstarter2
+The push refers to a repository [docker.io/library/playstarter2]
+An image does not exist locally with the tag: playstarter2
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+playstarter         1.0-SNAPSHOT        6f27495d7ced        19 minutes ago      812MB
+<none>              <none>              3fe3f7c7552f        26 minutes ago      812MB
+hello-world-sbt     1.0                 81c43c0427ba        About an hour ago   751MB
+openjdk             latest              74c95c985a85        22 hours ago        740MB
+hello-world         latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker push playstarter:1.0-SNAPSHOT
+The push refers to a repository [docker.io/library/playstarter]
+53d716be2475: Preparing
+bcf4e49c1a43: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker tag playstarter lenadroid\playstarter
+Error response from daemon: No such image: playstarter:latest
+Alenas-MBP:playstarter lenok$ docker tag playstarter lenadroid\playstarter
+Error response from daemon: No such image: playstarter:latest
+Alenas-MBP:playstarter lenok$ docker tag playstarter lenadroid\playstarter:1.0-SNAPSHOT
+Error response from daemon: No such image: playstarter:latest
+Alenas-MBP:playstarter lenok$ docker tag playstarter:1.0-SNAPSHOT lenadroid\playstarter
+Alenas-MBP:playstarter lenok$ docker push playstarter:1.0-SNAPSHOT
+The push refers to a repository [docker.io/library/playstarter]
+53d716be2475: Preparing
+bcf4e49c1a43: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker push playstarter:1.0-SNAPSHOT
+The push refers to a repository [docker.io/library/playstarter]
+53d716be2475: Preparing
+bcf4e49c1a43: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker push playstarter
+The push refers to a repository [docker.io/library/playstarter]
+53d716be2475: Preparing
+bcf4e49c1a43: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker tag playstarter:1.0-SNAPSHOT lenadroid\playstarter:latest
+Alenas-MBP:playstarter lenok$ docker push playstarter
+The push refers to a repository [docker.io/library/playstarter]
+53d716be2475: Preparing
+bcf4e49c1a43: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker tag playstarter lenadroid\playstarter:latest
+Error response from daemon: No such image: playstarter:latest
+Alenas-MBP:playstarter lenok$ docker tag playstarter lenadroid\playstarter
+Error response from daemon: No such image: playstarter:latest
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
+lenadroidplaystarter   latest              6f27495d7ced        24 minutes ago      812MB
+playstarter            1.0-SNAPSHOT        6f27495d7ced        24 minutes ago      812MB
+<none>                 <none>              3fe3f7c7552f        31 minutes ago      812MB
+hello-world-sbt        1.0                 81c43c0427ba        About an hour ago   751MB
+openjdk                latest              74c95c985a85        22 hours ago        740MB
+hello-world            latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker push lenadroid\playstarter
+The push refers to a repository [docker.io/library/lenadroidplaystarter]
+53d716be2475: Preparing
+bcf4e49c1a43: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker push lenadroidplaystarter
+The push refers to a repository [docker.io/library/lenadroidplaystarter]
+53d716be2475: Preparing
+bcf4e49c1a43: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker tag 6f27495d7ced lenadroid\playstarter
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
+lenadroidplaystarter   latest              6f27495d7ced        25 minutes ago      812MB
+playstarter            1.0-SNAPSHOT        6f27495d7ced        25 minutes ago      812MB
+<none>                 <none>              3fe3f7c7552f        33 minutes ago      812MB
+hello-world-sbt        1.0                 81c43c0427ba        About an hour ago   751MB
+openjdk                latest              74c95c985a85        22 hours ago        740MB
+hello-world            latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+Alenas-MBP:playstarter lenok$ docker push lenadroid\playstarter
+The push refers to a repository [docker.io/library/lenadroidplaystarter]
+53d716be2475: Preparing
+bcf4e49c1a43: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username (lenadroid): lenadroid
+Password:
+Login Succeeded
+Alenas-MBP:playstarter lenok$ docker push lenadroid\playstarter
+The push refers to a repository [docker.io/library/lenadroidplaystarter]
+53d716be2475: Preparing
+bcf4e49c1a43: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker rmi playstarter
+Error: No such image: playstarter
+Alenas-MBP:playstarter lenok$ docker rmi playstarter:1.0-SNAPSHOT
+Untagged: playstarter:1.0-SNAPSHOT
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
+lenadroidplaystarter   latest              6f27495d7ced        29 minutes ago      812MB
+<none>                 <none>              3fe3f7c7552f        36 minutes ago      812MB
+hello-world-sbt        1.0                 81c43c0427ba        About an hour ago   751MB
+openjdk                latest              74c95c985a85        22 hours ago        740MB
+hello-world            latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker rmi lenadroidplaystarter:latest
+Error response from daemon: conflict: unable to remove repository reference "lenadroidplaystarter:latest" (must force) - container c6a25b24c7c6 is using its referenced image 6f27495d7ced
+Alenas-MBP:playstarter lenok$ docker stop c6a25b24c7c6
+c6a25b24c7c6
+Alenas-MBP:playstarter lenok$ docker rmi lenadroidplaystarter:latest
+Error response from daemon: conflict: unable to remove repository reference "lenadroidplaystarter:latest" (must force) - container c6a25b24c7c6 is using its referenced image 6f27495d7ced
+Alenas-MBP:playstarter lenok$ docker rmi lenadroidplaystarter:latest -f
+Untagged: lenadroidplaystarter:latest
+Deleted: sha256:6f27495d7ced915a488ead828892f937c4c322c4f9d6d8b74c1edc20df49aec2
+Deleted: sha256:5219c7e81dcd3954ad2a66325927adcc740cac30d0588391d93fc3bcf2b664b5
+Deleted: sha256:e1c0022a8e972f5aa183f3deba4ff8647a7a48f3a7f44a42a302ed7df4593d30
+Deleted: sha256:94f3074811d78fcd25a2fb743cb66f4ba52f029c53ec1f3bc39c5cf49aa6c9f0
+Deleted: sha256:d017eefb598bce68f04f92cfbe93171d267cf137bf7bc92196b16cb1cf5f68e7
+Alenas-MBP:playstarter lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Wrote /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.pom
+[info] Sending build context to Docker daemon  36.09MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> 9bb03686d1d7
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in ffc04316c03c
+[info]  ---> 966ee97d113a
+[info] Removing intermediate container ffc04316c03c
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in ae4285b51980
+[info]  ---> 619765363cc4
+[info] Removing intermediate container ae4285b51980
+[info] Step 6/7 : ENTRYPOINT bin/playstarter
+[info]  ---> Running in e139848bb73f
+[info]  ---> f96528ea90df
+[info] Removing intermediate container e139848bb73f
+[info] Step 7/7 : CMD
+[info]  ---> Running in c47e27d7574d
+[info]  ---> 812d3d8cdc08
+[info] Removing intermediate container c47e27d7574d
+[info] Successfully built 812d3d8cdc08
+[info] Successfully tagged playstarter:1.0-SNAPSHOT
+[info] Built image playstarter:1.0-SNAPSHOT
+[success] Total time: 5 s, completed Oct 10, 2017 4:14:48 PM
+[INFO] [10/10/2017 16:14:48.177] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+playstarter         1.0-SNAPSHOT        812d3d8cdc08        5 seconds ago       812MB
+<none>              <none>              3fe3f7c7552f        38 minutes ago      812MB
+hello-world-sbt     1.0                 81c43c0427ba        About an hour ago   751MB
+openjdk             latest              74c95c985a85        22 hours ago        740MB
+hello-world         latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker tag playstarter:1.0-SNAPSHOT lenadroid\playstarter:latest
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY             TAG                 IMAGE ID            CREATED              SIZE
+lenadroidplaystarter   latest              812d3d8cdc08        About a minute ago   812MB
+playstarter            1.0-SNAPSHOT        812d3d8cdc08        About a minute ago   812MB
+<none>                 <none>              3fe3f7c7552f        39 minutes ago       812MB
+hello-world-sbt        1.0                 81c43c0427ba        About an hour ago    751MB
+openjdk                latest              74c95c985a85        22 hours ago         740MB
+hello-world            latest              05a3bd381fc2        4 weeks ago          1.84kB
+Alenas-MBP:playstarter lenok$ docker push lenadroid\playstarter:latest
+The push refers to a repository [docker.io/library/lenadroidplaystarter]
+905d55733436: Preparing
+a317fbee588f: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker push lenadroidplaystarter
+The push refers to a repository [docker.io/library/lenadroidplaystarter]
+905d55733436: Preparing
+a317fbee588f: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ docker login -u lenadroid -p Lenadroid777
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+Login Succeeded
+Alenas-MBP:playstarter lenok$ docker push lenadroid\playstarter:latest
+The push refers to a repository [docker.io/library/lenadroidplaystarter]
+905d55733436: Preparing
+a317fbee588f: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ sudo docker login
+Password:
+Sorry, try again.
+Password:
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username (lenadroid): Lenadroid777
+Password:
+Alenas-MBP:playstarter lenok$ sudo docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username (lenadroid):
+Password:
+Login Succeeded
+Alenas-MBP:playstarter lenok$ docker push lenadroid\playstarter:latest
+The push refers to a repository [docker.io/library/lenadroidplaystarter]
+905d55733436: Preparing
+a317fbee588f: Preparing
+fa25080a24b9: Preparing
+9b790cee2175: Preparing
+348667646bbd: Preparing
+1d381f39fece: Waiting
+e6683fd09097: Waiting
+ffe8422597ee: Waiting
+c2dca236d8e6: Waiting
+d4417cb76edb: Waiting
+0dc1ec77adb3: Waiting
+a75caa09eb1f: Waiting
+denied: requested access to the resource is denied
+Alenas-MBP:playstarter lenok$ service docker restart
+-bash: service: command not found
+Alenas-MBP:playstarter lenok$ docker restart
+"docker restart" requires at least 1 argument.
+See 'docker restart --help'.
+
+Usage:  docker restart [OPTIONS] CONTAINER [CONTAINER...]
+
+Restart one or more containers
+Alenas-MBP:playstarter lenok$ docker-machine restart
+Restarting "default"...
+Waiting for SSH to be available...
+^C
+Alenas-MBP:playstarter lenok$ docker-machine start
+Starting "default"...
+machine does not exist
+Alenas-MBP:playstarter lenok$ docker-machine start default
+Starting "default"...
+machine does not exist
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
+lenadroidplaystarter   latest              812d3d8cdc08        10 minutes ago      812MB
+playstarter            1.0-SNAPSHOT        812d3d8cdc08        10 minutes ago      812MB
+<none>                 <none>              3fe3f7c7552f        About an hour ago   812MB
+hello-world-sbt        1.0                 81c43c0427ba        About an hour ago   751MB
+openjdk                latest              74c95c985a85        23 hours ago        740MB
+hello-world            latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker rmi lenadroidplaystarter
+Untagged: lenadroidplaystarter:latest
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+playstarter         1.0-SNAPSHOT        812d3d8cdc08        11 minutes ago      812MB
+<none>              <none>              3fe3f7c7552f        About an hour ago   812MB
+hello-world-sbt     1.0                 81c43c0427ba        About an hour ago   751MB
+openjdk             latest              74c95c985a85        23 hours ago        740MB
+hello-world         latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker push playstarter:1.0-SNAPSHOT lenadroid/playstarter
+"docker push" requires exactly 1 argument.
+See 'docker push --help'.
+
+Usage:  docker push [OPTIONS] NAME[:TAG]
+
+Push an image or a repository to a registry
+Alenas-MBP:playstarter lenok$ docker push playstarter:1.0-SNAPSHOT lenadroid/playstarter:latest
+"docker push" requires exactly 1 argument.
+See 'docker push --help'.
+
+Usage:  docker push [OPTIONS] NAME[:TAG]
+
+Push an image or a repository to a registry
+Alenas-MBP:playstarter lenok$ docker tag playstarter:1.0-SNAPSHOT lenadroid/playstarter
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+playstarter             1.0-SNAPSHOT        812d3d8cdc08        12 minutes ago      812MB
+lenadroid/playstarter   latest              812d3d8cdc08        12 minutes ago      812MB
+<none>                  <none>              3fe3f7c7552f        About an hour ago   812MB
+hello-world-sbt         1.0                 81c43c0427ba        About an hour ago   751MB
+openjdk                 latest              74c95c985a85        23 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker push lenadroid/playstarter
+The push refers to a repository [docker.io/lenadroid/playstarter]
+905d55733436: Pushed
+a317fbee588f: Pushed
+fa25080a24b9: Pushed
+9b790cee2175: Pushed
+348667646bbd: Pushed
+1d381f39fece: Pushed
+e6683fd09097: Pushed
+ffe8422597ee: Pushed
+c2dca236d8e6: Pushed
+d4417cb76edb: Pushed
+0dc1ec77adb3: Pushed
+a75caa09eb1f: Pushed
+latest: digest: sha256:d14b939742c6096c998064e3ce07d6bab6cce5cecaeb71741a73aaf23f13455c size: 2842
+Alenas-MBP:playstarter lenok$ docker inspect lenadroid/playstarter
+[
+    {
+        "Id": "sha256:812d3d8cdc081d2ee0bab2b274abcd95e7da43be49cdc18e1e667225086eec02",
+        "RepoTags": [
+            "lenadroid/playstarter:latest",
+            "playstarter:1.0-SNAPSHOT"
+        ],
+        "RepoDigests": [
+            "lenadroid/playstarter@sha256:d14b939742c6096c998064e3ce07d6bab6cce5cecaeb71741a73aaf23f13455c"
+        ],
+        "Parent": "sha256:f96528ea90df388526d4d23b5b0b9bbd5bfbf400fd48b7b7cb1d2cf84378c7e7",
+        "Comment": "",
+        "Created": "2017-10-10T23:14:47.911968079Z",
+        "Container": "c47e27d7574dd7ae429cc5ceb50395f9b3821fbfcc3305d5fb58bd4474b31823",
+        "ContainerConfig": {
+            "Hostname": "c47e27d7574d",
+            "Domainname": "",
+            "User": "daemon",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "JAVA_HOME=/docker-java-home",
+                "JAVA_VERSION=8u141",
+                "JAVA_DEBIAN_VERSION=8u141-b15-1~deb9u1",
+                "CA_CERTIFICATES_JAVA_VERSION=20170531+nmu1"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "#(nop) ",
+                "CMD []"
+            ],
+            "ArgsEscaped": true,
+            "Image": "sha256:f96528ea90df388526d4d23b5b0b9bbd5bfbf400fd48b7b7cb1d2cf84378c7e7",
+            "Volumes": null,
+            "WorkingDir": "/opt/docker",
+            "Entrypoint": [
+                "bin/playstarter"
+            ],
+            "OnBuild": [],
+            "Labels": {}
+        },
+        "DockerVersion": "17.09.0-ce",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "daemon",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "JAVA_HOME=/docker-java-home",
+                "JAVA_VERSION=8u141",
+                "JAVA_DEBIAN_VERSION=8u141-b15-1~deb9u1",
+                "CA_CERTIFICATES_JAVA_VERSION=20170531+nmu1"
+            ],
+            "Cmd": [],
+            "ArgsEscaped": true,
+            "Image": "sha256:f96528ea90df388526d4d23b5b0b9bbd5bfbf400fd48b7b7cb1d2cf84378c7e7",
+            "Volumes": null,
+            "WorkingDir": "/opt/docker",
+            "Entrypoint": [
+                "bin/playstarter"
+            ],
+            "OnBuild": [],
+            "Labels": null
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 811988058,
+        "VirtualSize": 811988058,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/9bef8cf6d048c9eafb2847fda8ba78bf36db10a0cecd5dd122392ea31ff4076b/diff:/var/lib/docker/overlay2/c285da73db45f01a8f91c93a52efb1dc8554d143880299a1e64fcb721cf21f31/diff:/var/lib/docker/overlay2/36be1fd4709525cc364398824b98a05d6ddaa7c00defa22dc3268af3b27159ce/diff:/var/lib/docker/overlay2/90aa3e7380c4b423581347efc964c5a9385a57ea81dcf9fcb5033a7b3baeda05/diff:/var/lib/docker/overlay2/3783a8aa5a86ee69f58fda9a27d0e51bff3db9240254b657fd2446dba4c557c2/diff:/var/lib/docker/overlay2/13a1ca520b2502c64ba046bb607f009f7d4c96e4c5e59d027f37a5015343a3d4/diff:/var/lib/docker/overlay2/a03dbe31c37723a9115a72f2a4a2e735566212737303dae105a2a39e5cfa0b54/diff:/var/lib/docker/overlay2/1bda11eaebffd9885951ad305fada8c30c985742a591102b4aab394b22db0b40/diff:/var/lib/docker/overlay2/6bf0460d77e85c63d1ad8abb1583126b52b4b599b507cda71496c815569337fc/diff:/var/lib/docker/overlay2/959fe508061ef2afc43e4bba053ad07593d7f8ccb7c7916e63f9346e59a9a937/diff:/var/lib/docker/overlay2/01991656c3f5c40853290b520b555046d3f69881258414752fccf4f2712d5be0/diff",
+                "MergedDir": "/var/lib/docker/overlay2/d2368ac446de271eb5a9d354e83f2a93a1899c952d34032574ce7fda29a08b35/merged",
+                "UpperDir": "/var/lib/docker/overlay2/d2368ac446de271eb5a9d354e83f2a93a1899c952d34032574ce7fda29a08b35/diff",
+                "WorkDir": "/var/lib/docker/overlay2/d2368ac446de271eb5a9d354e83f2a93a1899c952d34032574ce7fda29a08b35/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:a75caa09eb1f7d732568c5d54de42819973958589702d415202469a550ffd0ea",
+                "sha256:0dc1ec77adb354050bf2544e0a86e170a7d52f92536c9ee6badae0e88689fb04",
+                "sha256:d4417cb76edbf6e1182d2a7cde02d305be92d6c844b875d9973cc55314c3e071",
+                "sha256:c2dca236d8e60bc616db01f2be986c84e83183bf4503ee133eda27c0fac94462",
+                "sha256:ffe8422597ee4e857b42c9404fa54af1ae4ceb07fb441705588a51383acd1971",
+                "sha256:e6683fd09097476108a6e0870064e698195521ab4e602721a8c611403d24c096",
+                "sha256:1d381f39fecefdc8d7b836bcf181efe0712e7fd3e9293ca161d85ee27d4d9414",
+                "sha256:348667646bbdac6efb4b82465891cafa6935748ec1fd9b42de111ef356ebb207",
+                "sha256:9b790cee21755d75d04705f2f52c258aca889af8d08dcd11ce8fd918dc5e35fe",
+                "sha256:fa25080a24b9d451079138ab2179bf4f308771f974bb823bd1eaee6546f53727",
+                "sha256:a317fbee588f1c9702f106d8abad48ef392f37f739438255775dc9778607bcba",
+                "sha256:905d557334362527b7e7f981fce539a1f0075ae60f97853d413297aebd14e0fe"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2017-10-10T23:27:12.074613346Z"
+        }
+    }
+]
+Alenas-MBP:playstarter lenok$ sbt run
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+
+--- (Running the application, auto-reloading is enabled) ---
+
+[info] p.c.s.AkkaHttpServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+(Server started, use Enter to stop and go back to the console...)
+
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] p.a.h.EnabledFilters - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+[info] play.api.Play - Application started (Dev)
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[warn] p.a.m.DefaultJWTCookieDataCodec - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[info] p.a.m.DefaultJWTCookieDataCodec - The JWT signature in the cookie does not match the locally computed signature with the server.
+This usually indicates the browser has a leftover cookie from another Play application,
+so clearing cookies may resolve this error message.
+[INFO] [10/10/2017 17:08:34.960] [Thread-4] [CoordinatedShutdown(akka://play-dev-mode)] Starting coordinated shutdown from JVM shutdown hook
+[INFO] [10/10/2017 17:08:34.960] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-sources.jar ...
+[info] Done packaging.
+[info] Wrote /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.pom
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  36.09MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> 89dddae5a133
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in e76d7b28c3e4
+[info]  ---> 05e9d06cea59
+[info] Removing intermediate container e76d7b28c3e4
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in d0d3de8395a2
+[info]  ---> c96e676754c2
+[info] Removing intermediate container d0d3de8395a2
+[info] Step 6/7 : ENTRYPOINT bin/playstarter
+[info]  ---> Running in 27c28ea448fc
+[info]  ---> 69a723049e84
+[info] Removing intermediate container 27c28ea448fc
+[info] Step 7/7 : CMD
+[info]  ---> Running in 389a841a3c44
+[info]  ---> 02007f022db6
+[info] Removing intermediate container 389a841a3c44
+[info] Successfully built 02007f022db6
+[info] Successfully tagged playstarter:1.0-SNAPSHOT
+[info] Built image playstarter:1.0-SNAPSHOT
+[success] Total time: 5 s, completed Oct 10, 2017 5:08:57 PM
+[INFO] [10/10/2017 17:08:58.044] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ docker push lenadroid/playstarter
+The push refers to a repository [docker.io/lenadroid/playstarter]
+905d55733436: Layer already exists
+a317fbee588f: Layer already exists
+fa25080a24b9: Layer already exists
+9b790cee2175: Layer already exists
+348667646bbd: Layer already exists
+1d381f39fece: Layer already exists
+e6683fd09097: Layer already exists
+ffe8422597ee: Layer already exists
+c2dca236d8e6: Layer already exists
+d4417cb76edb: Layer already exists
+0dc1ec77adb3: Layer already exists
+a75caa09eb1f: Layer already exists
+latest: digest: sha256:d14b939742c6096c998064e3ce07d6bab6cce5cecaeb71741a73aaf23f13455c size: 2842
+Alenas-MBP:playstarter lenok$ sbt compile
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[info] Executing in batch mode. For better performance use sbt's shell
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[success] Total time: 1 s, completed Oct 10, 2017 5:12:50 PM
+[INFO] [10/10/2017 17:12:50.671] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt compile
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/build.sbt:19: error: root is already defined as lazy value root
+lazy val root = project.in(file(".")).enablePlugins(PlayScala).disablePlugins(PlayFilters)
+         ^
+[error] sbt.compiler.EvalException: Type error in expression
+[error] sbt.compiler.EvalException: Type error in expression
+[error] Use 'last' for the full log.
+Project loading failed: (r)etry, (q)uit, (l)ast, or (i)gnore? i
+[warn] Ignoring load failure: no project loaded.
+[error] java.lang.RuntimeException: Session not initialized.
+[error] 	at scala.sys.package$.error(package.scala:27)
+[error] 	at sbt.Project$.$anonfun$getOrError$1(Project.scala:442)
+[error] 	at scala.Option.getOrElse(Option.scala:121)
+[error] 	at sbt.Project$.getOrError(Project.scala:442)
+[error] 	at sbt.Project$.session(Project.scala:448)
+[error] 	at sbt.Project$.extract(Project.scala:453)
+[error] 	at sbt.BuiltinCommands$.notifyUsersAboutShell(Main.scala:796)
+[error] 	at sbt.BuiltinCommands$.$anonfun$notifyUsersAboutShell$3(Main.scala:805)
+[error] 	at sbt.Command$.$anonfun$command$2(Command.scala:79)
+[error] 	at sbt.MainLoop$.processCommand(MainLoop.scala:121)
+[error] 	at sbt.MainLoop$.$anonfun$next$2(MainLoop.scala:105)
+[error] 	at sbt.State$$anon$1.runCmd$1(State.scala:227)
+[error] 	at sbt.State$$anon$1.process(State.scala:233)
+[error] 	at sbt.MainLoop$.$anonfun$next$1(MainLoop.scala:105)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+[error] 	at sbt.MainLoop$.next(MainLoop.scala:105)
+[error] 	at sbt.MainLoop$.run(MainLoop.scala:98)
+[error] 	at sbt.MainLoop$.$anonfun$runWithNewLog$1(MainLoop.scala:76)
+[error] 	at sbt.io.Using.apply(Using.scala:22)
+[error] 	at sbt.MainLoop$.runWithNewLog(MainLoop.scala:70)
+[error] 	at sbt.MainLoop$.runAndClearLast(MainLoop.scala:52)
+[error] 	at sbt.MainLoop$.runLoggedLoop(MainLoop.scala:37)
+[error] 	at sbt.MainLoop$.runLogged(MainLoop.scala:29)
+[error] 	at sbt.StandardMain$.runManaged(Main.scala:104)
+[error] 	at sbt.xMain.run(Main.scala:71)
+[error] 	at xsbt.boot.Launch$$anonfun$run$1.apply(Launch.scala:109)
+[error] 	at xsbt.boot.Launch$.withContextLoader(Launch.scala:128)
+[error] 	at xsbt.boot.Launch$.run(Launch.scala:109)
+[error] 	at xsbt.boot.Launch$$anonfun$apply$1.apply(Launch.scala:35)
+[error] 	at xsbt.boot.Launch$.launch(Launch.scala:117)
+[error] 	at xsbt.boot.Launch$.apply(Launch.scala:18)
+[error] 	at xsbt.boot.Boot$.runImpl(Boot.scala:41)
+[error] 	at xsbt.boot.Boot$.main(Boot.scala:17)
+[error] 	at xsbt.boot.Boot.main(Boot.scala)
+[error] Session not initialized.
+[error] Use 'last' for the full log.
+Alenas-MBP:playstarter lenok$ sbt compile
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[info] Executing in batch mode. For better performance use sbt's shell
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/}root...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* com.google.guava:guava:22.0 is selected over 19.0
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 22.0)
+[warn] 	    +- com.google.inject:guice:4.1.0                      (depends on 19.0)
+[warn] 	* com.typesafe.akka:akka-stream_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.play:play-streams_2.12:2.6.6          (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-http-core_2.12:10.0.10      (depends on 2.4.19)
+[warn] 	* com.typesafe.akka:akka-actor_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.akka:akka-slf4j_2.12:2.5.4            (depends on 2.5.4)
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-stream_2.12:2.5.4           (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-parsing_2.12:10.0.10        (depends on 2.4.19)
+[warn] Run 'evicted' to see detailed eviction warnings
+[success] Total time: 5 s, completed Oct 10, 2017 5:18:06 PM
+[INFO] [10/10/2017 17:18:07.054] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt run
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+
+--- (Running the application, auto-reloading is enabled) ---
+
+[info] p.c.s.AkkaHttpServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+(Server started, use Enter to stop and go back to the console...)
+
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] p.a.h.EnabledFilters - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+
+[info] play.api.Play - Application started (Dev)
+[INFO] [10/10/2017 17:18:43.993] [Thread-4] [CoordinatedShutdown(akka://play-dev-mode)] Starting coordinated shutdown from JVM shutdown hook
+[INFO] [10/10/2017 17:18:43.993] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-sources.jar ...
+[info] Done packaging.
+[info] Wrote /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.pom
+[info] Main Scala API documentation to /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/api...
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+model contains 16 documentable templates
+[info] Main Scala API documentation successful.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-javadoc.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  35.81MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> 60c9abe59022
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in 5727d7bfdb6e
+[info]  ---> aacaf47876af
+[info] Removing intermediate container 5727d7bfdb6e
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in 50aed9c36418
+[info]  ---> 9986950b7d2f
+[info] Removing intermediate container 50aed9c36418
+[info] Step 6/7 : ENTRYPOINT bin/playstarter
+[info]  ---> Running in 5d5ef6204ec5
+[info]  ---> 3fb9b70c88f8
+[info] Removing intermediate container 5d5ef6204ec5
+[info] Step 7/7 : CMD
+[info]  ---> Running in ac6381fb3c72
+[info]  ---> 43131f9d792f
+[info] Removing intermediate container ac6381fb3c72
+[info] Successfully built 43131f9d792f
+[info] Successfully tagged playstarter:1.0-SNAPSHOT
+[info] Built image playstarter:1.0-SNAPSHOT
+[success] Total time: 7 s, completed Oct 10, 2017 5:19:05 PM
+[INFO] [10/10/2017 17:19:05.460] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Wrote /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.pom
+[info] Main Scala API documentation to /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/api...
+[info] Compiling 1 Scala source to /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/classes ...
+model contains 16 documentable templates
+[info] Done compiling.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+[info] Main Scala API documentation successful.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-javadoc.jar ...
+[info] Done packaging.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-sans-externalized.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  35.81MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> 03421fd136f4
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in 50d2496f53d2
+[info]  ---> 8e78e58d29be
+[info] Removing intermediate container 50d2496f53d2
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in eebac2cc3966
+[info]  ---> e219d0a0fd80
+[info] Removing intermediate container eebac2cc3966
+[info] Step 6/7 : ENTRYPOINT bin/playstarter
+[info]  ---> Running in 38eac215b246
+[info]  ---> 203db3add127
+[info] Removing intermediate container 38eac215b246
+[info] Step 7/7 : CMD
+[info]  ---> Running in 4205cfae332e
+[info]  ---> 82db9272ab44
+[info] Removing intermediate container 4205cfae332e
+[info] Successfully built 82db9272ab44
+[info] Successfully tagged playstarter:1.0-SNAPSHOT
+[info] Built image playstarter:1.0-SNAPSHOT
+[success] Total time: 7 s, completed Oct 10, 2017 5:19:40 PM
+[INFO] [10/10/2017 17:19:40.569] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ docker run playSt -i playStarter:1.0-SNAPSHOT
+docker: invalid reference format: repository name must be lowercase.
+See 'docker run --help'.
+Alenas-MBP:playstarter lenok$ docker run
+"docker run" requires at least 1 argument.
+See 'docker run --help'.
+
+Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Run a command in a new container
+Alenas-MBP:playstarter lenok$ docker run --name playStarter2 -p 8080:9000 playstarter:1.0-SNAPSHOT
+docker: Error response from daemon: Conflict. The container name "/playStarter2" is already in use by container "c6a25b24c7c6ec0793a58c7c1ae4a9bd75b976f09074001efdf4f9da2e825b1c". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+Alenas-MBP:playstarter lenok$ docker run --name playStarter3 -p 8080:9000 playstarter:1.0-SNAPSHOT
+[info] play.api.Play - Application started (Prod)
+[info] p.c.s.AkkaHttpServer - Listening for HTTP on /0.0.0.0:9000
+^C[info] p.c.s.AkkaHttpServer - Stopping server...
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED              SIZE
+playstarter             1.0-SNAPSHOT        82db9272ab44        About a minute ago   811MB
+<none>                  <none>              43131f9d792f        2 minutes ago        811MB
+<none>                  <none>              02007f022db6        12 minutes ago       812MB
+lenadroid/playstarter   latest              812d3d8cdc08        About an hour ago    812MB
+<none>                  <none>              3fe3f7c7552f        2 hours ago          812MB
+hello-world-sbt         1.0                 81c43c0427ba        2 hours ago          751MB
+openjdk                 latest              74c95c985a85        24 hours ago         740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago          1.84kB
+Alenas-MBP:playstarter lenok$ docker push lenadroid/playstarter
+The push refers to a repository [docker.io/lenadroid/playstarter]
+905d55733436: Layer already exists
+a317fbee588f: Layer already exists
+fa25080a24b9: Layer already exists
+9b790cee2175: Layer already exists
+348667646bbd: Layer already exists
+1d381f39fece: Layer already exists
+e6683fd09097: Layer already exists
+ffe8422597ee: Layer already exists
+c2dca236d8e6: Layer already exists
+d4417cb76edb: Layer already exists
+0dc1ec77adb3: Layer already exists
+a75caa09eb1f: Layer already exists
+latest: digest: sha256:d14b939742c6096c998064e3ce07d6bab6cce5cecaeb71741a73aaf23f13455c size: 2842
+Alenas-MBP:playstarter lenok$ docker commit "updates" lenadroid/playstarter
+Error response from daemon: No such container: updates
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+playstarter             1.0-SNAPSHOT        82db9272ab44        8 minutes ago       811MB
+<none>                  <none>              43131f9d792f        9 minutes ago       811MB
+<none>                  <none>              02007f022db6        19 minutes ago      812MB
+lenadroid/playstarter   latest              812d3d8cdc08        About an hour ago   812MB
+<none>                  <none>              3fe3f7c7552f        2 hours ago         812MB
+hello-world-sbt         1.0                 81c43c0427ba        2 hours ago         751MB
+openjdk                 latest              74c95c985a85        24 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker rmi lenadroid/playstarter
+Untagged: lenadroid/playstarter:latest
+Untagged: lenadroid/playstarter@sha256:d14b939742c6096c998064e3ce07d6bab6cce5cecaeb71741a73aaf23f13455c
+Deleted: sha256:812d3d8cdc081d2ee0bab2b274abcd95e7da43be49cdc18e1e667225086eec02
+Deleted: sha256:f96528ea90df388526d4d23b5b0b9bbd5bfbf400fd48b7b7cb1d2cf84378c7e7
+Deleted: sha256:619765363cc40f64a30e8042e20304f60a72801d54f934b8c0f3dcc063009810
+Deleted: sha256:966ee97d113a8575d15a09e1d377a7c12d36cd7e688bc5d268a44c8e46051c39
+Deleted: sha256:b358bf91c2512e331c5cd691d31ed8ed6502728085c01c6cf43a914040535d18
+Deleted: sha256:9bb03686d1d7dc74b093f1834249ab12e40be7f66444fb06977e5807bfb41d2a
+Deleted: sha256:788be204a70bdc67b77881e5da76774c11807cb066de543556548fb6dca98aed
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+playstarter         1.0-SNAPSHOT        82db9272ab44        10 minutes ago      811MB
+<none>              <none>              43131f9d792f        10 minutes ago      811MB
+<none>              <none>              02007f022db6        20 minutes ago      812MB
+<none>              <none>              3fe3f7c7552f        2 hours ago         812MB
+hello-world-sbt     1.0                 81c43c0427ba        2 hours ago         751MB
+openjdk             latest              74c95c985a85        24 hours ago        740MB
+hello-world         latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker tag playstarter:1.0-SNAPSHOT lenadroid/playstarter
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+lenadroid/playstarter   latest              82db9272ab44        10 minutes ago      811MB
+playstarter             1.0-SNAPSHOT        82db9272ab44        10 minutes ago      811MB
+<none>                  <none>              43131f9d792f        11 minutes ago      811MB
+<none>                  <none>              02007f022db6        21 minutes ago      812MB
+<none>                  <none>              3fe3f7c7552f        2 hours ago         812MB
+hello-world-sbt         1.0                 81c43c0427ba        2 hours ago         751MB
+openjdk                 latest              74c95c985a85        24 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker push lenadroid/playstarter
+The push refers to a repository [docker.io/lenadroid/playstarter]
+b992b2f9db4c: Pushed
+14f1bb404ba8: Pushed
+fa25080a24b9: Layer already exists
+9b790cee2175: Layer already exists
+348667646bbd: Layer already exists
+1d381f39fece: Layer already exists
+e6683fd09097: Layer already exists
+ffe8422597ee: Layer already exists
+c2dca236d8e6: Layer already exists
+d4417cb76edb: Layer already exists
+0dc1ec77adb3: Layer already exists
+a75caa09eb1f: Layer already exists
+latest: digest: sha256:e8a6813e3b9cf69b1ba67ae9bbe8c6662b020aeff990b99520439953056f0852 size: 2842
+Alenas-MBP:playstarter lenok$ sbt docker:publishLocal
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Wrote /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.pom
+[info] Main Scala API documentation to /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/api...
+[info] Compiling 1 Scala source to /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/classes ...
+model contains 16 documentable templates
+[info] Done compiling.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT.jar ...
+[info] Done packaging.
+[info] Main Scala API documentation successful.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-javadoc.jar ...
+[info] Done packaging.
+[info] Packaging /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/target/scala-2.12/playstarter_2.12-1.0-SNAPSHOT-sans-externalized.jar ...
+[info] Done packaging.
+[info] Sending build context to Docker daemon  35.81MB
+[info] Step 1/7 : FROM openjdk:latest
+[info]  ---> 74c95c985a85
+[info] Step 2/7 : WORKDIR /opt/docker
+[info]  ---> Using cache
+[info]  ---> 8ef8db634b70
+[info] Step 3/7 : ADD opt /opt
+[info]  ---> d7436148cb00
+[info] Step 4/7 : RUN chown -R daemon:daemon .
+[info]  ---> Running in e64febfdb845
+[info]  ---> 9c5432b80b19
+[info] Removing intermediate container e64febfdb845
+[info] Step 5/7 : USER daemon
+[info]  ---> Running in da47ea90e4f7
+[info]  ---> 82d5d3fb5eaa
+[info] Removing intermediate container da47ea90e4f7
+[info] Step 6/7 : ENTRYPOINT bin/playstarter
+[info]  ---> Running in ee7298ef0f63
+[info]  ---> 30cb780720af
+[info] Removing intermediate container ee7298ef0f63
+[info] Step 7/7 : CMD
+[info]  ---> Running in 95caeb7f9614
+[info]  ---> 309a384681fd
+[info] Removing intermediate container 95caeb7f9614
+[info] Successfully built 309a384681fd
+[info] Successfully tagged playstarter:1.0-SNAPSHOT
+[info] Built image playstarter:1.0-SNAPSHOT
+[success] Total time: 7 s, completed Oct 10, 2017 5:44:54 PM
+[INFO] [10/10/2017 17:44:55.102] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+playstarter             1.0-SNAPSHOT        309a384681fd        4 seconds ago       811MB
+lenadroid/playstarter   latest              82db9272ab44        25 minutes ago      811MB
+<none>                  <none>              43131f9d792f        25 minutes ago      811MB
+<none>                  <none>              02007f022db6        36 minutes ago      812MB
+<none>                  <none>              3fe3f7c7552f        2 hours ago         812MB
+hello-world-sbt         1.0                 81c43c0427ba        3 hours ago         751MB
+openjdk                 latest              74c95c985a85        24 hours ago        740MB
+hello-world             latest              05a3bd381fc2        4 weeks ago         1.84kB
+Alenas-MBP:playstarter lenok$ docker rmi lenadroid/playstarter
+Error response from daemon: conflict: unable to remove repository reference "lenadroid/playstarter" (must force) - container 092b61b2df2b is using its referenced image 82db9272ab44
+Alenas-MBP:playstarter lenok$ docker rmi lenadroid/playstarter -f
+Untagged: lenadroid/playstarter:latest
+Untagged: lenadroid/playstarter@sha256:e8a6813e3b9cf69b1ba67ae9bbe8c6662b020aeff990b99520439953056f0852
+Deleted: sha256:82db9272ab44e98aa03b0b7d911446cc65c98beeda63ae5e83b97d681f8adc9a
+Deleted: sha256:203db3add127209fb883e4b8052e230aa3b1126e90187eee24cb5243a8e3bb78
+Deleted: sha256:e219d0a0fd8007d8c88470d46bd8e40a85af3d18354d109bb8d6e946c93a4050
+Deleted: sha256:8e78e58d29bebaf27550ab93b35fd48674f25b18f8a6b50799808da2f25011c9
+Deleted: sha256:03421fd136f4cb6ebe4b043d5ff2006eeb44bbc500afe254f4eb7c89daf276ab
+Alenas-MBP:playstarter lenok$ docker push lenadroid/playstarter
+The push refers to a repository [docker.io/lenadroid/playstarter]
+An image does not exist locally with the tag: lenadroid/playstarter
+Alenas-MBP:playstarter lenok$ docker tag playstarter:1.0-SNAPSHOT lenadroid/playstarter
+Alenas-MBP:playstarter lenok$ docker push lenadroid/playstarter
+The push refers to a repository [docker.io/lenadroid/playstarter]
+b352a5cbb6dc: Pushed
+6a57401bcd21: Pushed
+fa25080a24b9: Layer already exists
+9b790cee2175: Layer already exists
+348667646bbd: Layer already exists
+1d381f39fece: Layer already exists
+e6683fd09097: Layer already exists
+ffe8422597ee: Layer already exists
+c2dca236d8e6: Layer already exists
+d4417cb76edb: Layer already exists
+0dc1ec77adb3: Layer already exists
+a75caa09eb1f: Layer already exists
+latest: digest: sha256:9f1811385abb3e2319e59ae3316a83f01830b0d243549ca7b378623f49ad0bd6 size: 2842
+Alenas-MBP:playstarter lenok$ sbt compile
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project/}playstarter-build...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* org.codehaus.plexus:plexus-utils:3.0.17 is selected over {2.1, 1.5.5}
+[warn] 	    +- org.apache.maven:maven-settings:3.2.2              (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-repository-metadata:3.2.2   (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-aether-provider:3.2.2       (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-model:3.2.2                 (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-core:3.2.2                  (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-artifact:3.2.2              (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-settings-builder:3.2.2      (depends on 3.0.17)
+[warn] 	    +- org.apache.maven:maven-model-builder:3.2.2         (depends on 3.0.17)
+[warn] 	    +- org.sonatype.plexus:plexus-sec-dispatcher:1.3      (depends on 1.5.5)
+[warn] 	    +- org.eclipse.sisu:org.eclipse.sisu.plexus:0.0.0.M5  (depends on 2.1)
+[warn] 	* com.google.guava:guava:23.0 is selected over {10.0.1, 15.0, 18.0}
+[warn] 	    +- io.methvin:directory-watcher:0.1.3                 (depends on 23.0)
+[warn] 	    +- org.eclipse.sisu:org.eclipse.sisu.plexus:0.0.0.M5  (depends on 10.0.1)
+[warn] 	    +- com.fasterxml.jackson.datatype:jackson-datatype-guava:2.6.0 (depends on 10.0.1)
+[warn] 	    +- com.spotify:docker-client:3.5.13                   (depends on 10.0.1)
+[warn] Run 'evicted' to see detailed eviction warnings
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+[info] Executing in batch mode. For better performance use sbt's shell
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Updating {file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/}root...
+[info] Done updating.
+[warn] Found version conflict(s) in library dependencies; some are suspected to be binary incompatible:
+[warn] 	* com.google.guava:guava:22.0 is selected over 19.0
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 22.0)
+[warn] 	    +- com.google.inject:guice:4.1.0                      (depends on 19.0)
+[warn] 	* com.typesafe.akka:akka-stream_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.play:play-streams_2.12:2.6.6          (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-http-core_2.12:10.0.10      (depends on 2.4.19)
+[warn] 	* com.typesafe.akka:akka-actor_2.12:2.5.4 is selected over 2.4.19
+[warn] 	    +- com.typesafe.akka:akka-slf4j_2.12:2.5.4            (depends on 2.5.4)
+[warn] 	    +- com.typesafe.play:play_2.12:2.6.6                  (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-stream_2.12:2.5.4           (depends on 2.5.4)
+[warn] 	    +- com.typesafe.akka:akka-parsing_2.12:10.0.10        (depends on 2.4.19)
+[warn] Run 'evicted' to see detailed eviction warnings
+[success] Total time: 3 s, completed Oct 10, 2017 6:03:26 PM
+[INFO] [10/10/2017 18:03:26.438] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ sbt run
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from plugins.sbt,scaffold.sbt ...
+[info] Loading project definition from /Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/project
+[warn] The global sbt directory is now versioned and is located at /Users/lenok/.sbt/1.0.
+[warn]   You are seeing this warning because there is global configuration in /Users/lenok/.sbt but not in /Users/lenok/.sbt/1.0.
+[warn]   The global sbt directory may be changed via the sbt.global.base system property.
+[info] Loading settings from build.sbt ...
+[info] Set current project to PlayStarter (in build file:/Users/lenok/Documents/DeveloperAdvocateWork/PlayStarter/playstarter/)
+
+--- (Running the application, auto-reloading is enabled) ---
+
+[info] p.c.s.AkkaHttpServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+(Server started, use Enter to stop and go back to the console...)
+
+[INFO] [10/10/2017 18:03:43.844] [Thread-2] [CoordinatedShutdown(akka://sbt-web)] Starting coordinated shutdown from JVM shutdown hook
+[INFO] [10/10/2017 18:03:43.843] [Thread-4] [CoordinatedShutdown(akka://play-dev-mode)] Starting coordinated shutdown from JVM shutdown hook
+Alenas-MBP:playstarter lenok$ az webapp list-runtimes
+[
+  "aspnet|v4.7",
+  "aspnet|v3.5",
+  "node|0.6",
+  "node|0.8",
+  "node|0.10",
+  "node|0.12",
+  "node|4.0",
+  "node|4.1",
+  "node|4.2",
+  "node|4.2",
+  "node|4.3",
+  "node|4.4",
+  "node|4.5",
+  "node|4.6",
+  "node|5.0",
+  "node|5.1",
+  "node|5.3",
+  "node|5.4",
+  "node|5.5",
+  "node|5.6",
+  "node|5.7",
+  "node|5.8",
+  "node|5.9",
+  "node|6.0",
+  "node|6.1",
+  "node|6.10",
+  "node|6.2",
+  "node|6.3",
+  "node|6.5",
+  "node|6.6",
+  "node|6.7",
+  "node|6.9",
+  "node|7.0",
+  "node|7.1",
+  "node|7.2",
+  "node|7.3",
+  "node|7.4",
+  "node|7.5",
+  "node|7.6",
+  "node|7.7",
+  "node|7.10",
+  "node|8.0",
+  "node|8.1",
+  "php|5.5",
+  "php|5.6",
+  "php|7.0",
+  "php|7.1",
+  "python|2.7",
+  "python|3.4",
+  "java|1.7|Tomcat|7.0",
+  "java|1.7|Tomcat|8.0",
+  "java|1.7|Tomcat|8.5",
+  "java|1.7|Tomcat|9.0",
+  "java|1.7|Jetty|9.1",
+  "java|1.7|Jetty|9.3",
+  "java|1.8|Tomcat|7.0",
+  "java|1.8|Tomcat|8.0",
+  "java|1.8|Tomcat|8.5",
+  "java|1.8|Tomcat|9.0",
+  "java|1.8|Jetty|9.1",
+  "java|1.8|Jetty|9.3"
+]
+Alenas-MBP:playstarter lenok$ docker info

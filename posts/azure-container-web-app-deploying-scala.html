@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exploring Azure Web Apps for Linux and Containers</title>
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
+</head>
+<html>
+   <body>
+
+   <section id="mainMenuSection" >
+		                  <section id="mainMenu">
+		                      <a href="http://lenadroid.github.io">Home</a>
+		                      <a href="http://lenadroid.github.io/posts.html">Posts</a>
+		                      <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+                          <a href="http://lenadroid.github.io/identity/contact.html">About</a>
+		                        <div class="clear"></div>
+		                    </section>
+  </section
+  <!-- generated content starts -->
+      <section class='posts' >
+         <article class='post' >
+               <header class='title' >
+                  Exploring Azure Web Apps for Linux and Containers
+               </header>
+               <div class='description' >
+
+<h3>Introduction </h3>
+<p>In my new role as a Cloud Developer Advocate a goal of mine is to ensure Azure as a platform fulfills needs and expectations of engineers. An important part of this is reviewing every element of Azure to help achieve its maximum potential. In that effort, let’s look at the Azure Web App feature.
+</p>
+
+<p>
+Web App is a platform as a service way of running your web applications in Azure. The compute resources may be on shared or dedicated virtual machines (VMs), depending on the pricing tier that you choose. The application code runs in a managed VM that is isolated from other customers.
+</p>
+
+<p>
+Recently, Azure introduced support for Web App for Linux and Containers. This is a significant improvement, as a lot of web applications and services are based on Linux platforms. With addition of support for containerized web applications, it becomes much easier to host them natively on Linux for more application stacks. That means we can deploy a web application that can run as a docker container directly into Azure Web App for containers.
+</p>
+
+<p>In addition to Web App, there are other ways of using Linux based or container based applications, such as Azure Service Fabric or Container Service for more complicated architectures of your services, Container Instances for more lightweight or job-like scenarios, or just plain Linux VMs if you prefer having ultimate control through IaaS (infrastructure as a service).</p>
+
+<p>Standard Azure Web App works great for C#, Java, Python, and other supported platforms.
+</p>
+
+<br><br>
+<img width="95%" src="azureWeb/stacks.png"/>
+<br>
+<p>More and more companies are starting to use F#, as it has proven to increase developer productivity, noticeably reduce time-to-market, and keep codebase clean, concise and simple to troubleshoot. </p>
+<br><br>
+<img width="95%" src="azureWeb/fs-stack.png"/>
+<br>
+
+<p>Shortly after the Web App for containers feature had been released, F# OSS Community shared <a target="_blank" href="https://github.com/SAFE-Stack/SAFE-BookStore#deployment">an awesome example</a> of a complete Web Development stack for F# and used Azure Web App for containers to deploy it. If you haven’t heard of <a target="_blank" href="https://safe-stack.github.io/">SAFE stack</a> for F# for web development - definitely read about it and try it out. SAFE is an acronym for Suave, Azure, Fable and Elmish, but it is not locked into these technologies. It’s possible to use Giraffe instead of Suave, or GCP instead of Azure, you have full freedom of choice. SAFE is also an initiative to encourage more companies who benefit from using this stack for F# Web Development to give commercial support for it, as it’s important for any completely Open Source stack. </p>
+
+<p>As you may know, I am a big fan of functional programming, and it is absolutely amazing to know that you can run F# web apps on Azure so smoothly. If you have tried it as well - let me know and share your experience on twitter with #fsharp #azure tags. I was also curious of how simple it would be to run a JVM web application in some functional programming language. I decided to try it with Scala with its Play framework.</p>
+
+<br><br>
+<img width="95%" src="azureWeb/scala-stack.png"/>
+<br>
+
+<h2>Step 1: Get sbt</h2>
+
+<p>Get Scala and install <a target="_blank" href="http://www.scala-sbt.org/">sbt</a>. Check your sbt version after installation, you can do it with:</p>
+
+<pre>
+$ sbt sbtVersion
+> [info] 1.0.2
+</pre>
+<br>
+
+<h2>Step 2: Create a new project
+</h2>
+
+<p>In case you already have a project, you can use it. Or you can create a project from a Play <a target="_blank" href="https://github.com/playframework/play-scala-seed.g8">template</a> using sbt:</p>
+
+<pre>$ sbt new playframework/play-scala-seed.g8</pre>
+
+<p>Which should result in the following output. It also asks for some versions to make sure your project has exact versioning you need. You can always find exact versions of those libraries in Maven Central <a target="_blank" href="https://search.maven.org/#search">repository</a>.</p>
+
+<img width="100%" src="azureWeb/1.png"/>
+<br>
+
+<h2>Step 3: Make sure the project runs with no errors locally
+</h2>
+
+<pre>
+$ sbt compile
+$ sbt run
+</pre>
+
+<p>Make sure you are located in the example directory when you execute these commands. As a result, you should see that your server is running and access, so try accessing it using the URL address displayed:</p>
+
+<img width="100%" src="azureWeb/2.png"/>
+<br>
+
+<h2>Step 4: Take a look at the project structure and content
+</h2>
+
+<img width="60%" src="azureWeb/Diagram.jpg"/>
+<br>
+
+<h3>"build.sbt" looks like this:
+</h3>
+<img width="100%" src="azureWeb/buildsbt.png"/>
+<br>
+
+<h3>“plugins.sbt” file</h3>
+
+<p>... is located under “project” directory and used to add various plugins. For example, sbt plugin is already stated here by default, but I added a native packager plugin, to be able to use it in the future steps (notice “enablePlugins” setting in build.sbt that actually enables Docker plugin):
+</p>
+
+<pre>addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.6")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.2.0")
+</pre>
+
+<p><a target="_blank" href="http://www.scala-sbt.org/sbt-native-packager/formats/docker.html">This plugin</a>
+ will allow us to build a Docker image right from our solution directory.
+</p>
+<br>
+
+<h3>“build.properties” file
+</h3>
+
+<p>...is also located under “project” directory and simply indicates the version of sbt:
+</p>
+
+<pre>sbt.version=1.0.2
+</pre>
+
+<br>
+
+<h3>“application.conf” file
+</h3>
+
+<p>... is under “conf” directory and can be used to set Play HTTP key, disable or enable some of the default filters, and many other configuration things. Play uses a <a target="_blank" href="https://www.playframework.com/documentation/2.6.x/ApplicationSecret#Production-configuration-file">secret key</a> for things like
+signing session cookies, CSRF tokens, built in encryption utilities. For more information about default Play filters visit this <a target="_blank" href="https://www.playframework.com/documentation/2.6.x/Filters">page</a>.
+</p>
+
+<pre>
+play.http.secret.key="&ltyour key here&gt”
+play.filters.disabled+=play.filters.hosts.AllowedHostsFilter
+play.filters.disabled+=play.filters.csrf.CSRFFilter
+</pre>
+
+<p>You can use “sbt playGenerateSecret” to generate a new value.
+</p>
+
+<p>Per Play Framework best practices: </p>
+
+<blockquote> “Anyone that can get access to the secret will be able to generate any session they please, effectively allowing them to log in to your system as any user they please. Hence it is strongly recommended that you do not check your application secret into source control. Rather, it should be configured on your production server. Production.conf file includes application.conf, but also overrides any sensitive configuration, such as the application secret and passwords.”</blockquote>
+<br>
+
+<h3>Content of “production.conf” under “conf” directory:</h3>
+
+<pre>
+play.http.secret.key="&ltyour key here&gt”
+play.filters.disabled+=play.filters.hosts.AllowedHostsFilter
+play.filters.disabled+=play.filters.csrf.CSRFFilter
+</pre>
+<br>
+
+<h3>“reference.conf” files</h3>
+
+<p>... provide libraries defaults, they are overridden by any settings defined in the “application.conf” file:</p>
+
+<pre>
+play.filters.hosts {
+ # Allow requests to
+ allowed = [".azurewebsites.net", "localhost:9000"]
+}
+</pre>
+<br>
+
+<h2>Step 5: Building a Docker image with the application locally</h2>
+
+<p>Run the following command to create a Docker image on your machine (note, you need to have Docker installed):</p>
+
+<pre>$ sbt docker:publishLocal</pre>
+
+<p>You should see your image getting built:</p>
+
+<img width="100%" src="azureWeb/4.png"/>
+<br>
+
+<p>Check that your image exists on your machine by running:</p>
+
+<pre>$ docker images</pre>
+
+<img width="100%" src="azureWeb/5.png"/>
+<br>
+
+
+<h2>Step 6: Create a repository to store your container image</h2>
+
+<p>Now that we have our image built, we can push it to the real container registry. There are several options on where to push it: you can use Docker Hub, Azure Container Registry, or something else.</p>
+
+<h3>Pushing the image to Docker Hub</h3>
+
+<p>Create an account in Docker Hub, or use existing account to create a repository for your image:</p>
+
+<img width="100%" src="azureWeb/6.png"/>
+<br>
+
+<img width="100%" src="azureWeb/7.png"/>
+<br>
+
+<p>After we have a repository name, we can push our local image. First step is to tag the local image. After tagging is done, you should see a new image with a familiar repository name:</p>
+
+<img width="100%" src="azureWeb/8.png"/>
+<br>
+
+<p>Log in to your Docker account and perform the push:</p>
+
+<img width="100%" src="azureWeb/9.png"/>
+<br>
+
+<p>When this command is done, check your Docker Hub repository for the number of pushes and you should see one! One step closer to success.</p>
+
+<h2>Step 7: Create a resource group in Azure</h2>
+
+<p>Make sure you have azure-cli installed, and that you are properly logged in with az. A resource group in Azure as a way to group various resources together. We will need one for our Web App and related resources:</p>
+
+<img width="100%" src="azureWeb/10.png"/>
+<br>
+
+<h2>Step 8: Create an App Service Plan in Azure</h2>
+
+<p>App Service Plan is necessary to indicate various options for Web App. We can assign several Web Apps to a particular App Service Plan. Let’s create one for our Web App:</p>
+
+<img width="100%" src="azureWeb/11.png"/>
+<br>
+
+<h2>Step 9: Create a Web App for Containers
+</h2>
+
+<p>Resource Group, App Service Plan, and container image name is all we need to successfully create a Web App:</p>
+
+<img width="100%" src="azureWeb/27.png"/>
+<br>
+
+<p>Open up the port necessary to access our web server:</p>
+
+<img width="100%" src="azureWeb/28.png"/>
+<br>
+
+<p>You should be able to see your Web App created under your Resource Group in Azure Portal:</p>
+
+<img width="100%" src="azureWeb/111.png"/>
+<br>
+
+<p>Open your Web App and you should see:</p>
+
+<img width="100%" src="azureWeb/222.png"/>
+<br>
+
+<p>If you look in Application Settings blade, you can see that your port settings are there:</p>
+
+<img width="100%" src="azureWeb/15.png"/>
+<br>
+
+<p>After the Web App is deployed and running, you can notice that there were a few pulls of your container image on Docker Hub:</p>
+
+<img width="100%" src="azureWeb/14.png"/>
+<br>
+
+<p>Make sure to <a target="_blank" href="https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#troubleshooting">enable diagnostics</a> for your app to be able to check container logs from Advanced Tools Kudu console:</p>
+
+<img width="100%" src="azureWeb/29.png"/>
+<br><br>
+
+<h2>Step 10: Set up continuous deployment with Docker Hub and Webhooks</h2>
+
+<p>To make sure that any changes that you make to your image are applied to your running Web App, it’s good to set up continuous deployment. This way, when you push updates to your image, Docker Hub will notify Azure to update the Web App as soon as possible. To set this up, go to “Docker Container” blade, turn CD on, copy the Webhook URL:</p>
+
+<br>
+<img width="100%" src="azureWeb/16.png"/>
+<br>
+
+<p>And paste it in your Docker Hub repo:</p>
+
+<img width="100%" src="azureWeb/17.png"/>
+<br>
+
+<p>Check out how it works by making changes to your application, pushing the new image to your repo and witnessing that the Web App updates are now performed automatically on push!</p>
+
+<br>
+<h2>Step 11: Use Azure Container Registry for storing images</h2>
+
+<p>Azure Container Registry can provide certain benefits. For example, it can reduce network latency and eliminate ingress/egress charges by keeping your Docker registry in the same data center as your deployments. It also gives you local, network-close storage of your container images within your subscriptions, and full control over access and image names. At the same time, working with Azure Container Registry is very similar to working with Docker Hub.</p>
+
+<p>To create a resource for Azure Container Registry in your desired resource group, do this:</p>
+
+<img width="100%" src="azureWeb/container registry 1.png"/>
+<br>
+
+<p>Azure Container Registry is available in several SKUs: Basic, Managed_Basic, Managed_Standard, and Managed_Premium. Although the Managed_* SKUs provide advanced capabilities like managed storage and Webhooks, they're currently in preview, and are unavailable in some Azure regions. Basic SKU is available in all regions.</p>
+
+<p>You can see newly created registry resource in Azure Portal:</p>
+
+<img width="100%" src="azureWeb/container registry 2.png"/>
+<br>
+
+<p>There are various ways to find out what login server name your registry has (after you log in):</p>
+
+<img width="100%" src="azureWeb/container registry 3.png"/>
+<br>
+
+<img width="100%" src="azureWeb/container registry 4.png"/>
+<br>
+
+<p>Similar to the steps with Docker Hub, we also need to tag our image with Azure Container Registry repo name and push the image:</p>
+
+<img width="100%" src="azureWeb/container registry 5.png"/>
+<br>
+
+<p>After the image is pushed, it is easy to check it is really in your Azure Container Registry:</p>
+
+<img width="100%" src="azureWeb/container registry 6.png"/>
+<br>
+
+<p>Finally, to set Azure Container Registry as a source, we can navigate to “Docker Container” option:</p>
+
+<img width="100%" src="azureWeb/container registry 7.png"/>
+<br>
+
+<p>If you used “Managed_*” SKU during creation of container registry, you can also set up Webhooks for automatic Web App updates from image pushes. If you have chosen “Basic”, then just restart your Web App to trigger image pull from the new registry.</p>
+
+<p>To verify that it works, go to “Advanced Tools” option, select Kudu Bash, cd into LogFiles directory, perform ls to see the filename of the log file and cat it to make sure pull worked:</p>
+
+<img width="100%" src="azureWeb/container registry 8.png"/>
+<br>
+
+<h2>Step 12: Try to deploy your web application and share your story</h2>
+
+<p>It is always interesting to see various programming languages and platforms in action, and I encourage you to try Azure Web App for Linux and Containers with a language stack of your choice. Let me know about your experience or whether you are having any issues.</p>
+
+<p>Scaling and autoscaling feature is really cool, try it out:</p>
+
+<img width="100%" src="azureWeb/26.png"/>
+<br>
+
+<p>If Web App sound like what you need, but you are looking for more secure and isolated solution, check out Azure App Service Environments. They enable more security options including Network Security Rules and others.</p>
+
+<p>For more sophisticated scenarios, try our Azure Service Fabric or Azure Container Service with Kubernetes, DC/OS or Docker Swarm.</p>
+
+<h2>Connect</h2>
+
+<p>Follow me on twitter <a href="https://twitter.com/lenadroid">@lenadroid</a> if you found this article interesting or helpful. My direct messages are open, always happy to connect, feel free to reach out with any questions or ideas!</p>
+
+<br><br>
+
+</div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  10.14.2017
+               </div> |
+               <div class='keywords' >
+                     <span class='keyword' >
+                        web apps
+                     </span>
+                     <span class='keyword' >
+                         azure
+                     </span>
+                     <span class='keyword' >
+                        scala
+                     </span>
+                     <span class='keyword' >
+                        fsharp
+                     </span>
+                     <span class='keyword' >
+                         docker
+                     </span>
+                     <span class='keyword' >
+                        containers
+                     </span>
+               </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+
+
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2017 - Lena Hall</p>
+        </footer>
+
+  </body>
+</html>
