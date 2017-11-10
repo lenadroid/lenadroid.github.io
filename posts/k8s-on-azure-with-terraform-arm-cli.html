@@ -25,24 +25,34 @@
                 </header>
                 <div class='description' >
 
-<p>When working on a system with many moving parts and diverse platforms, there is a need for reliability, fault tolerance and recoverability. Azure provides a way to use well known and proven orchestrators: Kubernetes, DC/OS, Docker Swarm. As I mentioned in <a href="http://lenadroid.github.io/posts/adjustable-flexible-architecture.html" target="_blank">one of my previous posts</a>, if your services need to be adjustable, Azure Container Service (ACS) is a right tool with a lot of flexibility.
+<p>When working on a distributed system with many moving parts and diverse platforms, there is always need to have an easy way to manage your system altogether.        Azure provides an option to use well known and proven orchestrators: Kubernetes, DC/OS, Docker Swarm. As I mentioned in <a href="http://lenadroid.github.io/posts/adjustable-flexible-architecture.html" target="_blank">one of my previous posts</a>, if your services need to be adjustable, then Azure Container Service (ACS/AKS) might be a right tool with a lot of flexibility.
 </p>
 
-<p>It is possible to create an ACS cluster using Azure Portal in the UI. There are many options to set up an ACS cluster in an automated, repeatable, or immutable infrastructure paradigm, and we will go through them in this article:
-    <ul>
-        <li>Azure CLI</li>
-        <li>Azure Resource Manager Templates</li>
-        <li>Hashicorp Terraform</li>
-    </ul>
+<p>
+        It is possible to create an ACS cluster using Azure Portal in the UI.
+
+        There are many options to set up an ACS cluster in an automated, repeatable, or immutable infrastructure paradigm, and we will go through them:
+
+            <ul>
+                <li>Azure CLI</li>
+                <li>Azure Resource Manager Templates</li>
+                <li>Hashicorp Terraform</li>
+            </ul>
+
+        Why are there many options? Because they are meant for slightly different flavors of cluster deployment.
+
+        Sometimes you want your cluster quick and don’t care about the convenience of deploying it again.
+
+        Sometimes you want to have repeatable definitions for your resources, in a native to Azure way and always have your infrastructure created in consistent state.
+
+        Or, you might want to have a cloud vendor independent way to deploy your resources, and preview the changes before applying them.
 </p>
 
 <h2>Azure CLI</h2>
 
 <p>Azure CLI is a convenient way to create and manage resources. It is easy to <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">install</a>. In Azure CLI every command starts with <code>az</code>.</p>
 
-<p>After installation, be sure to <a href="https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest">log in</a> as a user, or as a service principal (i.e. if you have two factor authentication enabled).</p>
-<img src="k8scluster/1.png" width="80%"/>
-
+<p>After installation, be sure to <a href="https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest">log in</a> as a user, or as a service principal (i.e. if you have two factor authentication enabled). </p>
 <p>You can also use <a href="https://azure.microsoft.com/en-us/features/cloud-shell/">Cloud Shell</a> to benefit from Azure CLI and other tools right in your browser.</p>
 
 <h3>Prepare your ssh</h3>
@@ -51,77 +61,103 @@
 
 <p>
     <h3>Create a resource group</h3>
-    <pre>$ az group create --name <resource group name> --location <region></pre>
+    <pre>$ az group create --name &ltresource group name&gt --location &ltregion&gt</pre>
 </p>
 
 <p>
     <h3>Create a Kubernetes cluster</h3>
-    <code>$ az acs create --orchestrator-type kubernetes --resource-group <resource group name> --name <cluster name> --ssh-key-value <public ssh key></code>
+    <code>$ az acs create --orchestrator-type kubernetes --resource-group &ltresource group name&gt --name &ltcluster name&gt --ssh-key-value &ltpublic ssh key&gt</code>
 </p>
 
 <p>Where &ltpublic ssh key&gt is content of your .pub file (i.e. ~/.ssh/id_rsa.pub file). In case you want to skip ssh key creation step, you can use --generate-ssh-keys flag:
-<br> <code>$ az acs create --orchestrator-type kubernetes --resource-group <resource group name> --name <cluster name> --generate-ssh-keys</code>
+<br> <code>$ az acs create --orchestrator-type kubernetes --resource-group &ltresource group name&gt --name &ltcluster name&gt --generate-ssh-keys</code>
+</p>
+
+<p>In case you would like to create a <a href="https://docs.microsoft.com/en-us/azure/aks/" target="_blank">managed Kubernetes cluster (AKS)</a>, the command gets even simpler:
+    <br>
+    <code>$ az aks create --resource-group &ltresource group name&gt --name &ltcluster name&gt</code>
 </p>
 When this command returns, the cluster should be ready, which you can check in Azure Portal, or just try to ssh to the master node! If you'd like to skip other cluster creation options and immediately connect to the newly created cluster, jump straight to <a href="#connect">"Connect to the cluster"</a> section.
 <br><br>
-<h2>Azure Resource Manager</h2>
+<h2>Azure Resource Manager (ARM)</h2>
 
-<p>Azure CLI is a fast way to get ACS clusters up and running. In some cases, it is necessary to have better control over resources. Azure Resource Manager (<a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/">ARM</a>) templates are based on JSON and are a way to create a detailed hierarchical specification for resources to be provisioned as a group. Templates can run in an incremental mode. ARM is similar to Cloud Formation in AWS.
-</p>
+<p>Azure CLI is a fast way to get ACS clusters up and running. In some cases, it is necessary to have better control over resources. Azure Resource Manager (<a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/">ARM</a>) templates are based on JSON and are a way to create a detailed hierarchical specification for resources to be provisioned as a group. Templates can run in an incremental mode. ARM is similar to Cloud Formation in AWS.</p>
 
-<p>There is no need to install any additional tools in addition to Azure CLI to use Azure Resource Manager. It is a “native” way to create Azure resources.</p>
+<p>I will show you the sample with templates for creation of managed Kubernetes cluster (AKS).</p>
+
+<img src="k8scluster/arm.png" width="30%"/>
+
+<p>There is no need to install any tools in addition to Azure CLI to use Azure Resource Manager. It is a “native” way to create Azure resources.</p>
 
 <h3>Create service principal</h3>
 <p>In the templates, we will need service principal id and password. Follow <a href="https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-service-principal ">instructions</a> to create service principal for Kubernetes on ACS.</p>
 
-<h3>Manage secrets</h3>
+<h3>Manage secrets (optional)</h3>
 <p>Keep your secrets safe, put them in Azure Key Vault. If you plan to use the Key Vault for not a single purpose, you can put it into a separate from your cluster resource group.</p>
 <code>$ az keyvault create --name &ltKey Vault name&gt --resource-group &ltKey Vault resource group name&gt
-</code>
+</code><br><br>
 
-<p>For this example, two secrets are used: one for service principal password, and second one for ssh key. Secrets can be set in the command line:</p>
-<code>$ az keyvault secret set --name &ltsecret name&gt --vault-name &ltKey Vault name&gt --file &ltname of the file to get the value from&gt</code>
+<img src="k8scluster/Slide 13.gif" width="100%"/>
 
-<p>To view values of the secrets, we can use Azure CLI, or Portal:</p>
-<code>$ az keyvault secret show --name &ltsecret name&gt --vault-name &ltKey Vault name&gt</code>
-<br><br>
-<img src="k8scluster/3.png" width="50%"/><br>
+<p>To create a key vault, we can use <code>az keyvault create</code> command, and specify the name and resource group for the new vault. We also want to indicate <code>--enabled-for-template-deployment</code> flag for enable our Azure Resource Manager to work with the KeyVault from the templates.</p>
 
-<h3>Define resources</h3>
-<p>Create files for resource definition and parameters:</p>
-<script src="https://gist.github.com/lenadroid/e3d2516ecfa19a4ddd34bd96292133b8.js"></script>
+<img src="k8scluster/Slide 14.gif" width="100%"/>
 
-<p>Resource Manager configuration usually consists of two primary pieces. Main file with resource definitions, and a file with parameter values. The main file (kube-deploy.json) has parameters, variables, resources and outputs sections.</p>
-<p>Each parameter in parameters section has a type and optianally description, definition of allowed values and a default value. Parameters can be of a "securestring" type if the value contains sensitive data that shouldn't be displayed. </p>
+<p>After the keyvault is created, our service principal can access the values of secrets after setting the corresponding policy.</p>
+<code>az keyvault set-policy --name &ltVault name&gt --spn &ltservice principal ID&gt --secret-permissions get</code> <br><br>
+
+<img src="k8scluster/Slide 15.gif" width="100%"/>
+
+<p>For this example, the secret is used for service principal password. Secrets can be set in the command line:</p>
+<code>$ az keyvault secret set --name &ltsecret name&gt --vault-name &ltKey Vault name&gt --value &ltyour value&gt</code>
+<p>Or:</p>
+<code>$ az keyvault secret set --name &ltsecret name&gt --vault-name &ltKey Vault name&gt --file &ltname of the file to get the value from&gt</code><br><br>
+
+<img src="k8scluster/Slide 16.gif" width="100%"/>
+
+<p>To see what the secret value is, we can execute:</p>
+<code>$ az keyvault secret show --name &ltsecret name&gt --vault-name &ltKey Vault name&gt</code><br><br>
+<img src="k8scluster/Slide 17.gif" width="100%"/>
+
+<h3>Define ARM resources</h3>
+
+<p>Resource Manager configuration usually consists of two primary pieces. Main file with resource definitions, and a file with parameter values. The main file (kube-managed.json) has parameters, variables, resources and outputs sections.</p>
+<p>Each parameter in parameters section has a type and optionally description, definition of allowed values and a default value. Parameters can be of a "securestring" type if the value contains sensitive data that shouldn't be displayed. </p>
 <p>Variables is a place where you can perform adjustments and tricks with parameters. When nesting several objects within a variable, it is possible to implement branching-like behavior. Then you can get different values depending on what is the value of a parameter passed when refering to a variable (I am not using it in the current template, but reach out if you would like more details on how to do it).</p>
 <p>Resources section tends to be the biggest one, because this is where all resource definitions are. Each resource has a certain API version, name, type, location and properties. Properties can be unique for various types of resources. For example, we specify orchestrator type, info about master and agent VMs for the container service resource we are creating.</p>
 <p>To make the template deployment return cetrain values, we can specify output variables. This is useful to get values like master fully qualified domain name, or ssh command in our case.</p>
 
 <p>The second file (kube-deploy.parameters.json) simply sets values of defined parameters. In the current example, some sensitive values are fetched directly from the secrets of previously created Azure Key Vault. Do not forget to replace the values of parameters in your parameters file with the correct ones! Same for paths to your own Key Vault in case you are using one.</p>
 
-<h3>Provision the cluster</h3>
+<p>Create files for resource definition and parameters:</p>
+<script src="https://gist.github.com/lenadroid/e3d2516ecfa19a4ddd34bd96292133b8.js"></script>
+
+<h3>Provision AKS cluster with ARM templates</h3>
 <p>With resource definition templates we have everything we need to submit them to Azure Resource Manager as a deployment to start provisioning the cluster underlying infrastructure:</p>
-<code>$ az group deployment create --resource-group &ltresource group name&gt --template-file kube-deploy.json --parameters @kube-deploy.parameters.json</code>
+<code>$ az group deployment create --resource-group &ltresource group name&gt --template-file kube-managed.json --parameters @kube-deploy.parameters.json</code>
 <p>When not every parameter is given a value in the parameters file, you should be prompted to enter missing values in the command line.</p>
 <p>In case the template syntax isn't correct, or there are any issues with the deployment, you can use <code>--debug</code> flag to inspect what is happening under the hood of deployment submission.</p>
 <br>
-<img src="k8scluster/creating a deployment.gif" width="80%"/><br>
+<img src="k8scluster/Slide 19.gif" width="100%"/><br>
 
 <p>Keep in mind, that with new functionality coming out in Azure Container Service, “apiVersion”s of resources in Azure Resource Manager templates might change for the newly added properties. For example, “orchestratorVersion” for “orchestratorProfile”, or “storageProfile”: <a href="https://github.com/Azure/ACS/blob/master/docs/ManagedDisks/azuredeploy.json#L137">“ManagedDisks”</a> for agent and master VMs can be specified starting 2017-07-01 “apiVersion”. It is also good to keep track of which regions any particular “apiVersion” is available at.</p>
 
 <p>After the deployment succeeded, you should see your output variables returned!</p>
-<img src="k8scluster/arm cluster ready.png" width="80%"/><br>
+<img src="k8scluster/arm cluster ready.png" width="70%"/><br>
 
 <h2>Terraform</h2>
 
-<p>Terraform is a cloud vendor independent tool to create cloud resources. It supports variety of cloud providers, including Azure. With Terraform, you get the benefit of visualizing changes to your resources (whether something will be deleted, added or updated) before you actually commit those changes.</p>
+<p>Terraform is a cloud vendor independent tool to create cloud resources. That means, you can even do multi cloud deployments! It supports variety of cloud providers, including Azure. With Terraform, you get the benefit of visualizing changes to your resources (whether something will be deleted, added or updated) before you actually commit those changes.</p>
+
+<br><img src="k8scluster/Terraform.png" width="30%"/><br>
 
 <p>In distinction to Azure Resource Manager, Terrafrom needs to be installed locally. Is easy to <a href="https://www.terraform.io/">install</a> and use via the “terraform” command. It is already pre-installed in Cloud Shell. This approach comes with some benefits, for example, we can set parameters using environment variables for development and testing purposes.
 </p>
 
-<h3>Define resources</h3>
+<h3>Define resources in HCL</h3>
 <p>
-File <code>kube-az.tf</code> is a main file for resource definitions.<br>
+In this sample, Terraform will be used to create Azure Container Service Cluster (ACS) with Kubernetes, but not the managed one. The one where you have the privilege of maintaining the cluster on your own.</p>
+<p>File <code>kube-az.tf</code> is a main file for resource definitions.<br>
 <code>terraform.tfvars</code> file sets the values for variables defined in <code>variables.tf</code> file.
 </p>
 
@@ -131,33 +167,30 @@ File <code>kube-az.tf</code> is a main file for resource definitions.<br>
 
 <p>Do not forget to put appropriate values in the <code>terraform.tfvars</code> file.</p>
 
-<h3>Provision the cluster</h3>
+<h3>Provision ACS cluster with Terraform</h3>
 <p>
-Run the following command to initialize a working directory containing Terraform configuration files: <br>
+Terraform "init" command is used to initialize a working directory containing Terraform configuration files: <br>
 <code>$ terraform init</code>
 </p>
-<img src="k8scluster/terraform init.png" width="80%"/><br>
 
 <p>
-To see what changes are going to be planned, run the following command (it will not perform those changes until you run the apply command):<br>
+Terraform "plan" command is useful to see what changes are going to be planned. It will not perform those changes until you run the apply command):<br>
 <code>$ terraform plan</code>
 </p>
-<img src="k8scluster/terraform plan.png" width="80%"/><br>
 
 <p>
-Run the follwong command to apply the changes required to reach the desired state of the configuration, or the pre-determined set of actions generated by a terraform plan execution plan:<br>
+To apply the changes required to reach the desired state of the configuration, or the pre-determined set of actions generated by a terraform plan execution plan, there is an "apply" command:<br>
 <code>$ terraform apply</code>
 </p>
-<img src="k8scluster/terraform apply.png" width="80%"/><br>
 
-<p>After the provisioning succeeded, you should see something like this:</p>
-<img src="k8scluster/terraform cluster ready.png" width="80%"/><br>
+<p>In action:</p>
+<img src="k8scluster/Slide 29.gif" width="100%"/><br>
 
-<h2>Overview of resources created</h2>
-<p>Not depending on the way the cluster was created, Kubernetes on Azure Container Service provisions master and agent virtual machines, availability sets, storage accounts or managed disks, virtual network, public ip addresses, load balancers, route table, network interfaces, network security group, and container service resources.</p>
+<h3>Overview of resources created</h3>
+<p>Kubernetes on Azure Container Service provisions master and agent virtual machines, availability sets, storage accounts or managed disks, virtual network, public ip addresses, load balancers, route table, network interfaces, network security group, and container service resources.</p>
 <img src="k8scluster/resources.png" width="70%"/><br>
 
-<a name="connect"><h2>Connect to the cluster</h2></a>
+<a name="connect"><h3>Connect to the cluster</h3></a>
 
 <p>After the cluster and its resources are created, we can connect to it and start executing commands.</p>
 
@@ -185,7 +218,7 @@ Run the follwong command to apply the changes required to reach the desired stat
 <code>$ cat /var/logs/azure/cluster-creation.json</code>
 </p>
 <br>
-<h2>Reach out for any questions</h2>
+<h3>Reach out for any questions</h3>
 <p>Follow me on twitter <a href="https://twitter.com/lenadroid">@lenadroid</a> if you found this article interesting or helpful. My direct messages are open, always happy to connect, feel free to reach out with any questions or ideas!
 </p>
 
