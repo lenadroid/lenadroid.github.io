@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Running a Distributed Database on Kubernetes on Azure</title>
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
+</head>
+<html>
+    <body>
+        <section id="mainMenuSection" >
+              <section id="mainMenu">
+                  <a href="http://lenadroid.github.io">Home</a>
+                  <a href="http://lenadroid.github.io/posts.html">Posts</a>
+                  <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+                 <a href="http://lenadroid.github.io/identity/contact.html">About</a>
+                    <div class="clear"></div>
+              </section>
+        </section
+        <!-- generated content starts -->
+        <section class='posts' >
+            <article class='post' >
+                <header class='title' >
+                        Running a Distributed Database on Kubernetes on Azure
+                </header>
+                <div class='description' >
+                    <h3>Introduction</h3>
+                    <p>In this article, I am going to cover several topics, related to distributed databases, containers, cloud and functional programming.</p>
+
+                    <h3>Prerequisites</h3>
+
+                    <p>I already have a Kubernetes cluster provisioned in Azure. Look <a target="_blank" href="k8s-on-azure-with-terraform-arm-cli.html">here</a> if you would like to create one.</p>
+
+                    <h3>Distributed databases - systems that require stable persistence</h3>
+                    <p>If we think about it, a database and data are most valuable parts of any system. Nobody wants to deal with data leaks, instability and data loss, especially. Nobody wants to spend days and nights recovering from an operational or architectural mistake that could cost significant amounts of money. If the database of your choice is best when run on a bare metal cluster, or on something else - that is a good way to go.</p>
+
+                    <h3>Data Stores and containers?</h3>
+                    <p>Aren’t containers meant to be ephemeral and used for stateless services? Containers are great for services, especially combined with orchestrators like Kubernetes to manage microservices. Standard containers are meant to be stateless and ephemeral. They will lose and forget data in case of a restart or an error. It is not a good idea to use plain containers for anything that needs persistence. Attaching volumes to Kubernetes pods is not a solution in case of a distributed database either, because certain assumptions need to be made about database cluster nodes prior to creating the cluster. For example, some nodes might have roles, like a leader or a follower. Or there might be cluster nodes designated as “seed” nodes. Even with attaching a volume to each pod, standard containers will still be created with nondeterministic random names, with no guarantees of order in which pods are scheduled to be started, terminated or scaled. Therefore, the assumptions cannot be made.</p>
+
+                    <img width="100%" src="cassandra-kube/1.png"/>
+                    <br>
+
+                    <h3>Why trying to run a database on Kubernetes then?</h3>
+                    <p> The flexibility and possibilities Kubernetes includes have proven to lead to more frequent service deployments, it also reduces efforts operation engineers have to put in healing and recovering individual services, it automates a lot of common operations to support the healthy lifetime of the services with recoverability and reliability, and generally provides a convenient way of managing numerous services altogether.<br>
+                    What is the benefit of running a distributed database on Kubernetes? Time it takes to create a Kubernetes cluster with a distributed database on it is just few minutes. Same to destroy the cluster. It can take a long time to properly set up a bare metal cluster, or even a VM one, which is less flexible. If using a containerized distributed database, it can significantly reduce costs spent on clusters for development and testing, because the cluster doesn’t have to exist when unused and it provides more flexibility.<br>
+                    Kubernetes offers a feature called “Stateful Sets”, which allows things that usual Kubernetes deployments don’t guarantee. Each pod in a Stateful Set will always have a unique and predictable name and address, along with an ordinal index number assigned. In addition, each pod will have a persistent volume attached, with a persistent link from pod to the storage. Stateful Set pods will always start in the same order, and terminate in reverse order. These possibilities help eliminate some of the mentioned issues for distributed databases.</p>
+
+                    <h3>Stateful Sets seem legit, doesn’t it?</h3>
+
+                    <p> Software engineering was meant to solve problems, not to create them.<br>
+                    Stateful Sets feature aims to bring Kubernetes a few steps closer to being a good option for production deployment of stateful distributed systems. It is currently in “beta”, here is a <a href="https://github.com/kubernetes/kubernetes/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20statefulset" target="_blank">list</a> of known issues on Github. I would still be careful about use Stateful Sets in production, for the time being, because this approach isn’t battle tested enough. In the meantime, it is a perfect solution for development clusters.</p>
+
+                    <h3>Headless Service</h3>
+                    <br><br>
+                    <img width="100%" src="cassandra-kube/2.png"/>
+                    <br>
+
+                    <p>Currently, Stateful Set pods need help of a so called ”headless” service to function properly. This kind of service is called “headless” because it doesn’t need a Cluster IP available, nor we want any load balancing done with it. In Headless Service, the service definition has a selector, and when the service is accessed, DNS is configured to return multiple A-records/addresses, which point directly to the pods behind that service with the same selector.<br>
+                    Headless Service is needed to manage network identity of the stateful pods.</p>
+
+                    <p>To create Headless Service for the cassandra, we can use this <a target="_blank" href="https://kubernetes.io/docs/tutorials/stateful-application/cassandra/cassandra-service.yaml">template</a>:</p>
+
+                    <img width="100%" src="cassandra-kube/3.png"/>
+                    <br>
+
+                    <h3>Storage Classes, Persistent Volume Claims and Persistent Volumes</h3>
+
+                    <p>After Headless Service is created, it is important to understand Storage Classes before we actually create a Stateful Set.</p>
+
+                    <br><br>
+                    <img width="100%" src="cassandra-kube/4.png"/>
+                    <br>
+
+                    <p>Kubernetes has a concept of Storage Classes. It tells us what types of storage are supported by our cluster. For example, in Azure, we can use azure disks or azure files. Disks can be managed or unmanaged, premium or standard, depends on the required performance or price tier. There are many <a target="_blank" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#storageclasses">other Storage Class options</a> corresponding to different providers.</p>
+
+                    <p>If we explore existing Storage Classes, we can see that default, managed-premium and managed-standard classes are pre-created in my Azure cluster. It is also possible to create a new Storage Class, if needed: </p>
+
+                    <img width="100%" src="cassandra-kube/5.png"/>
+                    <br>
+
+                    <p>When each pod in a Stateful Set is created, there's a Persistent Volume Claim initiated based on its Storage Class. Simply speaking, it is an abstraction for a request for storage. After the request succeeds, the Persistent Volume is dynamically provisioned for the pod, again, according to the Storage Class that was requested in the Persistent Volume Claim.</p><br>
+
+                    <h3>Stateful Sets</h3>
+
+                    <p>At this point, Headless Service is created, we have also explored Storage Class options and can create a Stateful Set. Template definition of the Stateful Set can be found <a href="https://kubernetes.io/docs/tutorials/stateful-application/cassandra/cassandra-statefulset.yaml" target="_blank">here</a>. Feel free to change number of replicas (I've set it to 5).</p>
+
+                    <p>I’m using managed-premium Storage Class, because my cluster VMs support it:</p>
+                    <img width="100%" src="cassandra-kube/6.png"/>
+                    <br>
+
+                    <p>Do not forget to indicate desired storage class in the Stateful Set template:</p>
+                    <img width="100%" src="cassandra-kube/7.png"/>
+                    <br>
+
+                    <p>Creating the Stateful Set and checking the status of the pods:</p>
+                    <img width="100%" src="cassandra-kube/8.png"/>
+                    <br>
+
+                    <p>Stateful Set pods start to get created.</p>
+
+                    <p>We can always get more information if we describe a pod:</p>
+
+                    <img width="100%" src="cassandra-kube/9.png"/>
+                    <br>
+                    <img width="100%" src="cassandra-kube/10.png"/>
+                    <br>
+
+                    <p>Logs indicate that FailedScheduling event occurred for the pod. To get more information, let’s describe the Persistent Volume Claim associated with the pod:</p>
+                    <img width="100%" src="cassandra-kube/11.png"/>
+                    <br>
+
+                    <p>This means, the request for storage is currently pending. So we just need to wait for it to be provisioned. Let’s check back in a few seconds/minutes:</p>
+                    <img width="100%" src="cassandra-kube/12.png"/>
+                    <br>
+
+                    <p>Now, new pods are starting to be created one by one, in order. Two of them are ready, and one is creating!</p>
+
+                    <p>Persistent Volume Claims for running pods will be in “Bound” status:</p>
+                    <img width="100%" src="cassandra-kube/14.png"/>
+                    <br>
+
+                    <p>And showing the “ProvisionSucceeded” event:</p>
+
+                    <img width="100%" src="cassandra-kube/15.png"/>
+                    <br>
+
+                    <p>Which means the persistent volume was successfully provisioned for the specific pod:</p>
+
+                    <img width="100%" src="cassandra-kube/16.png"/>
+                    <br>
+
+                    <p>Logs of each running pod in the Stateful Set should indicate successful mount, creation and start:</p>
+
+                    <img width="100%" src="cassandra-kube/13.png"/>
+                    <br>
+
+                    <h3>When the Stateful Set is ready</h3>
+                    <p>5 of 5 pods are running! Persistent Volume Claims succeeded and Persistent Volumes are provisioned!</p>
+
+                    <img width="100%" src="cassandra-kube/17.png"/>
+                    <br>
+
+                    <img width="100%" src="cassandra-kube/18.png"/>
+                    <br>
+
+                    <h3>Things to note</h3>
+
+                    <p>When deleting a Stateful Set, Persistent Volumes are not deleted automatically.<br>
+                    Generally, if number of pods in the Stateful Set is less than or equal to number of agents, pods should be scheduled on different nodes. With that, there might be scenarios where some pods are scheduled on the same node, unless we state explicitly that it shouldn’t happen. It’s important for systems like Zookeeper, for example, if there are 3 pods and 2 of them are scheduled for the same node, there will be no quorum anymore when that node dies. Keep things like that in mind to not forget the explicit anti-affinity settings.</p><br>
+
+                    <h3>Preparing Jobs to run on Kubernetes</h3>
+
+                    <p>At this point, we have a Cassandra cluster up and running using Stateful Sets with Persistent Volumes, on Kubernetes on Azure, yay! To test it out, let’s create a bunch of F# jobs to write data into the Cassandra. We can do that using Kubernetes jobs!</p>
+
+                    <p>Because I live in wonderful Seattle, I found a dataset of Seattle <a target="_blank" href="https://github.com/openaddresses/">addresses</a>, which is free and open. I’ve created an F# script that takes chunks of data from that dataset and writes it into the database. And we can have many F# jobs doing this in parallel on Kubernetes!</p>
+
+                    <p>What does the actual definition of this job look like?</p>
+                    <script src="https://gist.github.com/lenadroid/b2846d59ddc8989085713599054a6191.js"></script>
+
+                    <p>The full set of files can be seen <a target="_blank" href="https://gist.github.com/lenadroid/8d53e35a2742392f6f5a75449765476c">here</a>. If you are not familiar with F#, I’ve used <a target="_blank" href="https://fsprojects.github.io/Paket/">Paket</a> to manage dependencies, VS Code is my editor on Mac OS. I have also created a docker image and pushed it to my repo on DockerHub, so that I can use it in Kubernetes templates.</p>
+
+                    <p>The main file is called “HousingData.fsx” it accepts 3 command line arguments:</p>
+                    <img width="100%" src="cassandra-kube/19-0.png"/>
+                    <br>
+
+                    <p>I have used F# Type Providers to work with the dataset:</p>
+                    <img width="100%" src="cassandra-kube/19.png"/>
+                    <br>
+
+                    <p>And defined functions for connecting to the cluster by endpoint, creating the keyspace and the table we are going to use:</p>
+                    <img width="100%" src="cassandra-kube/20.png"/>
+                    <br>
+
+                    <h3>Using F# Interactive to experiment with data and test the cluster</h3>
+
+                    <p>It is not possible to access the Stateful Set from the outside of the cluster. Sometimes it is convenient to be able to connect to Cassandra cluster from F# interactive to test things, we can create an external service:</p>
+
+                    <img width="100%" src="cassandra-kube/external-service.png"/>
+                    <br>
+
+                    <img width="100%" src="cassandra-kube/external-service-2.png"/>
+                    <br>
+
+                    <p>When the service is ready, you will see the actual External IP set when you use “kubectl get services” command.
+
+                    <p>This is useful if we would like to experiment and test out some things right from F# Interactive, without deploying anything into Kubernetes yet.</p>
+
+                    <img width="100%" src="cassandra-kube/fs-interactive.gif"/>
+                    <br>
+
+                    <h3>Getting real with Kubernetes Jobs</h3>
+
+                    <p>In the job template file "fsharp-job.json", there are three placeholders, which correspond to three parameters that the F# script file expects. To have many parallel jobs running, I use the following code to generate job files with actual parameters populated:</p>
+
+                    <img width="100%" src="cassandra-kube/create jobs.png"/>
+                    <br>
+
+                    <p>This code is creating a called jobs first. Then, I am saying that I’d like to have 10 jobs, each of them should write 70000 rows into the database, with 14000 elements being a local concurrency index for each job.</p>
+
+                    <p>Then, under job directory there is a file created for each job:</p>
+
+                    <img width="100%" src="cassandra-kube/jobs.png"/>
+                    <br>
+
+                    <p>In these files, placeholders like $START, $STEP and $INCR are replaced with actual appropriate values:</p>
+
+                    <img width="100%" src="cassandra-kube/jobs-2.png"/>
+                    <br>
+
+                    <p>As all the job definitions with real parameters are under "jobs" directory, it is simple to create Kubernetes jobs indicating the directory path:</p>
+                    <img width="100%" src="cassandra-kube/jobs-3.png"/>
+                    <br>
+
+                    <p>What's exciting is that you will immediately see new pods, those that correspond to new jobs:</p>
+                    <img width="100%" src="cassandra-kube/jobs-4.png"/>
+                    <br>
+
+                    <h3>The most exciting part</h3>
+
+                    <p>There are quite a few things we can do to track and explore the progress of the jobs. Here is a full demo:</p>
+                    <img width="100%" src="cassandra-kube/create jobs.gif"/>
+                    <br>
+
+                    <h3>Connect</h3>
+
+                    <p>Follow me on twitter <a href="https://twitter.com/lenadroid">@lenadroid</a> if you found this article interesting or helpful. My direct messages are open, always happy to connect, feel free to reach out with any questions or ideas!</p>
+
+                    <br>
+                    <br>
+
+                </div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  11.15.2017
+               </div> |
+               <div class='keywords' >
+                    <span class='keyword' >
+                        azure
+                    </span>
+                    <span class='keyword' >
+                        kubernetes
+                    </span>
+                    <span class='keyword' >
+                        containers
+                    </span>
+                    <span class='keyword' >
+                        cassandra
+                    </span>
+                    <span class='keyword' >
+                        distributed databases
+                    </span>
+              </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+
+
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2017 - Lena Hall</p>
+        </footer>
+
+  </body>
+</html>
