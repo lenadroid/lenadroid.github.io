@@ -27,6 +27,8 @@
                     <h3>Introduction</h3>
                     <p>Apache Spark it is an open-source fault tolerant distributed computing framework and scalable data processing system, which is part of Apache Software Foundation. Spark is an actively maintained project with vibrant community that consists of multiple components with Spark Core as a foundation of it. Other components include Spark SQL, Spark Streaming, Spark Structured Streaming, MLlib Machine Learning Library and GraphX.</p>
 
+                    <img width="30%" src="eventhub-spark/spark-logo-hd.png"/>
+
                     <p>Note:
                         <blockquote>“Apache Spark is a powerful open source processing engine built around speed, ease of use, and sophisticated analytics. It was originally developed at UC Berkeley in 2009.” - Databricks
                         </blockquote>
@@ -49,6 +51,8 @@
 
                     <p>As a use case, why would anyone need to process data from Twitter in real time? There might be cases when it’s necessary to look at messages with certain hashtags, process them in a certain way and react on them, or redirect them to some other system. For example, what if we wanted to determine if there are tweets that pose threat to someone, and immediately put the corresponding account under review, including tweets in different languages, or analyzing tweets on presence of issues and then sending a notification to someone responsible for fixing those issues. Analysis of data might involve much more complicated processing and machine learning, but the idea is the same.
                     </p>
+
+                    <img src="eventhub-spark/eventhubs-logo.png" width="20%"/>
 
                     <p>When there is a task to process stream of data coming from multiple different sources, it is convenient to use a massively scalable pub/sub message queue to serve as durable event aggregation log that can be written to from multiple independent sources and can be read from multiple independent consumers, and Spark can be one of them. Very often there is more than one system we need to consume events from. Tweets can contain issues, Stackoverflow can contain issues, emails can contain issues, sensors might trigger an issue, and in that case it would be beneficial to direct all sources of data to something like <a href="https://kafka.apache.org/" target="_blank">Apache Kafka</a>, <a href="http://cda.ms/7m" target="_blank">Azure Event Hubs</a> or <a href="https://aws.amazon.com/kinesis/" target="_blank">Amazon Kinesis</a>, to serve as an input layer to Apache Spark before it performs data processing.
                     </p>
