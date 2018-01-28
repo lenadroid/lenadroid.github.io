@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Using Spark on Databricks to consume data from Event Hubs</title>
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
+    <script>
+        function resizeIframe(obj) {
+            obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+        }
+    </script>
+
+</head>
+<html>
+    <body>
+        <section id="mainMenuSection" >
+              <section id="mainMenu">
+                  <a href="http://lenadroid.github.io">Home</a>
+                  <a href="http://lenadroid.github.io/posts.html">Posts</a>
+                  <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+                 <a href="http://lenadroid.github.io/identity/contact.html">About</a>
+                    <div class="clear"></div>
+              </section>
+        </section
+        <!-- generated content starts -->
+        <section class='posts' >
+            <article class='post' >
+                <header class='title' >
+                    Using Spark on Azure Databricks to consume data from Event Hubs
+                </header>
+                <div class='description' >
+                    <h3>Introduction</h3>
+                    <p>Apache Spark it is an open-source fault tolerant distributed computing framework and scalable data processing system, which is part of Apache Software Foundation. Spark is an actively maintained project with vibrant community that consists of multiple components with Spark Core as a foundation of it. Other components include Spark SQL, Spark Streaming, Spark Structured Streaming, MLlib Machine Learning Library and GraphX.</p>
+
+                    <p>Note:
+                        <blockquote>“Apache Spark is a powerful open source processing engine built around speed, ease of use, and sophisticated analytics. It was originally developed at UC Berkeley in 2009.” - Databricks
+                        </blockquote>
+                    </p>
+
+                    <a href="" target="_blank"></a>
+
+                    <p>Use cases for Spark include data processing, analytics, and machine learning for enormous volumes of data in near real time, data-driven reaction and decision making, scalable and fault tolerant computations on large datasets. Examples may include analyzing events from sensors arriving with high frequency from multiple types of sources, performing real-time processing and machine learning to determine health of the system and raising immediate alerts to act upon, and persisting all events into some data lake for historical purposes, and many more.
+                    </p>
+
+                    <p>Spark has a concept of “connectors” that help Spark can interact with many systems to consume data from or to write data to. For example, to consume data from Kafka topics we can use <a href="https://spark.apache.org/docs/2.2.0/structured-streaming-kafka-integration.html" target="_blank">Kafka connector</a>, and to write data to Cassandra, we can use <a href="https://github.com/datastax/spark-cassandra-connector" target="_blank">Cassandra connector</a>.</p>
+
+                    <p>Spark is available using Java, Scala, Python and R <a href="https://spark.apache.org/docs/2.2.0/api.html" target="_blank">APIs</a>, but there are also projects that help work with Spark for other languages, for example <a href="http://cda.ms/7n" target="_blank">this one</a> for C#/F#.
+                    </p>
+
+                    <h3>What are we doing and why?</h3>
+
+                    <p>In this article, we are going to set up a data ingestion system and connect to it from Spark to consume events to do further processing. As an example I’ve chosen to use Twitter data as a source, because it is freely available to anyone who creates a <a href="https://apps.twitter.com/app/new" tagret="_blank">Twitter App</a>, and new data comes in real-time.
+                    </p>
+
+                    <p>As a use case, why would anyone need to process data from Twitter in real time? There might be cases when it’s necessary to look at messages with certain hashtags, process them in a certain way and react on them, or redirect them to some other system. For example, what if we wanted to determine if there are tweets that pose threat to someone, and immediately put the corresponding account under review, including tweets in different languages, or analyzing tweets on presence of issues and then sending a notification to someone responsible for fixing those issues. Analysis of data might involve much more complicated processing and machine learning, but the idea is the same.
+                    </p>
+
+                    <p>When there is a task to process stream of data coming from multiple different sources, it is convenient to use a massively scalable pub/sub message queue to serve as durable event aggregation log that can be written to from multiple independent sources and can be read from multiple independent consumers, and Spark can be one of them. Very often there is more than one system we need to consume events from. Tweets can contain issues, Stackoverflow can contain issues, emails can contain issues, sensors might trigger an issue, and in that case it would be beneficial to direct all sources of data to something like <a href="https://kafka.apache.org/" target="_blank">Apache Kafka</a>, <a href="http://cda.ms/7m" target="_blank">Azure Event Hubs</a> or <a href="https://aws.amazon.com/kinesis/" target="_blank">Amazon Kinesis</a>, to serve as an input layer to Apache Spark before it performs data processing.
+                    </p>
+
+                    <p> In this article, we are going to:
+                        <ul>
+                            <li>Create an Event Hubs instance</li>
+                            <li>Create a Spark cluster using Azure Databricks</li>
+                            <li>Use an open-source <a href="http://cda.ms/7p" target="_blank">azure-event-hubs-spark</a> connector</li>
+                            <li>Create two Databricks notebooks: one for sending tweets to Event Hubs, second one for consuming tweets in Spark</li>
+                        </ul>
+                    </p>
+
+                    <p>Note:
+                        <blockquote>none of the steps chosen as an example for the article should prevent you from trying those things on a platform of your choice. Event Hubs can be replaced with Kafka, Jupyter notebooks can be used instead of Databricks notebooks, and etc. Future articles will demonstrate usage of Spark with different systems!
+                        </blockquote>
+                    </p>
+
+                    <h3>Creating an Event Hubs instance</h3>
+                    <p>If you don’t have Azure account, you can start a <a href="http://cda.ms/7q" target="_blank">free trial</a>. Search for “Event Hubs” resource and choose “create”.</p>
+
+                    <img width="60%" src="eventhub-spark/2.png"/>
+
+                    <p>Depending on the load you expect, message frequency and retention characteristics, you can select different throughput units. After that we should have a namespace created, and the next step is to create an event hub. A namespace is like a container for several event hubs, which are like topics. </p>
+
+                    <img width="60%" src="eventhub-spark/3.png"/>
+
+                    <p>Each event hub can have one or more consumer groups for parallel and independent consumption of messages. In this case, I’m just going to use the default consumer group when reading events from the hub.</p>
+
+                    <img width="100%" src="eventhub-spark/4.png"/>
+
+                    <p>Take a note of your Event Hubs namespace and Event Hubs name, because we will need it in the future steps to connect to the Event Hub. We will also need a SAS key name (policy name) and its value (“Primary Key”), both of these we can get if we navigate under “Shared Access Policies” option of Event Hubs namespace page.</p>
+
+                    <img width="100%" src="eventhub-spark/5.png"/>
+
+                    <p>At this point, the Event Hubs instance is created and we’re ready to set up the Spark cluster.</p>
+
+                    <h3>Setting up a Spark cluster</h3>
+                    <p>There are several options for Spark cluster creation on Azure: Databricks, HDInsight, Messos, etc. In this example, I chose to use Azure Databricks, because it provides an easy way to create clusters, terminates them after a period of inactivity, integrates with Databricks interactive notebooks and is simple to work with.</p>
+
+                    <p>There are great instructions on how to create a cluster using Azure Databricks <a href="http://cda.ms/7r" target="_blank">here</a>. This is what the dashboard shows when the cluster is creating:</p>
+
+                    <img width="100%" src="eventhub-spark/6.png"/>
+
+                    <p>After the cluster is ready, we need to create a notebook (two notebooks, more precisely). Notebooks in Databricks are like Jupyter notebooks, they allow writing code in Scala or Python and runing it against the Spark cluster. In this example I’ve created two notebooks: one for sending tweets to the Event Hubs, and second one for consuming tweets using Spark Structured Streaming. There is great <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html" target="_blank">documentation</a> on Structured Streaming describing many things we can do with it.</p>
+
+                    <img width="100%" src="eventhub-spark/8.png"/>
+
+                    <p>So far the Spark cluster and Event Hubs are two independent entities that don’t know how to talk to each other without our help. </p>
+
+                    <h3>Connecting Event Hubs and Spark </h3>
+                    <p>Let’s open the first notebook, which will be the one we will use to send tweets to the Event Hubs. Later we can consume these events with Spark from the second notebook.</p>
+
+                    <img width="100%" src="eventhub-spark/9.png"/>
+
+                    <p>As you san see, in my Scala notebook, I can write regular Scala code and it will show the results right below after running it with Shift+Enter.</p>
+
+                    <p>Before we write any code mentioning Event Hubs, we should import a library with the <a href="http://cda.ms/7s" target="_blank">Event Hubs connector</a>. To add a library to a Spark cluster on Azure Databricks, we can click Home -&gt Shared, then right click Create -&gt Library:</p>
+
+                    <img width="60%" src="eventhub-spark/12.png"/>
+
+                    <p>This allows to add a package from Maven Central or other Spark Package to the cluster using search. The one we need will be azure-eventhubs-databricks_2.11:</p>
+
+                    <img width="100%" src="eventhub-spark/13.png"/>
+
+                    <p>All future libraries added will be visible here as well:</p>
+
+                    <img width="60%" src="eventhub-spark/10.png"/>
+
+                    <p>After the package is added, we will be allowed to import the library in the code with no errors: <blockquote>import com.microsoft.azure.eventhubs._</blockquote></p>
+
+                    <h3>Getting Tweets</h3>
+
+                    <p> To send data to the Event Hubs, we first need to retrieve tweets. For that to work, we need to complete a few fields on Twitter configuration, which can be found under your <a href="https://apps.twitter.com/app/new" target="_blank">Twitter App</a>:</p>
+
+                    <img width="70%" src="eventhub-spark/11.png"/>
+
+                    <br>
+                    <h3>Producing data</h3>
+                    <p>With Event Hubs connection information and Twitter connection information, we can run the code in the first notebook and start populating the Event Hubs with tweets:</p>
+
+                    <iframe src="eventhub-spark/ProduceEvents.html" frameborder="0" scrolling="no" onload="resizeIframe(this)" width="100%" height="600px"></iframe>
+
+                    <h3>Consuming data</h3>
+                    <p>In the second notebook, we can receive and process messages coming in from Event Hubs.<br>
+                    First question that comes to mind is, what is the data format of messages that are sent from the Event Hubs? It is possible to find out if we connect to the incoming stream and output it into the notebook console. In Spark it is possible to do if we specify “eventhubs” as stream format and pass a collection of key-value parameters with eventhubs connection information when using the “readStream” command:</p>
+
+                    <blockquote>val incomingStream = spark.readStream.format("eventhubs").options(customEventhubParameters).load()</blockquote>
+
+                    <p>After the stream is instantiated, we can use the printSchema function to have stream schema displayed:</p>
+
+                    <blockquote>incomingStream.printSchema</blockquote>
+
+                    <p>To display the content of messages to the console, the following command is useful:</p>
+
+                    <blockquote>incomingStream.writeStream.outputMode("append").format("console").option("truncate", false).start().awaitTermination()</blockquote>
+
+                    <p>Truncate is set to false because we want to see the full body of messages. </p>
+
+                    <p>From the stream schema it is visible that there is a “body” column of a binary type, which we can convert to string, because we have written tweets in string format on the Event Hubs side. It is hard for humans to read byte arrays:</p>
+
+                    <blockquote>val messages = incomingStream.selectExpr("cast (body as string) AS Content")<br>
+                    messages.writeStream.outputMode("append").format("console").option("truncate", false).start().awaitTermination()</blockquote>
+
+                    <p>This is a second notebook, feel free to scroll through:</p>
+
+                    <iframe src="eventhub-spark/ConsumingData.html" frameborder="0" scrolling="no" onload="resizeIframe(this)" width="100%" height="1000px"></iframe>
+
+                    <p>The second part for this article is coming up where we are going to do machine learning processing on the tweets. Stay tuned!</p>
+
+                    <h3>Connect</h3>
+
+                    <p>Follow me on twitter <a href="https://twitter.com/lenadroid">@lenadroid</a> if you found this article interesting or helpful. My direct messages are open, always happy to connect, feel free to reach out with any questions or ideas!</p>
+
+                    <br>
+                    <br>
+
+                </div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  01.25.2018
+               </div> |
+               <div class='keywords' >
+                    <span class='keyword' >
+                        apache spark
+                    </span>
+                    <span class='keyword' >
+                        event hubs
+                    </span>
+                    <span class='keyword' >
+                        streaming
+                    </span>
+                    <span class='keyword' >
+                        azure-event-hubs-spark
+                    </span>
+                    <span class='keyword' >
+                        databricks
+                    </span>
+              </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+
+
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2017 - Lena Hall</p>
+        </footer>
+
+  </body>
+</html>
