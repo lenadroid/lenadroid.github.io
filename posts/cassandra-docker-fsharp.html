@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>About Cassandra on Docker with F#</title> 
+    <title>About Cassandra on Docker with F#</title>
     <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
     <!-- <link rel="stylesheet" href="../css/SitePostsPink.css" /> -->
-    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" /> 
-    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" /> 
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
 </head>
 <html>
    <body>
@@ -62,7 +62,7 @@ CREATE TABLE coffee_shops_by_street (
 
 <p>After the insertions you should be able to run the <code>select * from</code> query and see the results same as on the picture above. This way we know how our data looks like in the tabular form. But actually, is the way Cassandra stores our data the same we see it? Hm, nope. If we look at how this table is stored internally, we will see something like this:
 </p>
- 
+
 <img src="Cassandra/2.png"/>
 
 <p>As you see there are some differences in how our data is saved on disk versus how we receive the results from Cassandra in a tabular view. </p>
@@ -86,7 +86,7 @@ CREATE TABLE coffee_shops_by_street (
 <p>Anyway, back to our table. You may wonder, what a strange table, coffee_shops_by_street, sounds weird? Why not to have a table coffee_shops and a streets.. Yes, if you come from the relational world you may find it very unusual. But it is quite logical to have the table as if we are naming the query and let's see why. Now it is easier to explain to you, after you know how the table looks like inside and how Cassandra searches for the values by the queries. The main practical purpose of the table in Cassandra is to satisfy the query. The overall physical data modeling approach in Cassandra is query based and built around queries and access patterns for your conceptual data model. Let's look at it a little bit closer. When you think of any application we always have some objects to manipulate, like coffee shops or streets in our case. We have relationships between the objects. This part is independent from any particular database. The next step is thinking. Thinking of the tasks and operations that will be performed on those objects. Collaboration and analysis is very important on this step. As an output you should get the list of queries that will be executed against the database we will create. In Cassandra, as a next step, we will create the table for almost each query. Then all the operations will be optimized for the query and high speed. This will however result in data denormalization, which is absolutely normal for Cassandra, it helps queries to be fast and always find the location of the data in constant time. Denormalization also results in the necessity to perform the writes into the several tables at once. Syncing the tables however can be performed as an atomic operation using batches. But don't mix <a href="https://docs.datastax.com/en/cql/3.1/cql/cql_using/useBatch.html" target ="_blank"> good batches and bad batches</a>.  </p>
 <p>As RDBMS trade-off low latency for disk space, Cassandra trades-off disk space for low latency.  </p>
 
-<p>Here are some important notes to save in the brain. 
+<p>Here are some important notes to save in the brain.
 <ul>
 <li>Cassandra's primary key should fulfil the uniqueness and equality querying purposes.</li>
 <li>Primary key consists of the partition key and clustering columns that add uniqueness to our data entries.</li>
@@ -139,14 +139,14 @@ CREATE TABLE coffee_shops_by_street (
 
 <img src="Cassandra/7.png"/>
 
- 
+
 <p>After that you can log in to all machines and look into /etc/cassandra/cassandra.yaml file.</p>
 
 <p>To do it inside all machines at the same time you might want to use the terminal application that allows broadcasting to all open tabs or windows, to make typing faster. I am using iTerm2 Shell -> Broadcast -> Send output to all tabs in all windows menu item.</p>
 
 <img src="Cassandra/8.png"/>
 
- 
+
 <p>First of all, we need vim to edit the content of the config files, so let's install it:</p>
 <pre>
 $ apt-get update
@@ -157,7 +157,7 @@ $ apt-get install vim
 
 <img src="Cassandra/9.png"/>
 
- 
+
 <p><a href="http://vim.rtorr.com" target="_blank">Here</a> is the cheetsheet on vim so you will not get lost in the commands for insertion, saving and other commands.</p>
 
 <p>Actually, before opening the cassandra.yaml file, let's go to /var/lib/cassandra directory and remove all directories from there. We want our system to be clean. All these directories will be recreated later.</p>
@@ -174,7 +174,7 @@ For me listen address for each node on Docker is set to 172.17.0.2, 172.17.0.3 a
 <pre>:r ! hostname -I</pre>
 .. and press enter. This will output the node's ip address, so you can replace the 0.0.0.0 value with the ip address. </p>
 
-<p>The last one we need to change is called "seeds". Seeds is a special string we need to set for the node in the cluster, which contains the ip addresses of other nodes to be gossiping with. This allows to be aware of the cluster topology changes and other related things. As we have a really small example cluster, let's set the ip addresses of 3 nodes inside the seeds string. But with big clusters, don't make all nodes to be seeds, the best practice is to choose just a set of nodes. 
+<p>The last one we need to change is called "seeds". Seeds is a special string we need to set for the node in the cluster, which contains the ip addresses of other nodes to be gossiping with. This allows to be aware of the cluster topology changes and other related things. As we have a really small example cluster, let's set the ip addresses of 3 nodes inside the seeds string. But with big clusters, don't make all nodes to be seeds, the best practice is to choose just a set of nodes.
 My seeds line looks like this:
  <pre>- seeds: "172.17.0.2,172.0.0.3,172.0.0.4"</pre></p>
 
@@ -184,7 +184,7 @@ My seeds line looks like this:
 But before doing this we should first open the necessary ports, so FSharp will be able to actually connect. Go to Kitematic, for the each container, go to the "Ports" section and set some value for the 9042 port (it is Cassandra's CQL native transport port):</p>
 
 <img src="Cassandra/10.png"/>
- 
+
 
 <p>After ports are opened we can try to connect to our Cassandra cluster from FSharp.</p>
 
@@ -192,7 +192,7 @@ But before doing this we should first open the necessary ports, so FSharp will b
 
 <p>What options do we have?</p>
 
-<p>If you look at the section about <a href="http://fsharp.org/guides/cloud/#cassandra" target="_blank">Cassandra</a>, you will see that there is more than one option to choose from to work with Cassandra. But for this example I will use the official Cassandra .NET driver, which is available by the <a href="https://www.nuget.org/packages/CassandraCSharpDriver/" target="_blank">link</a>. 
+<p>If you look at the section about <a href="http://fsharp.org/guides/cloud/#cassandra" target="_blank">Cassandra</a>, you will see that there is more than one option to choose from to work with Cassandra. But for this example I will use the official Cassandra .NET driver, which is available by the <a href="https://www.nuget.org/packages/CassandraCSharpDriver/" target="_blank">link</a>.
 For your own projects I strongly recommend to investigate all available driver options and choose the one that suits best for your case.</p>
 
 <p>I am using Mac and Xamarin Studio and Project Scaffold for this example.</p>
@@ -206,7 +206,7 @@ For your own projects I strongly recommend to investigate all available driver o
 
 <img src="Cassandra/11.png"/>
 
- 
+
 
 <p>Execute the build.sh command, you'll be asked for a bunch of questions about the project name and other things, just go through all the steps.</p>
 
@@ -215,7 +215,7 @@ For your own projects I strongly recommend to investigate all available driver o
 <p>Open the paket.dependencies file and add the line for the Cassandra driver dependency:</p>
 
 <img src="Cassandra/12.png"/>
- 
+
 
 
 <p>Run the command to install the dependencies for the solution:
@@ -238,7 +238,7 @@ For your own projects I strongly recommend to investigate all available driver o
 
 <img src="Cassandra/14.png"/>
 
- 
+
 <p>Xamarin Studio has FSharp Interactive window where we see the output of all statements we execute. To execute the statement I just select the lines I want to run and press Ctrl + Enter on Mac in Xamarin Studio. </p>
 
 <p>Let's connect to our cluster:</p>
@@ -252,8 +252,8 @@ For your own projects I strongly recommend to investigate all available driver o
 
 <img src="Cassandra/16.png"/>
 
- 
-<p>And yay! 
+
+<p>And yay!
 Now, as you have probably already guessed, we can proceed to creating our own data model and running queries. Just as a sample, let's look at how to create that coffee_shop_by_street table and run some queries on it.</p>
 
 <p>Let's create our own keyspace for this example:</p>
@@ -267,7 +267,7 @@ Now, as you have probably already guessed, we can proceed to creating our own da
 
 <img src="Cassandra/18.png"/>
 
- 
+
 <p>Create the table, we run the following command:</p>
 
 <img src="Cassandra/19.png"/>
@@ -360,11 +360,11 @@ Now, as you have probably already guessed, we can proceed to creating our own da
         </script>
         <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- Yandex metrica ends -->
-        
-        
+
+
         <footer id="mainFooter">
         <!--<div id="square2"><div id="border3"></div></div>-->
-            <p>&copy; 2016 - Lena Droid</p>
+            <p>&copy; 2018 - Lena Droid</p>
         </footer>
 
   </body>

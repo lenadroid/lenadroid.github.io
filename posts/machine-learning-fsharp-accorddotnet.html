@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Learn the machine!</title> 
+    <title>Learn the machine!</title>
     <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
-    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" /> 
-    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" /> 
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
 </head>
 <html>
    <body>
@@ -39,15 +39,15 @@
 <p>Machine Learning is not an easy topic, it requires at least basic understanding of what's going on under the hood to learn from data efficiently. But Machine Learning is not so hard either. If you don't want to spend a huge amount of time writing the implementations of the algorithms by yourself, there are existing tools that you may already start using and apply Machine Learning for your project just now. For example, .NET has an amazing framework called Accord.NET.</p>
 
 <p>F# language fits for machine learning because functional programming is really suitable to use for machine learning tasks and data tasks that often precede the actual resolution of some machine learning problem.</p>
- 
+
 <h2>What is it?</h2>
 
 <p>What is machine learning? There are a lot of different definitions. The basic idea is: when we have data we want to get the largest amount of useful information from it. Having some archive or collection of some domain specific data we can use it for analysis and learn from it to be more precise in the future. Even if we don't know anything about the data and we still intend to somehow identify this information and to learn something from it - we can still do it with machine learning.</p>
- 
+
 <p>When you are new to machine learning and have no special mathematical background it may seem a bit unclear when you see all the variety of existing techniques and algorithms from the first glance. But as you go deeper and deeper, you start understanding the structure of Machine Learning. By structure I mean algorithms and approaches we can use to learn something from data, having the goal to predict some values for the future based on what we already know. As opposed to the usual way programs solve problems - by having a predefined algorithm and following the steps there to find out the result.. If we are using the machine learning program we don't have the prediction algorithm with predefined steps, here the program may gain experience, the program may learn from it's experience and use the experience to produce more accurate results for the future.</p>
- 
+
 <p>When you decide to begin diving into machine learning you'll face some fundamental things on your checklist before actually starting doing machine learning.</p>
- 
+
 <h2>Why?</h2>
 
 <p>First of all, the goal or .. the reason why you decided to do machine learning. If you have a clear business oriented reason for using machine learning - that may simplify the process of diving into the topic. There are a lot of areas that use it: recommendation systems, text data analysis with the purpose of spam detection for example, prediction of demand, detection of anomalies, recognition of unspecified items, audio and video related problems and a great amount of other areas. In addition to areas there are different domains where we can apply it - biology, finance, media, technology, science, and really, all domains can learn something from their data, if there is a necessity. </p>
@@ -55,7 +55,7 @@
 <h2>What is your data?</h2>
 
 <p>The next thing you will face is data. With machine learning you can work with any kind of data, but almost all information needs preparation and pre-processing before using the data. In the vast majority of scenarios, the more clean, accurate and consistent your data is, the more easy, clear and fast machine learning process would be. However, it is possible not in all cases, simply because your data might be very big and way too unstructured. It might be so big that amount of processing efforts will be rather expensive, so it might be even cheaper to use less prepared data during machine learning as-is. If you have a chance to make the form in which data is stored more clean and more precise and to simplify the way you access data - it can dramatically influence the machine learning process and can make it much easier to choose the correct approaches and algorithms.</p>
- 
+
 <p>Just for instance, I wanted to collect some data as an answer to my strictly schemed question and to look what part of data will be really suitable for usage and what data will require extra processing and preparation. So I made an experiment on twitter and created the hashtag <a href="https://twitter.com/hashtag/lenadroidexperiment" target="_blank">#lenadroidexperiment</a>.</p>
 
 <img src="lenadroidexperiment.png" width="600px"/>
@@ -67,7 +67,7 @@
 <p>So, as you see, some of them literally on purpose posted some invalid data...
 Some of them were polite and EVEN said sorry about that...
 Some of them had a moment of indecision and instead of choosing the favorite programming language trey claimed that all programming languages suck!</p>
- 
+
 <p>This example is really really true. In reality you won't have ideally prepared data and you'd just have to spend time on its preparation. Some data scientists say that periodically they spend 70% of their task solving time on data optimization. To be able to efficiently learn something from data - its representation is important. However, not all individuals or companies who use machine learning have the goal to find and use the most elegant way or algorithm. Some of these people are interested in just getting the job done and spending the minimal amount of costs and efforts on this. This is another criteria your approach may vary.</p>
 
 <h2>How?</h2>
@@ -107,11 +107,11 @@ Just look how logical and neat this code looks!<p>
 
 <h3>Algebraic data types</h3>
 
-<p>F# has algebraic data types - particularly in functional programming and type theory, an algebraic data type is a kind of composite type - a type formed by combining other types. 
+<p>F# has algebraic data types - particularly in functional programming and type theory, an algebraic data type is a kind of composite type - a type formed by combining other types.
 F# has tuples, records, discriminated unions. </p>
 
 <img src="algebraicdatatypes.png" width="600px"/>
- 
+
 <h3>Pattern Matching</h3>
 
 <p>Often values of algebraic types are analyzed with pattern matching. With pattern matching it becomes really easy to work with data structures and make a flow against specified parameters where deconstruction is done automatically.</p>
@@ -164,7 +164,7 @@ There is FSharp.Data for tons of formats.</p>
 So, the first step is ... to make a guess!
 </p>
 <p>
-The simplest case of linear regression is when we have only one input parameter and one output parameter. It's as if we were about to predict the exchange rate based on only financial conditions. 
+The simplest case of linear regression is when we have only one input parameter and one output parameter. It's as if we were about to predict the exchange rate based on only financial conditions.
 Then we can locate all our training data on the 2D picture and make a guess.
 That means, we are trying to draw the line that should ideally fit our data, but as it's the guess, it is obviously wrong initially.
 </p>
@@ -173,7 +173,7 @@ That means, we are trying to draw the line that should ideally fit our data, but
 <p>
 But what does it actually mean, to make a guess?
 
-The guess we were making - in the simplest case - it is a line. 
+The guess we were making - in the simplest case - it is a line.
 As you know from the high school, a straight line is represented as a function f(x) = ax + b.
 To draw the random guess line we need to know at least two points to draw it through.
 
@@ -188,7 +188,7 @@ This random values we'll call theta parameters, they are also often called weigh
 <p>
 Now we have training data and we have a guess that we've made.
 
-At this point, the goal is to measure how wrong we are and what is the mistake. 
+At this point, the goal is to measure how wrong we are and what is the mistake.
 How can we do it? With the training data we have both inputs and already known outputs for them.
 What we can do now is to send our inputs from the training set to our guess function that we've made and to compare the output of the guess function and the actual known output that we have for the given data sample from the training set.To compare it we are defining our COST function or MISTAKE function.
 </p>
@@ -217,11 +217,11 @@ To imagine the cost or mistake function, it can look like this:
 <img src="linearregression7.png" width="800px"/>
 
 <p>
-When our initial guess theta parameters are wrong, we would be located at the random point on the shape. 
+When our initial guess theta parameters are wrong, we would be located at the random point on the shape.
 When we are minimizing the mistake function, we should literally find the way from the point we are to the minimum of the function. But how do we know where the minimum is?
-First, we can find out the direction, where we should move from our point towards the minimum. 
+First, we can find out the direction, where we should move from our point towards the minimum.
 How can we find the direction? If we find the derivative of the mistake function at the point we are - it can be either positive or negative. Positive means that the tangent is directed from the left to right and minimum is on the left, so we should move left. If it's negative, it means minimum is on the right and we should move right toward the minimum.
-In addition to the direction of moving towards the minimum we should define the learning rate, that is the size of the step we are making. 
+In addition to the direction of moving towards the minimum we should define the learning rate, that is the size of the step we are making.
 If the step is too big then we can overjump the minimum. If it's too small we may learn very slowly.
 </p>
 <p>
@@ -241,7 +241,7 @@ When we have done the minimization of the mistake function that means we know th
 <img src="linearregression9.png" width="500px"/>
 
 <p>
-Now let's look at the more complex example. Suppose we have several predictors, several features.. and an output. Let's say we want to predict the demand on bike rentals some day in the future. 
+Now let's look at the more complex example. Suppose we have several predictors, several features.. and an output. Let's say we want to predict the demand on bike rentals some day in the future.
 We have some statistical data about the bikes and we want to guess how many of them will be rented some day in the future. The data about bikes can be obtained <a href="https://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset" target="_blank">here</a>. Let's take a look at the code:
 </p>
 <script src="https://gist.github.com/lenadroid/f6f8f756f57152af8c37.js"></script>
@@ -347,7 +347,7 @@ Let's have a look at another problem. Let's say we have a classification problem
 <h2>Clustering with K-Means</h2>
 <img src="clustering1.png" width="800px"/>
 <p>
-The next example I want to show is not about training data and testing data. Here we will just have data and we would like to group this data somehow, to find clusters, to find how the pieces in our data are connected or related to each other. 
+The next example I want to show is not about training data and testing data. Here we will just have data and we would like to group this data somehow, to find clusters, to find how the pieces in our data are connected or related to each other.
 
 This type of machine learning is called unsupervised machine learning and we will have a look at the K-Means algorithm right now.
 
@@ -435,11 +435,11 @@ Going directly to the code!
 		</script>
         <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- Yandex metrica ends -->
-        
-        
+
+
         <footer id="mainFooter">
         <!--<div id="square2"><div id="border3"></div></div>-->
-            <p>&copy; 2015 - Lena Droid</p>
+            <p>&copy; 2018 - Lena Droid</p>
         </footer>
 
   </body>

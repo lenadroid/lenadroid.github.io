@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Vital things an Architect must know about adjustable and flexible system design</title> 
+    <title>Vital things an Architect must know about adjustable and flexible system design</title>
     <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
     <!-- <link rel="stylesheet" href="../css/SitePostsPink.css" /> -->
-    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" /> 
-    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" /> 
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
 </head>
 <html>
    <body>
@@ -38,7 +38,7 @@ If you're a good Architect, you can figure out the most reasonable architecture 
 <h3>Not really about code</h3>
 
 
-<p>Note: 
+<p>Note:
 <blockquote>The term Architect is pretty broad too. In this context, I assume that there is a Software Architect, responsible for the code parts of the software module. Some companies don't have such a position. They just have Technical Leads for some specific functionalities. The Architect I am talking about is assumed to be responsible for a much wider area than Software Architects and look less at the code and more at the integration parts of the overall system. They take into account the dirtiest parts that are almost always left without attention, their goal is to make sure all the parts of it will be developed, tested and delivered with a proper quality and on time. Such people are very valuable and usually work across multiple projects within a company.
 </blockquote>
 </p>
@@ -52,7 +52,7 @@ The second architect decided to build a spaceship from Lego parts. Lego parts ar
 <br>
 <img width="100%" src="../images/lego-ship.jpg"/>
 <br>
-Both ships worked fine and served their purpose. However, the new power blocks were introduced sometime later and the architects were challenged to introduce the change in their systems. 
+Both ships worked fine and served their purpose. However, the new power blocks were introduced sometime later and the architects were challenged to introduce the change in their systems.
 <br><br>
 The paper architect started stressing out, because they have to land the ship to the station to remove the old screen, glue the new power blocks and apply the new bigger sized protection screen. He had to rebuild the spaceship and deliver the new version of the spaceship. He had all the construction templates, so rebuilding the ship wasn't a new thing for him, but he and all his team spent a lot of time to perform the operation.
 <br><br>
@@ -94,7 +94,7 @@ Spare enough time to plan the environments and infrastructure for development, t
 <br><br>
 Testing process and strategy are crazy important. Some of the practical best practices are to use Blue-Green deployments, Canary releases/Dark canaries, A/B testing.  Build your test environment as much like production environment as you can. At least a topology should always be the same. Always do stress and load testing, try to perform testing on the production environment as soon as possible, because it is the most precise way of finding out the real-world failures.
 <br><br>
-Adjustable architecture also means flexible and independent deployments and ease of infrastructural operations of your services. 
+Adjustable architecture also means flexible and independent deployments and ease of infrastructural operations of your services.
 <br><br>
 Take advantage of immutable infrastructure approach. It makes sure that the build/continuous integration process is based on the pipeline that is stored somewhere and it is the good practice if no changes can be made on the running servers (i.e. disable ssh) - all of the applied changes should go through the defined configuration and build pipeline of operations, which will be then applied on all systems required. This is done to prevent configuration drift, when, for example, one person makes manual changes in one environment, which makes other environments inconsistent (e.g. changing the database schema).
 <br><br>
@@ -108,7 +108,7 @@ It should not be critical for the development teams what infrastructure to rely 
 <br><br>
 A lot of the production errors appear to happen because of the integration points fail or other things that originate not from the business logic of the system itself, but from the incorrect or poor integration of composing all the pieces together and interactions between them.
 <br><br>
-With the increased rate of change, keep an eye on all the moving pieces of the system, always keeping availability in mind, think about scaling, respond to issues in a predictable and defined way and build the plan to mitigate risks. 
+With the increased rate of change, keep an eye on all the moving pieces of the system, always keeping availability in mind, think about scaling, respond to issues in a predictable and defined way and build the plan to mitigate risks.
 </p>
 <br>
 <h3>Failures everywhere</h3>
@@ -138,7 +138,7 @@ Integration kind of errors can be amazingly different. So, what can we do to avo
 <br><br>
 Use techniques such as circuit breaker, timeouts, handshaking, bulkheads - they will help you to protect the integration points of the system.
 <br><br>
-<a target="_blank" href="http://stackoverflow.com/questions/30391809/what-is-bulkhead-pattern-used-by-hystrix">Bulkheads</a> can prevent chain reactions from ruining the entire service, partitions capacity to preserve partial functionality when something bad happens. 
+<a target="_blank" href="http://stackoverflow.com/questions/30391809/what-is-bulkhead-pattern-used-by-hystrix">Bulkheads</a> can prevent chain reactions from ruining the entire service, partitions capacity to preserve partial functionality when something bad happens.
 <br><br>
 <a target="_blank" href="http://martinfowler.com/bliki/CircuitBreaker.html ">Circuit Breaker</a> protects your system by preventing calls to the failed integration point. It is helpful for the clients of the parts of the system that are down. If the Circuit Breaker became active - it means, there is a big problem that you should investigate, analyze and log.
 
@@ -147,11 +147,11 @@ Be careful with the code you cannot directly see, watch your dependencies and an
 <br><br>
 In addition to having the correct testing and deployment processes, aim to use realistic data volumes and quantitative ratios between the topological elements of the system when testing.
 <br><br>
-To prevent common issues like loosing the availability - track the responsiveness of your system, notice when the average response time is getting increasingly slow (programmatically) and take action. 
+To prevent common issues like loosing the availability - track the responsiveness of your system, notice when the average response time is getting increasingly slow (programmatically) and take action.
 <br><br>
 It is a must have practice to use logging, monitoring and automation of the system operations. In case of microservices monitoring becomes easier because services are isolated, which helps to detect the fault. Some of the great approaches are to use correlation IDs, common log format while collecting and analyzing logs. Keep in mind that logs can take a lot of space, so consider log aging, i.e. configure log file rotation based on size. There are some nice tools for visualization and dashboards to provide the structured view of important processes.
 <br><br>
-It's important to maintain the correct versioning of services to make sure that changes to one service do not affect existing clients. It's also pretty common to run several versions of a service side-by-side as separate deployments. Be ready to support backward compatibility for a long time. 
+It's important to maintain the correct versioning of services to make sure that changes to one service do not affect existing clients. It's also pretty common to run several versions of a service side-by-side as separate deployments. Be ready to support backward compatibility for a long time.
 </p>
 <br>
 <h3>Concerns and things to always keep in mind</h3>
@@ -160,14 +160,14 @@ It's important to maintain the correct versioning of services to make sure that 
 <br><br>
 Here are some basic notes to keep in mind while dividing into services.
 <br><br>
-Know specific business requirements and the domain before the start of partitioning. 
+Know specific business requirements and the domain before the start of partitioning.
 <br><br>
-Watch out for shared capabilities and data, it should be modeled correctly. 
+Watch out for shared capabilities and data, it should be modeled correctly.
 Migration is better to do by step by step approach, do only reasonable logical things suitable for your system.
 <br><br>
 It's important that the domain is well understood before you begin partitioning it, as refactoring boundaries is expensive.
 <br><br>
-Have clear and distinct team/teams structure of working on the services for your solutions. 
+Have clear and distinct team/teams structure of working on the services for your solutions.
 </p>
 
 <br>
@@ -255,22 +255,22 @@ Abstracts CPU, memory, storage, and other compute resources away from machines (
 <a href="https://mesosphere.com/">Mesosphere</a>
 <br>
 Official documentation says : "The DCOS is a new kind of operating system that spans all of the machines in your datacenter or cloud and treats them as a single computer, providing a highly elastic and highly scalable way of deploying applications, services, and big data infrastructure on shared resources. The DCOS consists of everything necessary to build out a self-healing, fault-tolerant, and scalable solution."
-To have a better understanding of what exactly Mesosphere is look at this <a href="http://filipv.net/2015/08/27/introduction-to-apache-mesos-and-mesosphere-dcos/" target="_blank">post</a>. 
+To have a better understanding of what exactly Mesosphere is look at this <a href="http://filipv.net/2015/08/27/introduction-to-apache-mesos-and-mesosphere-dcos/" target="_blank">post</a>.
 <br>
 <br>
 <a href="http://aurora.apache.org/">Mesos Aurora </a> <br>
 Runs applications and services across a shared pool of machines, and is responsible for keeping them running, forever. When machines experience failure, Aurora intelligently reschedules those jobs onto healthy machines.
-Supports rolling updates with automatic rollback, which is useful while doing rolling deployments of microservices. 
+Supports rolling updates with automatic rollback, which is useful while doing rolling deployments of microservices.
 <br>
 <br>
 <a target="_blank" href="https://www.vagrantup.com/"> Vagrant </a>
 <br>
-A tool for building complete development environments in a virtual machine. 
+A tool for building complete development environments in a virtual machine.
 <br>
 <br>
 <a target="_blank" href="https://www.packer.io/"> Packer </a>
  <br>
-A tool for creating machine and container images for multiple platforms from a single source configuration. A good <a href="http://pretengineer.com/post/packer-vagrant-infra/" target="_blank">article</a> on Vagrant and Packer that gives a lot of intuition about the use cases and differences. 
+A tool for creating machine and container images for multiple platforms from a single source configuration. A good <a href="http://pretengineer.com/post/packer-vagrant-infra/" target="_blank">article</a> on Vagrant and Packer that gives a lot of intuition about the use cases and differences.
 <br>
 <br>
 <a target="_blank" href="https://www.terraform.io/"> Terraform </a>
@@ -390,7 +390,7 @@ Allows you to define data types and service interfaces in a simple definition fi
                      </span>
                      <span class='keyword' >
                          best practices
-                     </span>                    
+                     </span>
                </div>
          </article>
       </section>
@@ -428,11 +428,11 @@ Allows you to define data types and service interfaces in a simple definition fi
         </script>
         <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- Yandex metrica ends -->
-        
-        
+
+
         <footer id="mainFooter">
         <!--<div id="square2"><div id="border3"></div></div>-->
-            <p>&copy; 2016 - Lena Droid</p>
+            <p>&copy; 2018 - Lena Droid</p>
         </footer>
 
   </body>

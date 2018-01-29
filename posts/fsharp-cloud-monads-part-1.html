@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Part 1 - Distributed computations and Big Data with F# cloud monads</title> 
+    <title>Part 1 - Distributed computations and Big Data with F# cloud monads</title>
     <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
     <!-- <link rel="stylesheet" href="../css/SitePostsPink.css" /> -->
-    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" /> 
-    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" /> 
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
 </head>
 <html>
    <body>
@@ -70,7 +70,7 @@ If we get back and look at the example, we'll remember that the code in our func
 <br><br>
 <code align="center"> let cloud = new CloudBuilder() </code>
 <br><br>
-The builder class usually consists of methods that contain the logic for dealing with side effect. In our case, MBrace has <code>CloudBuilder</code> class with the logic for distribution of tasks across the cloud cluster. 
+The builder class usually consists of methods that contain the logic for dealing with side effect. In our case, MBrace has <code>CloudBuilder</code> class with the logic for distribution of tasks across the cloud cluster.
 </p>
 <script src="https://gist.github.com/lenadroid/ecda4c5c38d4f5459d42.js"></script>
 <p>
@@ -78,7 +78,7 @@ In F# all let statements form the structure, whcich is similar to continuation p
 </p>
 <img style="align:left" src="https://lenadroid.github.io/presentations/dotnetfringe/bangs.png"/>
 <p>
-Simply, in other words, when the compiler meets <code>let!</code> it takes the operation, calls <code>Bind</code>, which distributes the operation through the cloud, and returns the result of deferred execution in a <code>Cloud&lt'T&gt</code> wrapper type. When the result of deferred computation is ready, its value is unwrapped from generic <code>Cloud&lt'T&gt</code> type to concrete type <code>'T</code>, ready for usage. 
+Simply, in other words, when the compiler meets <code>let!</code> it takes the operation, calls <code>Bind</code>, which distributes the operation through the cloud, and returns the result of deferred execution in a <code>Cloud&lt'T&gt</code> wrapper type. When the result of deferred computation is ready, its value is unwrapped from generic <code>Cloud&lt'T&gt</code> type to concrete type <code>'T</code>, ready for usage.
 </p>
 <p>
 If we look a little bit closer on how the distribution occurs, the logic of <code>Bind</code> method inside MBrace is the following. First, it obtains the execution context and continuation. MBrace contains distributed runtime provider definition, so for parallel execution of workflows their execution context should be passed an instance of <code>ICloudRuntimeProvider</code>. Next, method checks if the cancellation is requested and if no - prepares the continuation object. And finally, it executes the specified <code>Cloud&lt'T&gt</code> workflow in the execution context with given continuation. It also uses trampolining mechanism for offloading execution stack in the thread pool, for environments where tail call optimizations are not handled, so it checks for bind counts and computes if the threshold is reached.
@@ -172,11 +172,11 @@ So, if you get back to our first example, you already know what <code>cloud</cod
 		</script>
         <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- Yandex metrica ends -->
-        
-        
+
+
         <footer id="mainFooter">
         <!--<div id="square2"><div id="border3"></div></div>-->
-            <p>&copy; 2015 - Lena Droid</p>
+            <p>&copy; 2018 - Lena Droid</p>
         </footer>
 
   </body>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Part 3 - Distributed computations and Big Data with F# cloud monads</title> 
+    <title>Part 3 - Distributed computations and Big Data with F# cloud monads</title>
     <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
     <!-- <link rel="stylesheet" href="../css/SitePostsPink.css" /> -->
-    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" /> 
-    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" /> 
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
 </head>
 <html>
    <body>
@@ -55,8 +55,8 @@
 
 <h3>Cloud Combinators</h3>
 <p>
-As you already seen in <a href="fsharp-cloud-monads-part-1.html">Part I</a>, we may use cloud <a href="https://github.com/mbraceproject/MBrace.Core/blob/86bdb66a1ee07b3cc73a14f25177c77459acf2af/src/MBrace.Core/CloudCombinators.fs">combinators</a> in our code. <code>Cloud.Parallel</code> takes a sequence of cloud computations and executes them in parallel, then it returns an array of gathered results or throws an exception. But there are other interesting combinators. 
-<br><br>Take for example <code>Cloud.Choice</code>, it also performs cloud computations in parallel, but it will return only when any of these computations returned a successful value, or if all of them failed to succeed. So we pass there computations returning <code>Option</code> type - either <code>Some</code> or <code>None</code>. 
+As you already seen in <a href="fsharp-cloud-monads-part-1.html">Part I</a>, we may use cloud <a href="https://github.com/mbraceproject/MBrace.Core/blob/86bdb66a1ee07b3cc73a14f25177c77459acf2af/src/MBrace.Core/CloudCombinators.fs">combinators</a> in our code. <code>Cloud.Parallel</code> takes a sequence of cloud computations and executes them in parallel, then it returns an array of gathered results or throws an exception. But there are other interesting combinators.
+<br><br>Take for example <code>Cloud.Choice</code>, it also performs cloud computations in parallel, but it will return only when any of these computations returned a successful value, or if all of them failed to succeed. So we pass there computations returning <code>Option</code> type - either <code>Some</code> or <code>None</code>.
 <br><br>We can also wrap our asynchronous function into a cloud workflow using <code>Cloud.OfAsync</code>. This combinator is useful if we already have existing async functions and want to use them in cloud worklows.
 <br><br>There are other combinators, like <code>Cloud.Raise</code> and <code>Cloud.Catch</code> for raising and catching exceptions from the cloud workflow, <code>Cloud.Dispose</code> for disposing cloud resources, and <code>Cloud.Ignore</code> to discard the results of the cloud computation. You can find other combinators in the API or just check out the code on github.
 </p>
@@ -67,7 +67,7 @@ So far you have seen how MBrace scales the computations. Now it's time to see ho
 
 <script src="https://gist.github.com/lenadroid/6344401de595cbcdbf42.js"></script>
 
-<br>If you need to store some large collections of objects, it will make sense to use partitioned data structure <code>CloudVector</code>. It is similar to <code>CloudCell</code>, it is immutable, but it's values are retrieved as required only if needed. When using <code>CloudVector</code>, we may create it from a normal array and also specify how many bytes per chunk each partition of the <code>CloudVector</code> can store. 
+<br>If you need to store some large collections of objects, it will make sense to use partitioned data structure <code>CloudVector</code>. It is similar to <code>CloudCell</code>, it is immutable, but it's values are retrieved as required only if needed. When using <code>CloudVector</code>, we may create it from a normal array and also specify how many bytes per chunk each partition of the <code>CloudVector</code> can store.
 
 <br><br><script src="https://gist.github.com/lenadroid/08910cb50bc1afaa8328.js"></script>
 </p>
@@ -78,7 +78,7 @@ Take a look at the async incrementation of some reference value:
 
 <script src="https://gist.github.com/lenadroid/00503a39eda3e8a6f934.js"></script>
 
-Here, there is an async block and incrementation of the value 10 thousand times. The result of this computation can be different from time to time, because it's a typical race condition. If we do the same code on the cloud... 
+Here, there is an async block and incrementation of the value 10 thousand times. The result of this computation can be different from time to time, because it's a typical race condition. If we do the same code on the cloud...
 
 <br><br><script src="https://gist.github.com/lenadroid/a5e5f10afc88b64b7a2d.js"></script>
 
@@ -96,7 +96,7 @@ MBrace has another exciting feature, called cloud flows. They allow to perform d
 <br><br>
 <img src="cloud-flows.png"/>
 <br>
-All starts from the input data. Then there is a number of intermediate operations, like filtering, ordering, transformations.. and a final terminating operation like <code>sum</code>, <code>count</code>, <code>toArray</code> or any other. For example, when we are creating the <code>CloudFlow</code> from an array, this array is divided into parts, so that all existing nodes will get one of them. Then the operations like filtering and mapping are performed on each part of the input array as cloud tasks, and the terminating operation is executed as a final step. 
+All starts from the input data. Then there is a number of intermediate operations, like filtering, ordering, transformations.. and a final terminating operation like <code>sum</code>, <code>count</code>, <code>toArray</code> or any other. For example, when we are creating the <code>CloudFlow</code> from an array, this array is divided into parts, so that all existing nodes will get one of them. Then the operations like filtering and mapping are performed on each part of the input array as cloud tasks, and the terminating operation is executed as a final step.
 <br>
 <script src="https://gist.github.com/lenadroid/745ba81771c50545eb2d.js"></script>
 
@@ -123,7 +123,7 @@ Here this function is called <code>replicateMessage</code> and takes channel rec
 
 <h3>Disposing cloud things</h3>
 <p>
-Another useful thing MBrace offers is <code>ICloudDisposable</code> type, which acts like <code>IDisposable</code> for distributed environment. This type defines <code>Dispose</code> method that releases the resources used by the object. 
+Another useful thing MBrace offers is <code>ICloudDisposable</code> type, which acts like <code>IDisposable</code> for distributed environment. This type defines <code>Dispose</code> method that releases the resources used by the object.
 <br><script src="https://gist.github.com/lenadroid/b8abfb2bc0f171b55503.js"></script>
 
 A lot of MBrace types use <code>IcloudDisposable</code>. To automatically release the resources used by some object there is an opportunity to define it with <code>use</code> keyword, which will trigger <code>Dispose</code> when the work with this object is finished. For example, inside <code>Dispose</code> method of <code>CloudDirectory</code> class the directory is deleted.
@@ -133,7 +133,7 @@ A lot of MBrace types use <code>IcloudDisposable</code>. To automatically releas
 
 <h3>Exception Handling</h3>
 <p>
-Another really strong characteristic of MBrace is exception handling. If some exceptions occur in the cloud workflows they can be caught the same way as we are used to. So, the state of the exception is global and not tied to any local context. 
+Another really strong characteristic of MBrace is exception handling. If some exceptions occur in the cloud workflows they can be caught the same way as we are used to. So, the state of the exception is global and not tied to any local context.
 <br>So if we have the input array with the wrong address inside...
 <br><script src="https://gist.github.com/lenadroid/a7035ce7f98e6418c423.js"></script>
 ... we will get an exception in the client with clear message and presenved stacktrace information:
@@ -209,11 +209,11 @@ To monitor the state of the cluster or get some process metadata there are very 
 		</script>
         <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- Yandex metrica ends -->
-        
-        
+
+
         <footer id="mainFooter">
         <!--<div id="square2"><div id="border3"></div></div>-->
-            <p>&copy; 2015 - Lena Droid</p>
+            <p>&copy; 2018 - Lena Droid</p>
         </footer>
 
   </body>

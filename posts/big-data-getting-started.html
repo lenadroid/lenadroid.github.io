@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>How I feel Big Data. Getting started!</title> 
+    <title>How I feel Big Data. Getting started!</title>
     <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
     <!-- <link rel="stylesheet" href="../css/SitePostsPink.css" /> -->
-    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" /> 
-    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" /> 
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
     <style type="text/css">
       #mainFooter {
         border-top: 7px solid #FE1C61;
@@ -50,7 +50,7 @@
                   <img width="100%" src="http://gettingattention.org/wp-content/uploads/2014/01/Big-Data_-cartoon-Tom-Fishburne_-Marketoonist-1.jpg"/>
                   <div class="imagedescr">Original: http://gettingattention.org/wp-content/uploads/2014/01/Big-Data_-cartoon-Tom-Fishburne_-Marketoonist-1.jpg</div>
                 <p>
-                The first question - what is big data? 
+                The first question - what is big data?
                 It is logical to suppose we should start with defining the concept. Yes - lots of data, and even more then lots of data. So, there should be a system to act as a storage. Really, there is no such a system, that can acomodate infinities of data just because it can. Data resides on some servers, and to be able to hold more data we need more servers. That's simple! Besides, storage should represent integrity and completeness of the data, despite it is stored in different places of a <b>cluster</b> (cluster is a group of nodes). When we already have storage there are expected to be some requests to it and the system should be able to handle them.  It should also be reliable in sence of <b>availability</b>, guarantee that every request receives a response about whether it was successful or failed.
                 </p>
 
@@ -87,10 +87,10 @@
                     </li>
                     </ul>
                     <p>
-                    The theorem states that given the three fundamental characteristics of a distributed computing system, you may have any two but never all three.  CAP provides us with a framework to make decisions regarding which tradeoffs must be made in system implementations. 
+                    The theorem states that given the three fundamental characteristics of a distributed computing system, you may have any two but never all three.  CAP provides us with a framework to make decisions regarding which tradeoffs must be made in system implementations.
                     </p>
                     <p>
-                    The great power of RDBMS is the ability to provide consistency. But if to look a little closer, RDBMS provide availability on condition that there is connectivity between the RDBMS client and the RDBMS itself. So we conclude that the RDBMS does not provide partition tolerance - if there is no connection with client and RDBMS the system will not be able perform its duties. Thus, RDBMS is a CA system bacause it provides Consistency and Availability but not Partition tolerance. If we already know that one of there characteristics of the CAP theorem would be absent, it's reasonable to assume that distributed system can have some recovery mechanisms. Usually CAP is visualized like a triangle with verticies named C, A and P, like this: 
+                    The great power of RDBMS is the ability to provide consistency. But if to look a little closer, RDBMS provide availability on condition that there is connectivity between the RDBMS client and the RDBMS itself. So we conclude that the RDBMS does not provide partition tolerance - if there is no connection with client and RDBMS the system will not be able perform its duties. Thus, RDBMS is a CA system bacause it provides Consistency and Availability but not Partition tolerance. If we already know that one of there characteristics of the CAP theorem would be absent, it's reasonable to assume that distributed system can have some recovery mechanisms. Usually CAP is visualized like a triangle with verticies named C, A and P, like this:
                     </p>
                      <img id="cap" src="CAP.png">
                     <p>And the distributed system should pick just one side of a triangle, covering two verticies and leaving one alone. For example if RDBMS are CA, MongoDB and HBase are CP, while Cassandra and CouchDB are AP. There are lots of discussions about CAP principle over the Internet, so you can read more from different sources. </p>
@@ -119,7 +119,7 @@
                     </li>
                     <li>
                     <p>
-                    <b>Pig</b> is a tool to operate data stored in HDFS or HBase. Pig consists of two parts, the first is a programming language PigLatin and the second is the runtime environment for language to execute. 
+                    <b>Pig</b> is a tool to operate data stored in HDFS or HBase. Pig consists of two parts, the first is a programming language PigLatin and the second is the runtime environment for language to execute.
                     </p>
                     </li>
                     <li>
@@ -260,10 +260,10 @@
         </script>
         <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- Yandex metrica ends -->
-        
-        
+
+
         <footer id="mainFooter"><div id="square2"><div id="border3"></div></div>
-            <p>&copy; 2014 - Lena Droid</p>
+            <p>&copy; 2018 - Lena Droid</p>
         </footer>
 
   </body>
