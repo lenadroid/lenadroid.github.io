@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Getting more control over starting point of Spark Stream consumption with Offset and EnqueuedTime filters on EventHubs messages</title>
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
+</head>
+<html>
+    <body>
+        <section id="mainMenuSection" >
+              <section id="mainMenu">
+                  <a href="http://lenadroid.github.io">Home</a>
+                  <a href="http://lenadroid.github.io/posts.html">Posts</a>
+                  <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+                 <a href="http://lenadroid.github.io/identity/contact.html">About</a>
+                    <div class="clear"></div>
+              </section>
+        </section
+        <!-- generated content starts -->
+        <section class='posts' >
+            <article class='post' >
+                <header class='title' >
+                        Getting more control over starting point of Spark Stream consumption with Offset and EnqueuedTime filters on EventHubs messages
+                </header>
+                <div class='description' >
+                    <h3>Introduction</h3>
+                    <p>In this article we will learn how to have more flexibility around the starting point of consuming streams in Spark Structured Streaming. Previously, I wrote how we can <a href="http://cda.ms/7K" target="_blank">consume messages</a> from EventHub using Spark on Databricks with interactive Notebooks.</p>
+
+                    <p>Let’s explore the incoming stream even further.</p>
+                    <p><a href="http://cda.ms/7K" target="_blank">Previously</a>, we looked at “body” field with the contents of each tweet and didn’t pay attention to other fields of the incoming stream. EventHubs has a retention period for durability of messages, which can be configured separately. Without explicit settings, when the stream starts, we start receiving all events that were written to the EventHub from the very beginning, starting with an oldest event retained by the hub. So if we started broadcasting tweets to the EventHub 2 days ago and started a Spark stream to consume those events now, the first message we’d get would be from 2 days ago.</p>
+
+                    <h3>How can we have better control of the consumption starting point of stream?</h3>
+
+                    <p>It is convenient in case the consumer has stopped reading events and needs to continue from the exact point it left off earlier, or we might want to start consuming all events that were produced not earlier than a certain point in time.</p>
+
+                    <p>To refresh the memory, let’s look at the regular stream without explicit time or offset configuration.</p>
+
+                    <h3>Regular stream </h3>
+                    <p>Instead of looking at the “body” column only, we can discover the “offset” and “enqueuedTime” columns. They can be converted to their corresponding data types as well. Offset is a field of a type Long that is used to identify each message in a partition. Enqueued time is when the message was received by the EventHub.</p>
+
+                    <iframe src="https://lenadroid.github.io/posts/eventhub-spark-offset-time/NoOffsetNoTimeSpecified.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe>
+
+                    <h3>Stream with “offset” specified</h3>
+                    <p>To only receive messages after a certain offset, we can use “eventhubs.filter.offset” configuration parameter. For example, if we set it to 3080 for the example with tweets, we should not see any messages with an offset less than 3080. You can see that in the following notebook:</p>
+
+                    <iframe src="https://lenadroid.github.io/posts/eventhub-spark-offset-time/OffsetSpecified.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe>
+
+                    <h3>Stream with “enqueuedTime” specified</h3>
+                    <p>To only receive messages that arrived after a certain timestamp, we can use "eventhubs.filter.enqueuetime" parameter and set it to the desired timestamp. For example, if we set the timestamp to "1517277178" (which is 2018-01-30-01:52:58), we won’t see any events with a enqueue time:</p>
+
+                    <iframe src="https://lenadroid.github.io/posts/eventhub-spark-offset-time/EnqueueTimeSpecified.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe>
+
+
+                    <h3>Connect</h3>
+
+                    <p>Follow me on twitter <a href="https://twitter.com/lenadroid">@lenadroid</a> if you found this article interesting or helpful. My direct messages are open, always happy to connect, feel free to reach out with any questions or ideas!</p>
+
+                    <br>
+                    <br>
+
+                </div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  01.30.2018
+               </div> |
+               <div class='keywords' >
+                    <span class='keyword' >
+                        apache spark
+                    </span>
+                    <span class='keyword' >
+                        event hubs
+                    </span>
+                    <span class='keyword' >
+                        streaming
+                    </span>
+                    <span class='keyword' >
+                        azure-event-hubs-spark
+                    </span>
+                    <span class='keyword' >
+                        databricks
+                    </span>
+              </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+
+
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2018 - Lena Hall</p>
+        </footer>
+
+  </body>
+</html>
