@@ -28,11 +28,9 @@
                     <p>In this article we will learn how to have more flexibility around the starting point of consuming streams in Spark Structured Streaming. Previously, I wrote how we can <a href="http://cda.ms/7K" target="_blank">consume messages</a> from EventHub using Spark on Databricks with interactive Notebooks.</p>
 
                     <p>Let’s explore the incoming stream even further.</p>
-                    <p><a href="http://cda.ms/7K" target="_blank">Previously</a>, we looked at “body” field with the contents of each tweet and didn’t pay attention to other fields of the incoming stream. EventHubs has a retention period for durability of messages, which can be configured separately. Without explicit settings, when the stream starts, we start receiving all events that were written to the EventHub from the very beginning, starting with an oldest event retained by the hub. So if we started broadcasting tweets to the EventHub 2 days ago and started a Spark stream to consume those events now, the first message we’d get would be from 2 days ago.</p>
+                    <p><a href="http://cda.ms/7K" target="_blank">Previously</a>, we looked at “body” field with the contents of each tweet and didn’t pay attention to other fields of the incoming stream. EventHubs has a retention period for durability of messages, which can be configured separately. Without explicit settings, when the stream starts, we start receiving all events that were written to the EventHub from the very beginning, starting with the oldest event retained by the hub. So if we started broadcasting tweets to the EventHub 2 days ago and started a Spark stream to consume those events now, the first message we’d get would be from 2 days ago.</p>
 
-                    <h3>How can we have better control of the consumption starting point of stream?</h3>
-
-                    <p>It is convenient in case the consumer has stopped reading events and needs to continue from the exact point it left off earlier, or we might want to start consuming all events that were produced not earlier than a certain point in time.</p>
+                    <p>How can we have better control of the consumption starting point of stream? It can be convenient in case the consumer has stopped reading events and needs to continue from the exact point it left off earlier, Another case when it can be helpful is when we need to start consuming all events that were produced not earlier than a certain point in time.</p>
 
                     <p>To refresh the memory, let’s look at the regular stream without explicit time or offset configuration.</p>
 
