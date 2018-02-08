@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment analysis on streaming data using Apache Spark and Cognitive Services</title>
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
+</head>
+<html>
+    <body>
+        <section id="mainMenuSection" >
+              <section id="mainMenu">
+                  <a href="http://lenadroid.github.io">Home</a>
+                  <a href="http://lenadroid.github.io/posts.html">Posts</a>
+                  <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+                 <a href="http://lenadroid.github.io/identity/contact.html">About</a>
+                    <div class="clear"></div>
+              </section>
+        </section
+        <!-- generated content starts -->
+        <section class='posts' >
+            <article class='post' >
+                <header class='title' >
+                     Sentiment analysis on streaming data using Apache Spark and Cognitive Services
+                </header>
+                <div class='description' >
+                    <h3>Introduction</h3>
+                    <p>In this article, we will learn about performing transformations on Spark streaming dataframes. We will be doing stream processing using <a href="https://spark.apache.org/docs/2.2.1/structured-streaming-programming-guide.html" target="_blank">Spark Structured Streaming</a>, and sentiment analysis on text data with <a href="https://cda.ms/93" target="_blank">Cognitive Services APIs</a> as an example. </p>
+
+                    <p>Note:
+                        <blockquote>I'm using Azure, but the code doesn't depend on it. Cognitive Services API for sentiment analysis and language detection were chosen for an illustrative example of operations that can be performed againts streaming data. Cognitive Services is not a key part of this article, but it gives a good idea of what other actions can be performed with streaming dataframes, and it was pretty quick to setup and use. Feel free to experiment with any other sort of stream transformation or processing, as you will get an overall idea and understanding from this article.
+                        </blockquote>
+                    </p>
+
+                    <p>In the previous articles, I showed creating a producer that published Twitter data into data ingestion system for events durability, and consuming those incoming events from Spark. We will be using that example as a foundation of this article and use the producer <a href="https://lenadroid.github.io/posts/connecting-spark-and-eventhubs.html" target="_blank">from the previous blog post</a>.</p>
+
+                    <h3>Let’s do some stream processing</h3>
+
+                    <img src="spark-cognitive-services/diagram.png" alt="diagram" width="100%"/>
+
+                    <p>This time, we will apply a user defined function to the stream of tweets, that would call the corresponding APIs to determine language and sentiment of each tweet. This can be useful if we want to find the most positive or negative tweets, and react on them approprietly.</p>
+
+                    <p>For example, let's look at the fragment from processing results:</p>
+
+                    <img src="spark-cognitive-services/1.png" alt="results" width="100%"/>
+
+                    <p>Here we see that the tweet about some issues returned with the score really close to zero, and the tweet about amazing experience got the score really close to 1.</p>
+
+                    <h3>Explore the notebook</h3>
+
+                    <p>I've included the Databricks notebook with comments and explanations, feel free to scroll through:</p>
+
+                    <iframe src="spark-cognitive-services/SentimentNotebook.html" frameborder="0" scrolling="no" width="100%" height="1500px"></iframe>
+
+                    <h3>Connect</h3>
+
+                    <p>Follow me on twitter <a href="https://twitter.com/lenadroid">@lenadroid</a> if you found this article interesting or helpful. My direct messages are open, always happy to connect, feel free to reach out with any questions or ideas!</p>
+
+                    <br>
+                    <br>
+
+                </div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  02.7.2018
+               </div> |
+               <div class='keywords' >
+                    <span class='keyword' >
+                        apache spark
+                    </span>
+                    <span class='keyword' >
+                        sentiment analysis
+                    </span>
+                    <span class='keyword' >
+                        streaming
+                    </span>
+                    <span class='keyword' >
+                        machine learning
+                    </span>
+                    <span class='keyword' >
+                        databricks
+                    </span>
+              </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+
+
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2018 - Lena Hall</p>
+        </footer>
+
+  </body>
+</html>
