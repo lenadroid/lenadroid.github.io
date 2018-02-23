@@ -156,22 +156,26 @@ When this command returns, the cluster should be ready, which you can check in A
 
 <h3>Define resources in HCL</h3>
 <p>
-In this sample, Terraform will be used to create Azure Container Service Cluster (ACS) with Kubernetes, but not the managed one. The one where you have the privilege of maintaining the cluster on your own.</p>
+In this sample, Terraform will be used to create Azure Kubernetes Service Cluster (AKS).</p>
 <p>File <code>kube-az.tf</code> is a main file for resource definitions.<br>
 <code>terraform.tfvars</code> file sets the values for variables defined in <code>variables.tf</code> file.
 </p>
 
-<p>Terraform resource definition files are not based on JSON, but on a Hashicorp Configuration Language (<a href="https://github.com/hashicorp/hcl">HCL</a>).</p>
+<p>Terraform resource definition files are not primarily based on JSON, but on a Hashicorp Configuration Language (<a href="https://github.com/hashicorp/hcl">HCL</a>).</p>
 
-<script src="https://gist.github.com/lenadroid/2bc595f974d6b58c11f906dcf22e0e8d.js"></script>
+<script src="https://gist.github.com/lenadroid/f0022ad3d7a656ac1e2cce87296d170f.js"></script>
 
 <p>Do not forget to put appropriate values in the <code>terraform.tfvars</code> file.</p>
 
-<h3>Provision ACS cluster with Terraform</h3>
+<h3>Provision AKS cluster with Terraform</h3>
 <p>
 Terraform "init" command is used to initialize a working directory containing Terraform configuration files: <br>
 <code>$ terraform init</code>
 </p>
+
+<p>Note:<blockquote>AKS has been recently added to terraform, you might need to update your terraform version and your <code>azurerm</code> terraform provider:<br>
+    <img src="k8scluster/terraform_0.png" width="100%"/><br>
+</blockquote></p>
 
 <p>
 Terraform "plan" command is useful to see what changes are going to be planned. It will not perform those changes until you run the apply command):<br>
@@ -184,17 +188,15 @@ To apply the changes required to reach the desired state of the configuration, o
 </p>
 
 <p>In action:</p>
-<img src="k8scluster/Slide 29.gif" width="100%"/><br>
-
-<h3>Overview of resources created</h3>
-<p>Kubernetes on Azure Container Service provisions master and agent virtual machines, availability sets, storage accounts or managed disks, virtual network, public ip addresses, load balancers, route table, network interfaces, network security group, and container service resources.</p>
-<img src="k8scluster/resources.png" width="70%"/><br>
+<img src="k8scluster/terraform_1.png" width="100%"/><br>
+<img src="k8scluster/terraform_2.png" width="100%"/><br>
+<img src="k8scluster/terraform_3.png" width="100%"/><br>
 
 <a name="connect"><h3>Connect to the cluster</h3></a>
 
 <p>After the cluster and its resources are created, we can connect to it and start executing commands.</p>
 
-<code>$ az acs kubernetes get-credentials --resource-group &ltresource group name&gt --name &ltcluster name&gt</code>
+<code>$ az aks get-credentials --resource-group &ltresource group name&gt --name &ltcluster name&gt</code>
 
 <p>Another way to connect to the cluster is to perform steps that <code>get-credential</code> command performs under the hood. Get master endpoint address (it should look something like clustdnsmgmt.eastus.cloudapp.azure.com), and copy .kube/config file from the master VM to your client machine:</p>
 <p><code>$ scp azureuser@&ltmaster endpoint address&gt:.kube/config /.kube/config</code></p>
