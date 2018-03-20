@@ -49,12 +49,17 @@
                     <p>In this article, we are going to set up a data ingestion system and connect to it from Spark to consume events to do further processing. As an example I’ve chosen to use Twitter data as a source, because it is freely available to anyone who creates a <a href="https://apps.twitter.com/app/new" tagret="_blank">Twitter App</a>, and new data comes in real-time.
                     </p>
 
-                    <p>As a use case, why would anyone need to process data from Twitter in real time? There might be cases when it’s necessary to look at messages with certain hashtags, process them in a certain way and react on them, or redirect them to some other system. For example, what if we wanted to determine if there are tweets that pose threat to someone, and immediately put the corresponding account under review, including tweets in different languages, or analyzing tweets on presence of issues and then sending a notification to someone responsible for fixing those issues. Analysis of data might involve much more complicated processing and machine learning, but the idea is the same.
+                    <p>As a use case, why would anyone need to process data from Twitter in near real-time? There might be cases when it’s necessary to look at messages with certain hashtags, process them in a certain way and react on them, or redirect them to some other system. For example, what if we wanted to determine if there are tweets that pose threat to someone, and immediately put the corresponding account under review, including tweets in different languages, or analyzing tweets on presence of issues and then sending a notification to someone responsible for fixing those issues. Analysis of data might involve much more complicated processing and machine learning, but the idea is the same.
                     </p>
 
                     <img src="eventhub-spark/eventhubs-logo.png" width="20%"/>
 
                     <p>When there is a task to process stream of data coming from multiple different sources, it is convenient to use a massively scalable pub/sub message queue to serve as durable event aggregation log that can be written to from multiple independent sources and can be read from multiple independent consumers, and Spark can be one of them. Very often there is more than one system we need to consume events from. Tweets can contain issues, Stackoverflow can contain issues, emails can contain issues, sensors might trigger an issue, and in that case it would be beneficial to direct all sources of data to something like <a href="https://kafka.apache.org/" target="_blank">Apache Kafka</a>, <a href="http://cda.ms/7m" target="_blank">Azure Event Hubs</a> or <a href="https://aws.amazon.com/kinesis/" target="_blank">Amazon Kinesis</a>, to serve as an input layer to Apache Spark before it performs data processing.
+                    </p>
+
+                    <h3>Discovering a new Apache Spark connector</h3>
+                    <p>
+                        There has recently been a release of a new Open Source Event Hubs to Spark connector with many improvements in performance and usability. Check out the <a href="https://github.com/Azure/azure-event-hubs-spark" target="_blank">Github repository</a> of the project.
                     </p>
 
                     <p> In this article, we are going to:
@@ -67,31 +72,48 @@
                     </p>
 
                     <p>Note:
-                        <blockquote>none of the steps chosen as an example for the article should prevent you from trying those things on a platform of your choice. Event Hubs can be replaced with Kafka, Jupyter notebooks can be used instead of Databricks notebooks, and etc. Future articles will demonstrate usage of Spark with different systems!
+                        <blockquote>None of the steps chosen as an example for the article should prevent you from trying those things on a platform of your choice. Event Hubs can be replaced with Kafka, Jupyter notebooks can be used instead of Databricks notebooks, and etc. Future articles will demonstrate usage of Spark with different systems!
                         </blockquote>
                     </p>
 
                     <h3>Creating an Event Hubs instance</h3>
                     <p>If you don’t have Azure account, you can start a <a href="http://cda.ms/7q" target="_blank">free trial</a>. Search for “Event Hubs” resource and choose “create”.</p>
 
-                    <img width="60%" src="eventhub-spark/2.png"/>
+                    <img width="50%" src="eventhub-spark/2.png"/>
 
                     <p>Depending on the load you expect, message frequency and retention characteristics, you can select different throughput units. After that we should have a namespace created, and the next step is to create an event hub. A namespace is like a container for several event hubs, which are like topics. </p>
 
-                    <img width="60%" src="eventhub-spark/3.png"/>
+                    <img width="50%" src="eventhub-spark/3.png"/>
 
                     <p>Each event hub can have one or more consumer groups for parallel and independent consumption of messages. In this case, I’m just going to use the default consumer group when reading events from the hub.</p>
 
                     <img width="100%" src="eventhub-spark/4.png"/>
 
-                    <p>Take a note of your Event Hubs namespace and Event Hubs name, because we will need it in the future steps to connect to the Event Hub. We will also need a SAS key name (policy name) and its value (“Primary Key”), both of these we can get if we navigate under “Shared Access Policies” option of Event Hubs namespace page.</p>
+                    <p>Take a note of the following entries:</p>
+                    <ul>
+                        <li>Event Hubs namespace</li>
+                        <li>Event Hubs name</li>
+                        <li>SAS key name ("Policy name")</li>
+                        <li>SAS key value (“Primary Key”)</li>
+                        <li>
+                            Connection string, should be in format similar to:
+                            <blockquote>Endpoint=sb://&lt;eventhubs-namespace&gt;.servicebus.windows.net/;SharedAccessKeyName=&lt;sas-name&gt;;SharedAccessKey=&lt;sas-key&gt;</sas-key></blockquote>
+                        </li>
+                    </ul>
+
+                     These parameters are necessary for the future steps of working with the Event Hub. SAS key name, its value and Connection String can be found by navigating under “Shared Access Policies” option of Event Hubs namespace page.</p>
 
                     <img width="100%" src="eventhub-spark/5.png"/>
 
                     <p>At this point, the Event Hubs instance is created and we’re ready to set up the Spark cluster.</p>
 
                     <h3>Setting up a Spark cluster</h3>
-                    <p>There are several options for Spark cluster creation on Azure: Databricks, HDInsight, Messos, etc. In this example, I chose to use Azure Databricks, because it provides an easy way to create clusters, terminates them after a period of inactivity, integrates with Databricks interactive notebooks and is simple to work with.</p>
+                    <p>
+                    There are several options for Spark cluster creation on Azure: Databricks, HDInsight, Messos, etc.
+
+                    I have recently written a documentation article on how to use Kubernetes as a scheduler for Spark jobs (different than settup us Standalone Spark cluster), check it out <a href="https://docs.microsoft.com/en-us/azure/aks/spark-job?WT.mc_id=sparkaks-video-alehall" target="_blank">here</a> if you're curious.
+
+                    In this example, I chose to use Azure Databricks, because it provides an easy way to create clusters, terminates them after a period of inactivity, integrates with Databricks interactive notebooks and is simple to work with.</p>
 
                     <p>There are great instructions on how to create a cluster using Azure Databricks <a href="http://cda.ms/7r" target="_blank">here</a>. This is what the dashboard shows when the cluster is creating:</p>
 
@@ -112,17 +134,17 @@
 
                     <p>Before we write any code mentioning Event Hubs, we should import a library with the <a href="http://cda.ms/7s" target="_blank">Event Hubs connector</a>. To add a library to a Spark cluster on Azure Databricks, we can click Home -&gt Shared, then right click Create -&gt Library:</p>
 
-                    <img width="60%" src="eventhub-spark/12.png"/>
+                    <img width="40%" src="eventhub-spark/12.png"/>
 
-                    <p>This allows to add a package from Maven Central or other Spark Package to the cluster using search. The one we need will be azure-eventhubs-databricks_2.11:</p>
+                    <p>This allows to add a package from Maven Central or other Spark Package to the cluster using search. The one we need is  "<code>azure-eventhubs-spark_2.11</code>" with a version <code>2.3.0</code>.</p>
 
                     <img width="100%" src="eventhub-spark/13.png"/>
 
                     <p>All future libraries added will be visible here as well:</p>
 
-                    <img width="60%" src="eventhub-spark/10.png"/>
+                    <img width="35%" src="eventhub-spark/10.png"/>
 
-                    <p>After the package is added, we will be allowed to import the library in the code with no errors: <blockquote>import com.microsoft.azure.eventhubs._</blockquote></p>
+                    <p>After the package is added, we will be allowed to import the library in the code with no errors: <blockquote>import org.apache.spark.eventhubs._</blockquote></p>
 
                     <h3>Getting Tweets</h3>
 

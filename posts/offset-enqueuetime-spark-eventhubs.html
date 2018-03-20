@@ -40,12 +40,12 @@
                     <iframe src="https://lenadroid.github.io/posts/eventhub-spark-offset-time/NoOffsetNoTimeSpecified.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe>
 
                     <h3>Stream with “offset” specified</h3>
-                    <p>To only receive messages after a certain offset, we can use “eventhubs.filter.offset” configuration parameter. For example, if we set it to 3080 for the example with tweets, we should not see any messages with an offset less than 3080. You can see that in the following notebook:</p>
+                    <p>To only receive messages after a certain offset, we can use “EventPosition.fromOffset” starting position configuration parameter. For example, if we set it to 3080 for the example with tweets, we should not see any messages with an offset less than 3080. You can see that in the following notebook:</p>
 
                     <iframe src="https://lenadroid.github.io/posts/eventhub-spark-offset-time/OffsetSpecified.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe>
 
                     <h3>Stream with “enqueuedTime” specified</h3>
-                    <p>To only receive messages that arrived after a certain timestamp, we can use "eventhubs.filter.enqueuetime" parameter and set it to the desired timestamp. For example, if we set the timestamp to "1517277178" (which is 2018-01-30-01:52:58), we won’t see any events with a enqueue time:</p>
+                    <p>To only receive messages that arrived after a certain timestamp, we can use "EventPosition.fromEnqueuedTime" as a starting position and set it to the desired timestamp. For example, if we set the timestamp to "X", we won’t see any events with enqueue time earlier than "X":</p>
 
                     <iframe src="https://lenadroid.github.io/posts/eventhub-spark-offset-time/EnqueueTimeSpecified.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe>
 
