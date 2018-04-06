@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event stream processing architecture on Azure with Apache Kafka and Spark</title>
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
+</head>
+<html>
+    <body>
+        <section id="mainMenuSection" >
+              <section id="mainMenu">
+                  <a href="http://lenadroid.github.io">Home</a>
+                  <a href="http://lenadroid.github.io/posts.html">Posts</a>
+                  <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+                 <a href="http://lenadroid.github.io/identity/contact.html">About</a>
+                    <div class="clear"></div>
+              </section>
+        </section
+        <!-- generated content starts -->
+        <section class='posts' >
+            <article class='post' >
+                <header class='title' >
+                    Event stream processing architecture on Azure with Apache Kafka and Spark
+                </header>
+                <div class='description' >
+
+                    <h3>Introduction</h3>
+                    <p>
+                        There are quite a few systems that offer event ingestion and stream processing functionality, each of them has pros and cons. Learn about combining Apache Kafka for event aggregation and ingestion together with Apache Spark for stream processing!
+                    </p>
+                    <h3>What is covered in this article</h3>
+                    <p>
+                        <ul>
+                            <li>Why Kafka</li>
+                            <li>Why Spark</li>
+                            <li>Architectural overview</li>
+                            <li>Set up a Kafka cluster using Azure HDInsight</li>
+                            <li>Create a Kafka topic</li>
+                            <li>Set up a Spark cluster using Azure Databricks</li>
+                            <li>Peer Kafka and Spark virtual networks </li>
+                            <li>Create a Twitter application</li>
+                            <li>Write a producer of events to Kafka</li>
+                            <li>Consume events from Kafka topics using Spark</li>
+                            <li>Summary</li>
+                        </ul>
+                    </p>
+                    <img alt="diagram" src="kafka-spark-azure-101/diagram.png" width="100%"/>
+                    <h3>Why Kafka?</h3>
+                    <p>
+                        Apache Kafka is a distributed system commonly described as scalable and durable message commit log. Kafka often acts as a reliable event ingestion layer, that can durably store and aggregate events coming from multiple sources, and that can act as a single source for different consumers to receive multiple types of events.
+                        <h4>Topics, producers and consumers</h4>
+                        Kafka has a concept of topics that can be partitioned, allowing each partition to be replicated to ensure fault-toletant storage for arriving streams. Kafka also offers exactly-once delivery of messages, where producers and consumers can work with topics independenly in their own speed. Producers can publish messages to one or more topics. Consumers can subscribe to one or more topics, read messages independently or as a group, from the beginning, end, or a specific offset in a topic.
+                        Kafka is known to be a very fast messaging system, read more about its performance <a href="https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines" target="_blank">here</a>.
+                        <h4>Kafka could-managed alternatives</h4>
+                        Apache Kafka is often compared to Azure <a href="https://cda.ms/pk">Event Hubs</a> or Amazon Kinesis as managed services that provide similar funtionality for the specific cloud environments. They have both advantages and disadvantages in features and performance, but we're looking at Kafka in this article because it is an open-source project possible to use in any type of environment: cloud or on-premises. Check out <a href="https://lenadroid.github.io/posts/connecting-spark-and-eventhubs.html" target="_blank">this article</a> to learn more about using Event Hubs and Spark together.
+                        <h4>Kafka learning resources</h4>
+                        <a href="http://shop.oreilly.com/product/0636920044123.do">Kafka The Definitive Guide</a> is a comprehensive book about Kafka, that I really recommend.
+                    </p>
+                    <h3>Why Spark?</h3>
+                    <p>
+                        Apache Spark is an open-source project for fast distributed computations and processing of large datasets. It operates primarily in memory and can use resource schedulers such as Yarn, Mesos or Kubernetes. Spark can perform processing with distributed datasets from external storage, for example HDFS, Cassandra, HBase, etc.
+                        <br><br>
+                        Use cases for Apache Spark include data processing, analytics, and machine learning for enormous volumes of data in near real-time, data-driven reaction and decision making, scalable and fault tolerant computations on large datasets. Examples may include analyzing events from sensors arriving with high frequency from multiple types of sources, performing near real-time processing and machine learning to determine health of the system and raising immediate notifications to act upon, and persisting all events into some data lake for historical purposes, and many more.
+
+                        <h4>Spark connectors</h4>
+                        Spark has a concept of “connectors” that help Spark can interact with many systems to consume data from or to write data to. For example, to consume data from Kafka topics we can use <a href="https://spark.apache.org/docs/2.2.0/structured-streaming-kafka-integration.html" target="_blank">Kafka connector</a>, and to write data to Cassandra, we can use <a href="https://github.com/datastax/spark-cassandra-connector" target="_blank">Cassandra connector</a>.
+
+                        <h4>Spark cloud-managed alternatives</h4>
+                        There are alternative stream processing solutions that run as a managed service in the cloud, like <a href="https://cda.ms/pm">Stream Analytics</a> that might be better integrated into Azure ecosystem in certain aspects and easier to get started with, but they might not be as feature-rich as Apache Spark is. There are a lot of open-source frameworks that provide similar functionality as Spark, but have differences in implementation, offered guarantees and features. Examples are Apache Flink or Apache Heron/Storm.
+
+                        <h4>Spark processing model</h4>
+                        Traditionally and by default, Spark has been operating according to a micro-batch engine, where the data streams are processed as a series of small batch jobs with end-to-end latencies achieving 100 milliseconds at lowest and exactly-once fault-tolerance guarantees.
+
+                        Starting from the one of the latest releases of Spark, it now supports an experimental <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#continuous-processing">Continuous Processing</a> mode.
+                        <br> Quote from Spark documentation:
+                        <blockquote> ... end-to-end latencies as low as 1 millisecond with at-least-once guarantees. Without changing the Dataset/DataFrame operations in your queries, you will be able to choose the mode based on your application requirements.</blockquote>
+                        <h4>Spark learning resources</h4>
+                        Spark <a href="https://spark.apache.org/docs/latest/">documentation</a> is an informative starting point, and I also recommend a book <a href="http://shop.oreilly.com/product/0636920046967.do">High Performance Spark</a> to learn about optimizing your code to achieve better performance with Spark.
+                    </p>
+
+                    <h3>Architectural Overview</h3>
+                    <p>
+                        In this article, Kafka and Spark are used together to produce and consume events from a public dataset. Azure offers HDInsight and Azure Databricks services for managing Kafka and Spark clusters respectively. When creating an Azure Databricks workspace for a Spark cluster, a virtual network is created to contain related resources. Kafka brokers in HDInsight cluster are also created in a separate virtual network. How do we ensure Spark and Kafka can talk to each other even though they are located in different virtual networks?
+                        <h4>Virtual Network Peering</h4>
+                        Virtual network peering allows connecting two Azure virtual networks. After virtual networks are peered, resources in either virtual network can directly connect with resources in the peered virtual network. The traffic between virtual machines in the peered virtual networks is routed through the Microsoft backbone infrastructure, much like traffic is routed between virtual machines in the same virtual network, through private IP addresses only.
+                        Azure Databricks provides detailed <a href="https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html" target="_blank">instructions</a> on how to peer virtual networks. But first of all, we need to create Kafka and Spark clusters!
+                    </p><br>
+
+                    <h3>Set up a Kafka clsuter using Azure HDInsight</h3>
+                    <p>
+                        1. Pick a region, for example West US. Kafka and Spark clusters created in the next steps will need to be in the same region.
+                        <br>
+                        2. Pick a resource group name for the HDInsight cluster.
+                        <br>
+                        3. Run Azure Resource Manager template to create a virtual network, storage account and HDInsight Kafka cluster, using Azure CLI 2.0. Make sure to specify a unique Kafka Cluster name and passwords in the kafka-params.json file.
+                        <p><script src="https://gist.github.com/lenadroid/8e5606790406f35e6aa5d102a6e33733.js"></script></p>
+                        <br>
+
+                        4. Follow <a href="https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-connect-vpn-gateway#configure-kafka-for-ip-advertising" target="_blank">these steps</a> to “Configure Kafka for IP advertising". It will make sure Kafka brokers are accessible using their internal IP addresses instead of internal hostnames. In one of my next articles I will describe how to set up DNS name resolution for Kafka brokers to be able to access them using hostnames from Spark virtual network.
+                        <br><br>
+                        5. Take notes of Kafka broker IP addresses and Zookeeper server IP addresses, they will be required in future steps.
+                        <br><br>
+                        <img alt="peer vnets" src="kafka-spark-azure-101/1.png" width="100%"/>
+                        <br>
+                        Go to the HDInsight Cluster dashboard (<code>https://&lt;cluster-name&gt;.azurehdinsight.net/</code>), then to Kafka view, take note of IP addresses of Kafka brokers. Check each broker to get IP address that might look similar to 10.0.0.x.
+
+                        <img alt="kafka brokers" src="kafka-spark-azure-101/6.png" width="50%"/>
+
+                        <p>Similarly, from the HDInsight Cluster dashboard (<code>https://&lt;cluster-name&gt;.azurehdinsight.net/</code>) choose Zookeeper view and take note of IP addresses of Zookeeper servers.</p>
+
+                        <img alt="zookeeper brokers" src="kafka-spark-azure-101/7.png" width="50%"/>
+
+                    <br>
+                    <h3>Create a Kafka topic in HDInsight</h3>
+                    <p>
+                    SSH to the HDInsight Kafka, and run the script to create a new Kafka topic.
+                    <br><br>
+                    <img alt="peer vnets" src="kafka-spark-azure-101/1.png" width="100%"/>
+                    <br>
+                    <script src="https://gist.github.com/lenadroid/f3a6265d5308598fb1a293ff4ab79b26.js"></script>
+                    </p>
+
+                    <br>
+                    <h3>Set up a Spark cluster using Azure Databricks</h3>
+                    <p> Azure offers multiple products for managing Spark clusters, such as HDInsight Spark and Azure Databricks. I've chosen Azure Databricks because it provides flexibility of cluster lifetime with the possibility to terminate it after a period of inactivity, and many other features. More information on Azure Databricks <a href="https://databricks.com/product/azure" target="_blank">here</a>.
+                    </p>
+                    <p>Create a new Azure Databricks workspace and a new Spark cluster, as described <a href="https://docs.microsoft.com/en-us/azure/azure-databricks/quickstart-create-databricks-workspace-resource-manager-template" target="_blank">here</a>. Use the same region as for HDInsight Kafka, and create a new Databricks workspace.
+                    Don't forget to initialize environment (click “Launch workspace” on the resource page) after the workspace is created before creating a Spark cluster.
+                    </p>
+
+                    <h3>Peer the virtual networks</h3>
+                    <p>Perform the following <a href="https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-peering.html" target="_blank">steps</a> to connect HDInsight Kafka and Azure Databricks Spark virtual networks. Kafka virtual network is located in the same resource group as HDInsight Kafka cluster. Azure Databricks virtual network is located under a resource group starting with <code>databricks-rg</code>. After peering is done successfully, you should see "Connected" peering status if you navigate to the "Virtual Network Peerings" setting of the main Azure Databricks workspace resource.
+                    <br><br>
+                    <img alt="peer vnets" src="kafka-spark-azure-101/5.png" width="100%"/>
+                    <br>
+                    </p>
+
+                    <h3>Add libraries to the Spark cluster in Azure Databricks</h3>
+                    <p>Add necessary <a href="https://docs.databricks.com/user-guide/libraries.html" target="_blank">libraries</a> to the newly created cluster from Maven coordinates, and don’t forget to attach them to the cluster newly created Spark cluster.
+                        <ul>
+                            <li>spark-streaming-kafka-0-10_2.11</li>
+                            <li>spark-streaming-twitter-2.11_2.2.0</li>
+                        </ul>
+                    </p>
+                    <h3>Create a Twitter application</h3>
+                    <p> To send data to the Kafka, we first need to retrieve tweets. For that to work, it will be required to complete a few fields on Twitter configuration, which can be found under your <a href="https://apps.twitter.com/app/new" target="_blank">Twitter App</a>. If you don’t have Twitter keys - create a new Twitter app <a href="https://apps.twitter.com/app/new" target="_blank">here</a> to get the keys.</p>
+
+                    <img width="70%" src="eventhub-spark/11.png"/>
+                    <br>
+                    <h3>Create two Azure Databricks notebooks: KafkaProducer and KafkaConsumer</h3>
+                    <p>Create two Azure Databricks notebooks in Scala: one to produce events to the Kafka topic, another one to consume events from that topic.</p>
+                    <h4>Producing data</h4>
+                    <p>Change the following necessary information in the "KafkaProduce" notebook:
+                    <ul>
+                        <li>Twitter credentials: consumer key and secret, access key and secret</li>
+                        <li>Kafka topic name</li>
+                        <li>Value for "kafkaBrokers" variable should use the list of Kafka server IPs (with 9092 ports) from one of the earlier steps</li>
+                    </ul>
+                    Then run the notebook in Azure Databricks to start producing events!</p>
+
+                    <iframe src="https://lenadroid.github.io/posts/kafka-spark-azure-101/Kafka-Produce-Lena-Hall.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe>
+
+                    <h4>Consuming data</h4>
+                    <p>
+                    Change the following necessary information in the "KafkaConsume" notebook:
+                    <ul>
+                        <li>Kafka topic name</li>
+                        <li>Value for "kafkaBrokers" variable should use the list of Kafka server IPs (with 9092 ports) from one of the earlier steps</li>
+                    </ul>
+                    Then run the notebook in Azure Databricks to start consuming events!</p>
+                    <iframe src="https://lenadroid.github.io/posts/kafka-spark-azure-101/Kafka-Consume-Lena-Hall.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe>
+
+                    <h3>Summary</h3>
+                    <p>
+                        In this article, we've looked at event ingestion and streaming architecture with open-source frameworks Apache Kafka and Spark using managed HDInsight and Databricks services on Azure. We have looked at how to produce events into Kafka topics and how to consume them using Spark Structured Streaming. Code can also be found <a href="https://github.com/lenadroid/kafka-spark-azure">here</a>.
+                    </p>
+                    <p>
+                        In one of the next articles, I'll describe setting up DNS name resolution with Kafka and Spark archirecture on Azure.
+                    </p>
+
+                    <h3>Connect</h3>
+
+                    <p>Thank you for reading! Follow me on Twitter <a href="https://twitter.com/lenadroid">@lenadroid</a> or on <a href="https://www.youtube.com/channel/UC93BPd533EKzu_L3LeMo6Gw">YouTube</a> if you found this article interesting or helpful. My direct messages are open, always happy to connect, feel free to reach out with any questions or ideas!</p>
+
+                    <br>
+                    <br>
+
+                </div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  04.01.2018
+               </div> |
+               <div class='keywords' >
+                    <span class='keyword' >
+                        apache spark
+                    </span>
+                    <span class='keyword' >
+                        apache kafka
+                    </span>
+                    <span class='keyword' >
+                        azure
+                    </span>
+                    <span class='keyword' >
+                        scala
+                    </span>
+                    <span class='keyword' >
+                        databricks
+                    </span>
+              </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+
+
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2018 - Lena Hall</p>
+        </footer>
+
+  </body>
+</html>
