@@ -23,14 +23,14 @@
         <section class='posts' >
             <article class='post' >
                 <header class='title' >
-                        Comprehensive guide on distributed systems for stream processing: Apache Kafka and Spark
+                        Comprehensive guide on distributed systems for stream processing:<br>Apache Kafka and Spark
                 </header>
                 <div class='description' >
 
                     <h3>Data</h3>
                     <p>
                         Data is produced every second, it comes from millions of sources and is constantly growing.<br>
-                        Have you ever thought how much data are you personally are generating every day?
+                        Have you ever thought how much data you personally are generating every day?
                     </p>
 
                     <h3>Data: direct result of our actions</h3>
@@ -299,15 +299,15 @@
 
                             <p>
 
-                            Imagine that you’re in charge of a company, and you have quite a few competitors in your industry, and you want to make sure your products and tools are top quality.<br><br>
+                            Imagine that you’re in charge of a company. You have quite a few competitors in your industry. You want to make sure your products and tools are top quality.<br><br>
 
                             As an example, I am using Azure for this purpose, because there're a lot of tweets about Azure and I'm interested in what people think about using it to learn what goes well and to make it better for engineers.<br>
 
                             <h4>Data sources: external, internal, and more</h4>
 
-                            We can look at statements about Azure everywhere on the internet: it can be Twitter, Facebook, Github, Stackoverflow, LinkedIn, anywhere. Hundreds of potential sources.<br><br>
+                            We can look at statements about Azure everywhere on the internet: it can be Twitter, Facebook, Github, Stackoverflow, LinkedIn, anywhere. There are hundreds of potential sources.<br><br>
 
-                            There are many things we can do with statements about Azure in terms of analysis: some of it might require reaction and be time sensitive, some of it might be not.<br><br>
+                            There are many things we can do with statements about Azure in terms of analysis: some of it might require reaction and be time sensitive, some of it might not be.<br><br>
 
                             Because I really want the example to be concise, atomic and general, we’re going to analyze user feedback coming from a public data source, like Twitter, and another data source, like Slack – where people can also share their thoughts about potential service.<br><br>
 
@@ -315,9 +315,9 @@
 
                             When it’s positive – we’d like to track it, but don’t really need an immediate response.<br><br>
 
-                            Our input feedback data sources are independent and even through in this example we’re using two input sources for clarity and conciseness, there could be could be easily hundreds of them, and used for many processing tasks at the same time.<br><br>
+                            Our input feedback data sources are independent and even through in this example we’re using two input sources for clarity and conciseness, there could be easily hundreds of them, and used for many processing tasks at the same time.<br><br>
 
-                            In this situation what we can do is build a streaming system that would use Kafka as a scalable, durable, fast decoupling layer that performs data ingestion from Twitter, Slack, and potentially more sources. And that would also analyze the events on sentiment in near real-time using Spark and that would raise notifications in case of too positive and too negative processing outcomes!
+                            In this situation what we can do is build a streaming system that would use Kafka as a scalable, durable, fast decoupling layer that performs data ingestion from Twitter, Slack, and potentially more sources. It would also analyze the events on sentiment in near real-time using Spark and that would raise notifications in case of extra positive or negative processing outcomes!
                     </p><br>
 
                     <h3>Feedback from Slack</h3>
@@ -340,7 +340,7 @@
 
                     <h3>Sending Twitter feedback to Kafka</h3>
 
-                    <p>Majority of public feedback will probably arrive from Twitter. So we'd need to get latest tweets about specific topic and send them to Kafka to be able to receive these events together with feedback from other sources and process them all in Spark.</p>
+                    <p>The majority of public feedback will probably arrive from Twitter. We'd need to get latest tweets about specific topic and send them to Kafka to be able to receive these events together with feedback from other sources and process them all in Spark.</p>
 
                     <iframe src="https://lenadroid.github.io/posts/ds/4. Tweets To Kafka.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe><br><br>
 
@@ -365,7 +365,7 @@
 
                     <h3>Spark and experimental "Continuous Processing" mode</h3>
 
-                    <p> Traditionally, Spark has been operating through micro-batch processing mode.<br><br>
+                    <p> Traditionally, Spark has been operating through the micro-batch processing mode.<br><br>
                     In the Apache Spark 2.3.0, Continuous Processing mode is an experimental feature for millisecond low-latency of end-to-end event processing. It works according to at-least-once fault-tolerance guarantees. Currently, not nearly all operations are supported yet (e.g. aggregation functions, current_timestamp() and current_date() are not supported), there're no automatic retries of failed tasks, and it needs ensuring there's enough cluster power/cores to operate efficiently.<br><br>
 
                     To use it, add a trigger:
@@ -384,7 +384,7 @@
                             <img width="100%" src="ds/18.png"/><br>
                             Spark driver checkpoints the progress by saving record offsets to a write-ahead-log, which may be then used to restart the query.<br><br>
                             Recording of offsets for next batch of records is happening before the batch started processing.<br><br>
-                            So, some records have to wait till the end of the current micro-batch to be processed, and this takes time.
+                            This way, some records have to wait until the end of the current micro-batch to be processed, and this takes time.
 
                     </p><br>
 
@@ -400,7 +400,7 @@
 
                     We are capable of achieving end-to-end latency of just a few milliseconds because events are processed and written to sink as soon as they are available in the source, without waiting for other records.<br><br>
 
-                    Also, checkpointing is fully asynchronous and uses Chandy-Lamport algorithm, so nothing interrupts tasks and Spark is able to provide consistent millisecond-level latencies.
+                    Also, checkpointing is fully asynchronous and uses the Chandy-Lamport algorithm, so nothing interrupts tasks and Spark is able to provide consistent millisecond-level latencies.
                     </p><br>
 
                     <h3>Another new thing: Event Hubs + Kafka = ❤️</h3>
@@ -434,11 +434,11 @@
 
                     Existing Kubernetes abstractions like Stateful Sets are great building blocks for running stateful processing services, but are most often not enough to provide correct operation for things like Kafka or Spark.<br><br>
 
-                    I recommend looking into the topics of Operators, as they are important to help us help Kubernetes be aware of nuances of correct functioning of our frameworks.<br><br>
+                    I recommend looking into the topic of Operators, as they are important to help us help Kubernetes be aware of nuances of correct functioning of our frameworks.<br><br>
 
                     Confluent has announced the upcoming Kafka operator coming out in a month or two, and I'm looking forward to trying it. More updates coming.<br><br>
 
-                    For those interested in running Spark on Kubernetes, it has an experimental (not production) native Kubernetes support since Spark 2.3. I wrote about it <a href="https://docs.microsoft.com/en-us/azure/aks/spark-job?WT.mc_id=sparkaks-blog-alehall">here</a>, and <a href="https://github.com/lenadroid/show-episode-recommender">here</a> and <a href="https://github.com/lenadroid/goto-cassandra-spark">here</a>.
+                    For those of you interested in running Spark on Kubernetes, it has an experimental (not production) native Kubernetes support since Spark 2.3. I wrote about it <a href="https://docs.microsoft.com/en-us/azure/aks/spark-job?WT.mc_id=sparkaks-blog-alehall">here</a>, and <a href="https://github.com/lenadroid/show-episode-recommender">here</a> and <a href="https://github.com/lenadroid/goto-cassandra-spark">here</a>.
                     </p>
 
                     <h3>Thank you for reading!</h3>
