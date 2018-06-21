@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Comprehensive guide on distributed systems for stream processing: Apache Kafka and Spark
+    </title>
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
+</head>
+<html>
+    <body>
+        <section id="mainMenuSection" >
+              <section id="mainMenu">
+                  <a href="http://lenadroid.github.io">Home</a>
+                  <a href="http://lenadroid.github.io/posts.html">Posts</a>
+                  <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+                 <a href="http://lenadroid.github.io/identity/contact.html">About</a>
+                    <div class="clear"></div>
+              </section>
+        </section
+        <!-- generated content starts -->
+        <section class='posts' >
+            <article class='post' >
+                <header class='title' >
+                        Comprehensive guide on distributed systems for stream processing: Apache Kafka and Spark
+                </header>
+                <div class='description' >
+
+                    <h3>Data</h3>
+                    <p>
+                        Data is produced every second, it comes from millions of sources and is constantly growing.<br>
+                        Have you ever thought how much data are you personally are generating every day?
+                    </p>
+
+                    <h3>Data: direct result of our actions</h3>
+                    <img alt="diagram" src="ds/1.png" width="50%"/>
+                    <p>There’s data generated as a direct result of our actions and activities:</p>
+
+                    <p>
+                        <ul>
+                            <li>Browsing twitter</li>
+                            <li>Using mobile apps</li>
+                            <li>Performing financial transactions</li>
+                            <li>Using a navigator in your car</li>
+                            <li>Booking a train ticket</li>
+                            <li>Creating an online document</li>
+                            <li>Starting a YouTube live stream</li>
+                        </ul>
+
+                    <br>Obviously, that’s not it.
+                    </p>
+
+                    <br>
+
+                    <h3>Data: produced as a side effect</h3>
+
+                    <img alt="diagram" src="ds/2.png" width="50%"/>
+
+                    <p>
+
+                            For example, performing a purchase where it seems like we’re buying just one thing – might generate hundreds of requests that would send and generate data.<br><br>
+                            Saving a document in the cloud doesn’t mean storing it on one server, it means replicating it across multiple regions for fault-tolerance and availability.<br><br>
+                            Performing a financial transaction doesn’t mean just doing the domain specific operation.<br><br>
+                            It also means storing logs and detailed information about every single micro step of the process, to be able to recover things if they go wrong.<br><br>
+                            It also means analyzing peripheral information about it to determine if the transaction is fraudulent or not.<br><br>
+                            We log tons of data. We cache things for faster access. We replicate data and setup backups. We save data for future analysis.
+                    </p><br>
+
+                    <h3>Data: continuous metrics and events</h3>
+
+                    <img alt="diagram" src="ds/3.png" width="50%"/>
+
+                    <p>
+                        There’s data we track that is being constantly produced by systems, sensors and IoT devices.<br><br>
+                        It can be regular system metrics that capture state of web servers and their load, performance, etc. Or data that instrumented applications send out. <br><br>
+                        Heart rate data, or blood sugar level data. Airplane location and speed data – to build trajectories and avoid collisions. Real-time camera monitors that observe spaces or objects to determine anomalies in process behavior.
+                    </p>
+
+                    <img alt="diagram" src="ds/4.png" width="100%"/>
+
+                    <p>
+                        If we think about it – <i>some</i> of the data is collected to be stored and analyzed later. And some of the data is extremely time sensitive.<br><br>
+                        Analyzing logs of a regular web site isn’t super urgent when we are not risking anyone’s life.<br><br>
+                        Keeping track of credit card transactions is much more time sensitive because we need to take action immediately to be able to prevent the transaction if it’s malicious.<br><br>
+                        Then there’s something much more critical, like monitoring health data of patients, where every millisecond matters.
+
+                    </p><br>
+
+                    <img alt="diagram" src="ds/5.png" width="100%"/>
+
+                    <p>
+                        All of these real-life criteria translate to technical requirements for building a data processing system:
+                        <ul>
+                            <li>Where and how the data is generated</li>
+                            <li>What is the frequency of changes and updates in the data</li>
+                            <li>How fast we need to react to the change</li>
+                        </ul>
+                    </p><br>
+
+                    <img alt="diagram" src="ds/6.png" width="100%"/>
+
+
+                    <p>We need to be able to build solutions that can:
+                        <ul>
+                            <li>Receive data from a variety of sources</li>
+                            <li>Perform specific computation and analysis on data on the fly</li>
+                            <li>Possibly perform an action as a result</li>
+                        </ul>
+                            We can divide how we think about building such architectures into two conventional parts:
+                            <ul>
+                                <li>Data ingestion and decoupling layer between sources of data and destinations of data</li>
+                                <li>Data processing and reaction</li>
+                            </ul>
+                            Let’s look at some challenges with the first part.
+                    </p>
+                    <br>
+                    <h3>Data ingestion: producers and consumers</h3>
+                    <p>
+                        When we, as engineers, start thinking of building distributed systems that involve a lot of data coming in and out, we <i>have to think</i> about the flexibility and architecture of how these streams of data are produced and consumed.<br><br>
+
+                        On earlier stages, we might have just a few components, like a web application that produces data about user actions, then we have a database system where all this data is supposed to be stored. At this point we usually have a 1 to 1 mapping between data producer (our web app) and consumer (database) in this case.<br><br>
+
+                        <img alt="diagram" src="ds/7.png" width="50%"/><br>
+
+                        However, when our application grows - infrastructure grows, you start introducing new software components, for example, cache, or an analytics system for improving users flow, which also requires that web application to send data to all those new systems.
+                        What if we introduce a mobile app in addition, now we have two main sources of data with even more data to keep track of.<br><br>
+
+                        <blockquote>Eventually we grow and end up with many independent data producers, many independent data consumers, and many different sorts of data flowing between them.</blockquote>
+
+                    </p>
+                    <br>
+                    <h3>There are challenges!</h3>
+                    <p>
+                        How do we make sure that our architecture doesn’t become cumbersome with so many producers and consumers? Especially when same data should be available for some consumers after being read by other consumers.<br><br>
+                        How to prepare for the need to scale based on changes in rates of events coming in?<br><br>
+                        How to ensure data is durable and we won’t ever lose any important messages?
+                    </p><br>
+
+                    <h3>Apache Kafka</h3>
+                    <p>
+                        Apache Kafka is an open-source streaming system. <br><br>
+                        Kafka is used for building real-time streaming data pipelines that reliably get data between many independent systems or applications.<br><br>
+
+                        <img alt="diagram" src="ds/8.png" width="20%"/><br>
+
+                        It allows:
+                        <ul>
+                            <li>Publishing and subscribing to streams of records</li>
+                            <li>Storing streams of records in a fault-tolerant, durable way</li>
+                        </ul>
+
+                        It provides a unified, high-throughput, low-latency, horizontally scalable platform that is used in production in thousands of companies.<br><br>
+
+                        To understand how Kafka does these things, let’s explore a few concepts.
+
+                    </p>
+
+                    <img width="100%" src="ds/9.png"/>
+                    <p>
+                        Kafka is run as a cluster on one or more servers that can span multiple datacenters. Those servers are usually called brokers.<br><br>
+                        Kafka uses Zookeeper to store metadata about brokers, topics and partitions.
+
+                    </p>
+
+                    <br>
+                    <h3>Kafka Topics</h3>
+                    <p>
+                        The core abstraction Kafka provides for a stream of records — is the topic.<br><br>
+
+                        <img width="100%" src="ds/10.png"/>
+
+                        You can think of a topic as a distributed, immutable, append-only, partitioned commit log, where producers can write data, and consumers can read data from.<br><br>
+                        Each record in a topic consists of a key, a value, and a timestamp.
+                        A topic can have zero, one, or many consumers that subscribe to the data written to it.
+                        The Kafka cluster durably persists all published records  using a configurable retention period — no matter if those records have been consumed or not.
+                    </p><br>
+
+
+                    <h3>Partitions</h3>
+                    <p>
+                        Each partition in a topic is an ordered, immutable sequence of records that is continually appended to a structured commit log.
+
+                        <img width="100%" src="ds/11.png"/><br>
+
+                        The records in the partitions each have an offset - number that uniquely identifies each record within the partition.<br><br>
+                        Each individual partition must fit on the broker that hosts it, but a topic may have many partitions distributed over the brokers in the Kafka cluster so it can handle an arbitrary amount of data. Each partition can be replicated across a configurable number of brokers for fault tolerance.<br><br>
+                        Each partition has one broker which acts as the "leader” that handles all read and write requests for the partition, and zero or more brokers which act as "followers” that passively replicate the leader. Each broker acts as a leader for some of its partitions and a follower for others so load is well balanced within the cluster.
+
+                    </p><br>
+
+                    <h3>Kafka Producers and Consumers</h3>
+                    <p>
+                        Producers publish data to the topics of their choice.<br><br>
+                        Consumers can subscribe to topics and receive messages. Consumers can act as independent consumers or be a part of some consumer group.
+                    </p>
+                    <img width="100%" src="ds/12.png"/>
+                    <p>
+                        So Kafka not only helps with ingesting big amounts of data, but also works really well for small data in the environment with numerous systems that exchange data in a many to many fashion, allows flexibility in pace for consumers and producers, scales really well and is really fast.<br><br>
+                        Now, sometimes we need a system that is able to process streams of events as soon as they arrive, on the fly and then perform some action based on the results of the processing, it can be an alert, or notification, something that has to happen in real time.
+                    </p><br>
+
+                    <h3>Systems for stream processing</h3>
+                    <p>
+                        Even though this article is  about Apache Spark, it doesn’t mean it’s the best for all use cases. The choice of a streaming platform depends on latency guarantees, community adoption, interop with libraries and ecosystem you're using, and more.<br><br>
+
+                        When considering building a data processing pipeline, take a look at all leader-of-the-market stream processing frameworks and evaluate them based on your requirements.<br>
+
+                        <img width="50%" src="ds/13.png"/><br>
+
+                        For example, Storm is the oldest framework that is considered a "true" stream processing system, because each message is processed as soon as it arrives (vs in mini-batches). It provides low latency, though it can be cumbersome and tricky to write logic for some advanced operations and queries on data streams. It has a rather big community.<br><br>
+
+                        Kafka Streams is a pretty new and fast, lightweight stream processing solution that works best if all of your data ingestion is coming through Apache Kafka.<br><br>
+
+                        Flink is another great, innovative and new streaming system that supports many advanced things feature wise. It has a passionate community that is a bit less than community of Storm or Spark, but has a lot of potential.<br><br>
+
+                        Spark is by far the most general, popular and widely used stream processing system. It is primarily based on micro-batch processing mode where events are processed together based on specified time intervals. Since Spark 2.3.0 release there is an option to switch between micro-batching and experimental continuous streaming mode.
+                    </p><br>
+
+                    <h3>Apache Spark</h3>
+
+                    <p>
+                        Spark is an open source project for large scale distributed computations.
+                        You can use Spark to build real-time and near-real-time streaming applications that transform or react to the streams of data.<br>
+                        <img width="30%" src="ds/14.png"/><br>
+                        Spark is similar to Map Reduce, but more powerful and much faster, as it supports more types of operations than just map or reduce, it uses Directed Acyclic Graph execution model and operates primarily in-memory.<br><br>
+                        As of the latest Spark release it supports both micro-batch and continuous processing execution modes.<br><br>
+                        Spark can be used with the variety of schedulers, including Hadoop Yarn, Apache Mesos, and Kubernetes, or it can run in a Standalone mode.<br><br>
+                        We can use Spark SQL and do batch processing, stream processing with Spark Streaming and Structured Streaming, machine learning with Mllib, and graph computations with GraphX.
+                    </p><br>
+
+                    <h3>How Spark works</h3>
+                    <p>
+                        We can submit jobs to run on Spark.
+                        On a high level, when we submit a job, Spark creates an operator graph from the code, submits it to the scheduler.
+                        There, operators are divided into stages of tasks, that correspond to some partition of the input data.<br>
+                        <img width="80%" src="ds/17.png"/>
+                        <br>
+                        Spark has physical nodes called workers, where all the work happens.<br><br>
+
+                        A driver coordinates workers and overall execution of tasks.<br><br>
+
+                        Executor is a distributed agent that is responsible for executing tasks. They run on worker nodes.<br><br>
+
+                        Task is the smallest individual unit of execution.
+
+                    </p><br>
+
+                    <h3>Apache Kafka + Spark FTW</h3>
+
+                    <p>
+                        Kafka is great for durable and scalable ingestion of streams of events coming from many producers to many consumers.<br><br>
+
+                        Spark is great for processing large amounts of data, including real-time and near-real-time streams of events.<br><br>
+
+                        How can we combine and run Apache Kafka and Spark together to achieve our goals?
+                    </p><br>
+
+                    <h3>Example: processing streams of events from multiple sources with Apache Kafka and Spark</h3>
+                    <p>
+
+                        I’m running my Kafka and Spark on Azure using services like Azure Databricks and HDInsight. This means I don’t have to manage infrastructure, Azure does it for me.<br><br>
+
+                        You’ll be able to follow the example no matter what you use to run Kafka or Spark.<br>
+
+                        <p><i>Note:</i></p>
+                        <blockquote>
+                            Previously, I've written about <a href="https://lenadroid.github.io/posts/kafka-hdinsight-and-spark-databricks.html">using Kafka and Spark on Azure</a> and <a href="https://lenadroid.github.io/posts/sentiment-analysis-streaming-data.html">Sentiment analysis on streaming data using Apache Spark and Cognitive Services</a>. These articles might be interesting to you if you haven't seen them yet.
+                        </blockquote>
+
+                        There are many detailed instructions on how to create Kafka and Spark clusters, so I won’t spend time showing it here. Instead, we’ll focus on their interaction to understand real-time streaming architecture.<br><br>
+
+                        Existing infrastructure and resources:
+
+                        <ul>
+                            <li>Kafka cluster (HDInsight or other)</li>
+                            <li>Spark cluster (Azure Databricks workspace, or other)</li>
+                            <li>Peered Kafka and Spark Virtual Networks</li>
+                            <li>Sources of data: Twitter and Slack</li>
+                        </ul>
+
+
+
+                            We are not looking at health data tracking, or airplane collision example, or any life-or-death kind of example, because there are people who might use the example code for real life solutions.<br><br>
+
+                            Instead, we are going to look at a very atomic and specific example, that would be a great starting point for many use cases.<br><br>
+
+                            Main points it will demonstrate are:
+                            <ul>
+                                <li>How to build a decoupling event ingestion layer that would work with multiple independent sources and receiving systems</li>
+                                <li>How to do processing on streams of events coming from multiple input systems</li>
+                                <li>How to react to outcomes of processing logic</li>
+                                <li>How to do it all in a scalable, durable and simple fashion</li>
+                            </ul>
+
+                            </p><br>
+
+                            <h3>Example story...</h3>
+
+                            <p>
+
+                            Imagine that you’re in charge of a company, and you have quite a few competitors in your industry, and you want to make sure your products and tools are top quality.<br><br>
+
+                            As an example, I am using Azure for this purpose, because there're a lot of tweets about Azure and I'm interested in what people think about using it to learn what goes well and to make it better for engineers.<br>
+
+                            <h4>Data sources: external, internal, and more</h4>
+
+                            We can look at statements about Azure everywhere on the internet: it can be Twitter, Facebook, Github, Stackoverflow, LinkedIn, anywhere. Hundreds of potential sources.<br><br>
+
+                            There are many things we can do with statements about Azure in terms of analysis: some of it might require reaction and be time sensitive, some of it might be not.<br><br>
+
+                            Because I really want the example to be concise, atomic and general, we’re going to analyze user feedback coming from a public data source, like Twitter, and another data source, like Slack – where people can also share their thoughts about potential service.<br><br>
+
+                            As a result, we will be watching and analyzing the incoming feedback on the fly, and if it’s too negative – we will need to notify certain groups to be able to fix things ASAP.<br><br>
+
+                            When it’s positive – we’d like to track it, but don’t really need an immediate response.<br><br>
+
+                            Our input feedback data sources are independent and even through in this example we’re using two input sources for clarity and conciseness, there could be could be easily hundreds of them, and used for many processing tasks at the same time.<br><br>
+
+                            In this situation what we can do is build a streaming system that would use Kafka as a scalable, durable, fast decoupling layer that performs data ingestion from Twitter, Slack, and potentially more sources. And that would also analyze the events on sentiment in near real-time using Spark and that would raise notifications in case of too positive and too negative processing outcomes!
+                    </p><br>
+
+                    <h3>Feedback from Slack</h3>
+                    <p>I'm using Azure Databricks interactive notebooks for running code as a great environment for demonstrations.<br><br>
+
+                    First part of the example is to be able to programmatically send data to Slack to generate feedback from users via Slack.<br><br>
+
+                    Slack Bot API token is necessary to run the code.<p>
+
+                    <iframe src="https://lenadroid.github.io/posts/ds/1. Slack Message Generator.html" frameborder="0" scrolling="no" width="100%" height="760px"></iframe>
+
+
+                    <h3>Listener for new Slack messages</h3>
+                    <p>
+                        When users are sending statements that might be potential feedback, we need to be able to notice and track thise messages. For example, we can check if a message is under specific Slack channel and focused on a particular topic, and send it to a specific Kafka topic when it meets our "feedback" conditions.<br><br>
+
+                        We can do so by overwriting an "onEvent" method of "SlackMessagePostedListener" from Slack API, and implementing the logic inside of it, including sending qualifying events to a Kafka topic. After defining the listener class, we have to register an instance of it. We can also un-register it when we'd like to stop receiving feedback from Slack.
+                    </p>
+                    <iframe src="https://lenadroid.github.io/posts/ds/2. Slack Listener For New Messages.html" frameborder="0" scrolling="no" width="100%" height="760px"></iframe><br><br>
+
+                    <h3>Sending Twitter feedback to Kafka</h3>
+
+                    <p>Majority of public feedback will probably arrive from Twitter. So we'd need to get latest tweets about specific topic and send them to Kafka to be able to receive these events together with feedback from other sources and process them all in Spark.</p>
+
+                    <iframe src="https://lenadroid.github.io/posts/ds/4. Tweets To Kafka.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe><br><br>
+
+                    <h3>Analyzing feedback in real-time</h3>
+                    <p>
+                    Kafka is now receiving events from many sources.
+
+                    Now we can proceed with the reaction logic. We're going to do sentiment analysis on incoming Kafka events, and when sentiment is less than 0.3 - we'll send a notification to "#negative-feedback" Slack channel for review. When sentiment is more than 0.9 - we'll send a message to #positive-feedback channel.
+                    </p>
+
+                    <iframe src="https://lenadroid.github.io/posts/ds/3. Spark From Kafka Message Receiver.html" frameborder="0" scrolling="no" width="100%" height="600px"></iframe><br><br>
+
+                    <h3>Result</h3>
+                    <p>
+                            What we have achieved here is building a streaming system where we watch can user feedback from numerous independent sources that produce data at their own pace, and get real-time insights about when we need to take action and pay attention to things that need fixed.<br><br>
+                            We can plug in many additional independent processing scenarios, because once we sent data to Kafka it’s being retained and available for consumption many times.<br><br>
+                            We can not worry about strikes in user activity and handling the load because Kafka and Spark allow us to scale out and handle the pressure easily because of partitioning.
+
+                    </p><br>
+
+                    <h2>MORE THINGS</h2><br>
+
+                    <h3>Spark and experimental "Continuous Processing" mode</h3>
+
+                    <p> Traditionally, Spark has been operating through micro-batch processing mode.<br><br>
+                    In the Apache Spark 2.3.0, Continuous Processing mode is an experimental feature for millisecond low-latency of end-to-end event processing. It works according to at-least-once fault-tolerance guarantees. Currently, not nearly all operations are supported yet (e.g. aggregation functions, current_timestamp() and current_date() are not supported), there're no automatic retries of failed tasks, and it needs ensuring there's enough cluster power/cores to operate efficiently.<br><br>
+
+                    To use it, add a trigger:
+                    <blockquote>trigger(Trigger.Continuous("1 second"))</blockquote><br>
+
+                    A checkpoint interval of 1 second means that the continuous processing engine will record the progress of the query every second.<br><br>
+
+                    Currently it’s best to use it with Kafka as the source and sink for best end-to-end low-latency processing.
+                    </p><br>
+
+                    <h3>How is it different from micro-batch</h3>
+
+                    <p>
+                            With micro-batch processing, Spark streaming engine periodically checks the streaming source, and runs a batch query on new data that has arrived since the last batch ended
+                            This way latencies happen to be around 100s of milliseconds.<br><br>
+                            <img width="100%" src="ds/18.png"/><br>
+                            Spark driver checkpoints the progress by saving record offsets to a write-ahead-log, which may be then used to restart the query.<br><br>
+                            Recording of offsets for next batch of records is happening before the batch started processing.<br><br>
+                            So, some records have to wait till the end of the current micro-batch to be processed, and this takes time.
+
+                    </p><br>
+
+                    <h3>How "Continuous Processing" mode works</h3>
+
+                    <p>Spark launches a number of long-running tasks. They constantly read, process and write data.<br><br>
+
+                    Events are processed as soon as they’re available at the source.<br><br>
+
+                    <img width="100%" src="ds/19.png"/><br>
+
+                    In distinction to micro-batch mode, processed record offsets are saved to the log after every epoch.<br><br>
+
+                    We are capable of achieving end-to-end latency of just a few milliseconds because events are processed and written to sink as soon as they are available in the source, without waiting for other records.<br><br>
+
+                    Also, checkpointing is fully asynchronous and uses Chandy-Lamport algorithm, so nothing interrupts tasks and Spark is able to provide consistent millisecond-level latencies.
+                    </p><br>
+
+                    <h3>Another new thing: Event Hubs + Kafka = ❤️</h3>
+
+                    <p>For those of you who like to use cloud environments for big data processing, this might be interesting.<br><br>
+
+                    <img width="50%" src="ds/20.png"/><br>
+
+                    Azure now has an alternative to running Kafka on HDInsight. You can leave your existing Kafka applications as is and use Event Hubs as a backend through Kafka API. <br><br>
+
+                    Event Hubs is a service for streaming data on Azure, conceptually very similar to Kafka.<br><br>
+
+                    In other words, Event Hubs for Kafka ecosystems provides a Kafka endpoint that can be used by your existing Kafka based applications as an alternative to running your own Kafka cluster.<br><br>
+
+                    It supports Apache Kafka 1.0 and newer client versions, and works with existing Kafka applications, including MirrorMaker -  all you have to do is change the connection string and start streaming events from your applications that use the Kafka protocol into Event Hubs.<br><br>
+
+                    Functionally, of course, Event Hubs and Kafka are two different things. But this feature can be useful if you already have services written to work with Kafka, and you'd like to not manage any infrastructure and try Event Hubs as a backend without changing your code.<br><br>
+
+                    <i>Note:</i>
+                    <blockquote>
+                        I also wrote a tutorial on how to use Spark and Event Hubs <a href="https://docs.microsoft.com/en-us/azure/azure-databricks/databricks-stream-from-eventhubs?WT.mc_id=sparkeventhubs-blog-alehall">here</a>.
+                    </blockquote>
+
+
+                    </p><br>
+
+                    <h3>Kubernetes environment</h3>
+
+                    <p>
+                    Many businesses lean towards Kubernetes for big data processing as it allows to reduce costs, offers a lot of flexibility and is convenient when a lot of your existing services are already running on it.<br><br>
+
+                    Existing Kubernetes abstractions like Stateful Sets are great building blocks for running stateful processing services, but are most often not enough to provide correct operation for things like Kafka or Spark.<br><br>
+
+                    I recommend looking into the topics of Operators, as they are important to help us help Kubernetes be aware of nuances of correct functioning of our frameworks.<br><br>
+
+                    Confluent has announced the upcoming Kafka operator coming out in a month or two, and I'm looking forward to trying it. More updates coming.<br><br>
+
+                    For those interested in running Spark on Kubernetes, it has an experimental (not production) native Kubernetes support since Spark 2.3. I wrote about it <a href="https://docs.microsoft.com/en-us/azure/aks/spark-job?WT.mc_id=sparkaks-blog-alehall">here</a>, and <a href="https://github.com/lenadroid/show-episode-recommender">here</a> and <a href="https://github.com/lenadroid/goto-cassandra-spark">here</a>.
+                    </p>
+
+                    <h3>Thank you for reading!</h3>
+
+                    <p>
+                    I'd be happy to know if you liked the article or if it was useful to you. Follow me on Twitter <a href="https://twitter.com/lenadroid">@lenadroid</a> or on <a href="https://www.youtube.com/channel/UC93BPd533EKzu_L3LeMo6Gw">YouTube</a>. Always happy to connect, feel free to reach out!</p>
+
+                    <img width="60%" src="ds/21.png"/>
+
+                    <br>
+                    <br>
+
+                </div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  06.21.2018
+               </div> |
+               <div class='keywords' >
+                    <span class='keyword' >
+                        apache spark
+                    </span>
+                    <span class='keyword' >
+                        apache kafka
+                    </span>
+                    <span class='keyword' >
+                        azure
+                    </span>
+                    <span class='keyword' >
+                        scala
+                    </span>
+                    <span class='keyword' >
+                        databricks
+                    </span>
+                    <span class='keyword' >
+                            Kubernetes
+                    </span>
+              </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+
+
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2018 - Lena Hall</p>
+        </footer>
+
+  </body>
+</html>
