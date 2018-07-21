@@ -5,7 +5,7 @@
  * Project Name: NYC Design
  * Version: 1.0
  * Date: 04-20-2014
- * URL: 
+ * URL:
  */
 
 
@@ -101,15 +101,16 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 
 #headerwrap {
-	background: url(../img/Lena.jpg) no-repeat center top;
-	margin-top: -70px;
-	padding-top: 380px;
-	padding-left: 350px;
+	background: url(../img/oscon-1.jpg) no-repeat center top;
+	margin-top: 50px;
+	padding-top: 120px;
+	padding-left: 490px;
 	background-attachment: relative;
 	background-position: center center;
-	min-height: 850px;
+	min-height: 700px;
+	height: 300px;
 	width: 100%;
-	
+
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
     -o-background-size: 100%;
@@ -122,11 +123,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #headerwrap h1 {
-	color:#000000;
+	color: #000000;
 	padding-top: 10px;
 	padding-bottom: 20px;
 	letter-spacing: 4px;
-	font-size: 80px;
+	font-size: 70px;
 	font-weight: bold;
 	text-shadow: 0 0 10px white;
 }
@@ -169,7 +170,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin-left: 10px;
 }
 
-#workwrap {	
+#workwrap {
 	background: url(../img/work.jpg) no-repeat center top;
 	margin-top: -70px;
 	padding-top: 250px;
@@ -178,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
 	background-position: center center;
 	min-height: 650px;
 	width: 100%;
-	
+
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
     -o-background-size: 100%;
@@ -204,7 +205,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: #ffffff
 }
 
-#aboutwrap {	
+#aboutwrap {
 	background: url(../img/about.jpg) no-repeat center top;
 	margin-top: -70px;
 	padding-top: 250px;
@@ -213,7 +214,7 @@ h1, h2, h3, h4, h5, h6 {
 	background-position: center center;
 	min-height: 550px;
 	width: 100%;
-	
+
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
     -o-background-size: 100%;
