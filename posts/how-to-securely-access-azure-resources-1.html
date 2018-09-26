@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>How to securely access cloud resources from Linux VMs on Azure</title>
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
+</head>
+<html>
+    <body>
+        <section id="mainMenuSection" >
+              <section id="mainMenu">
+                  <a href="http://lenadroid.github.io">Home</a>
+                  <a href="http://lenadroid.github.io/posts.html">Posts</a>
+                  <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+                 <a href="http://lenadroid.github.io/identity/contact.html">About</a>
+                    <div class="clear"></div>
+              </section>
+        </section
+        <!-- generated content starts -->
+        <section class='posts' >
+            <article class='post' >
+                <header class='title' >
+                    How To Securely Access Cloud Resources From Linux VMs On Azure
+                </header>
+                <div class='description'>
+                    <p>Welcome to my blog! For more useful information on technical topics follow me on Twitter at <a href="https://twitter.com/lenadroid" target="_blank">@lenadroid</a> and subscribe to my <a href="https://www.youtube.com/c/AlenaHall" target="_blank">YouTube channel</a>.</p>
+
+                    <p>For detailed documentation of Azure topics covered in this article, take a look at  <a href="https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/?WT.mc_id=managedidvm-blog-alehall" target="_blank">Managed Identities</a> documentation, Azure  <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/?WT.mc_id=managedidvm-blog-alehall" target="_blank">Linux Virtual Machines</a>, and  <a href="https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest&WT.mc_id=managedidvm-blog-alehall" target="_blank">Azure CLI</a>.  To follow through examples, get sraterd with <a href="https://azure.microsoft.com/en-us/offers/ms-azr-0044p/?WT.mc_id=managedidvm-blog-alehall" target="_blank">Free Trial</a>.</p><br>
+
+                    <h3>Introduction</h3>
+                    <p>
+                    In this article we are discussing Azure Managed Identities!
+                    <br>Why is it a good idea to use them?
+                    <br>How can they help make access to Azure resources more secure and less error-prone?
+
+                    <br><br>
+                    <span style="background-color:palegreen">TLDR: They can significantly improve authentication process between cloud resources, reduce operational overhead and vulnerability of managing and storing authentication credentials.</span>
+
+                    <br><br>
+                    <i>Note: Managed Identities in Azure are similar to IAM roles for EC2 instances on AWS.</i>
+                    </p>
+
+                    <br>
+                    <img src="mi/1.jpeg" alt="keys" height="600"/>
+
+                    <br>
+                    <br>
+                    <h3>Managed Identities? What are they?</h3>
+                    <p>
+                        Imagine there is an application running on a Linux Virtual machine on Azure. From your application, you'd like to have access to other cloud resources. It could be a file stored on Azure Storage, or a secret in Key Vault, or Event Hubs data source. Traditionally we would need to stote and manage credentials or access keys in application configuration files, make sure we rotate the keys when necessary and keep them secure, which is a challenge. We can store credentials in Azure Key Vault, but applications still need to authenticate to Key Vault to retrieve them.
+                    </p>
+                    <p>
+                        Managed Identities feature helps authenticate to any of the supported services without needing to store or manage any credentials or access keys in application configuration or code.
+                        You can view Azure services that support Managed Identities <a href="https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/services-support-msi?WT.mc_id=managedidvm-blog-alehall" target="_blank">here</a>. That page also contains Resource ID URLs necessary requesting access tokens.
+                    </p><br>
+
+                    <h3>How does it work?</h3>
+                    <p>
+                        There are two main steps: requesting access token, and accessing the service providing the access token.
+                        <br><br>
+                        With Managed Identities the application that runs on a VM will ask for an access token by performing a request to Azure Instance Metadata Service identity endpoint. The request will need to indicate which service the token is needed for (e.g. Azure Storage, or Key Vault).
+                        <br><br>
+                        After application receives the access token, it will need to include it in the call to the specific service to be able to access it successfully.
+                    </p><br>
+
+                    <h3>System-assigned and User-assigned identities</h3>
+                    <p>
+                        There are two options for Managed Identities: system-assigned and user-assigned.
+                        <br><br>
+                        System-assigned managed identity can be enabled directly on Azure resource (e.g. your Linux VM). After it is enabled, credentials are set up for that instance, and the lifecycle of this identity is tied to the resource it's dedicated to, meaning that when the resource is deleted - identity is deleted as well.
+                        <br><br>
+                        User-assigned managed identity is on the contrary a standalone Azure resource that isn't dependent on a particular instance and is managed separately. Therefore, it can be assigned to many resources at the same time. This is convenient when you have a fleet of resources that need same type of access to some Azure service or services.
+                        <br><br>
+                        Some resources can have both system and user assigned identity.
+                    </p><br>
+
+                    <h3>How exactly does it all work?</h3>
+                    <p>
+                        Let's take a look at a concrete example. Imagine you're running a Linux VM on Azure. On this VM you'd like to run applications that access to a particular stotage account.
+
+                        <br>
+                        <h1>Preparing resource groups</h1>
+                        <p>
+                            We will need two resource groups - to host storage, and a VM. In further examples we might want to create a separate resource group for user-assigned identities.
+                            <br>
+                            <script src="https://gist.github.com/lenadroid/c0a97bb28850d527db0d401ba59a96e4.js"></script>
+                        </p>
+
+                        <br>
+                        <h1>Creating a Linux VM</h1>
+                        <p>
+                            To check whether it's possible to access Azure Storage Account through a Managed Identity we will need a VM. The code below creates an Ubuntu Linux VM. Make sure to note its IP address to connect to it in future steps.
+                            <br>
+                            <script src="https://gist.github.com/lenadroid/46ff8cefeb42cf399d9cdc54ffb11eb7.js"></script>
+                        </p>
+
+                        <br>
+                        <h1>Creating a Storage Account</h1>
+                        <p>
+                            We will also need a storage account, a container within it, and some file we will use as a target resource.
+                            <br>
+                            <script src="https://gist.github.com/lenadroid/94444156026de286fdc20028a23304f5.js"></script>
+                        </p>
+
+                        <br>
+                        <h1>SSH to the VM and access the file</h1>
+                        <p>
+                            If we now try to SSH to the Linux VM and try to access the "text.txt" file we should get an error, because we haven't yet enabled Managed Identity for the VM.
+
+                            <br>
+                            <script src="https://gist.github.com/lenadroid/a3f58b8576dba4c0c2ff27474ec73dcf.js"></script>
+                        </p>
+
+                        <br>
+                        <h1>Assign a System Managed Identity</h1>
+                        <p>
+                            Because in this case we have a single VM, there's no need for user-assigned identity. Here, we're assigning a system-managed identity with a role and a scope to the VM. Make sure to put the correct storage account Resource ID as a scope. Feel free to explore what other roles are supported by resources you need access to.
+                            <br>
+                            <script src="https://gist.github.com/lenadroid/c5a859718fdad2a556a1659813e13e09.js"></script>
+                        </p>
+
+                        <br>
+                        <h1>Try to access the file again!</h1>
+                        <p>
+                            The output should now display "hello" this time.
+                        </p>
+
+                        <br>
+                        <h1>Clean up your resources</h1>
+                        <p>
+                            <script src="https://gist.github.com/lenadroid/6e31fa8171a3ef6b7b0c6047b859a19b.js"></script>
+                        </p>
+                    </p>
+                    <br>
+                    <h3>Thank you for reading!</h3>
+                    I hope this was useful, and if so - mention me on Twitter - I'll be happy to hear your thoughts!
+                    <br>
+                    In the next parts we will learn about managed identities with Azure Kubernetes Service and Azure Functions!
+                    <br>
+                    <br>
+                </div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  09.25.2018
+               </div> |
+               <div class='keywords' >
+                    <span class='keyword' >
+                        azure
+                    </span>
+                    <span class='keyword' >
+                        security
+                    </span>
+                    <span class='keyword' >
+                        access
+                    </span>
+                    <span class='keyword' >
+                        identity
+                    </span>
+              </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+
+
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2018 - Lena Hall</p>
+        </footer>
+
+  </body>
+</html>
