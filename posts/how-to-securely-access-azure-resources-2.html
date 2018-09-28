@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Azure Functions and Azure Storage: secure authentication with Managed Identities and without managing keys!</title>
+    <link rel="shortcut icon" type="image/png" href="../images/logo.png"/>
+    <link rel="stylesheet" media="only screen and (max-width: 899px)" href="../css/SitePostsPinkModile.css" />
+    <link rel="stylesheet" media="only screen and (min-width: 900px)" href="../css/SitePostsPink.css" />
+</head>
+<html>
+    <body>
+        <section id="mainMenuSection" >
+              <section id="mainMenu">
+                  <a href="http://lenadroid.github.io">Home</a>
+                  <a href="http://lenadroid.github.io/posts.html">Posts</a>
+                  <a href="http://lenadroid.github.io/presentations.html">Presentations</a>
+                 <a href="http://lenadroid.github.io/identity/contact.html">About</a>
+                    <div class="clear"></div>
+              </section>
+        </section
+        <!-- generated content starts -->
+        <section class='posts' >
+            <article class='post' >
+                <header class='title' >
+                    Azure Functions and Azure Storage: secure authentication with Managed Identities and without managing keys!
+                </header>
+                <div class='description'>
+                    <p>
+                        Welcome to my blog! For more useful information on technical topics follow me on Twitter at <a href="https://twitter.com/lenadroid" target="_blank">@lenadroid</a> and subscribe to my <a href="https://www.youtube.com/c/AlenaHall" target="_blank">YouTube channel</a>.
+
+                    </p>
+
+                    <p>
+                        For detailed documentation of Azure topics covered in this article, take a look at  <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview?WT.mc_id=mifunctions-blog-alehall" target="_blank">Azure Functions</a>, <a href="https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/?WT.mc_id=mifunctions-blog-alehall" target="_blank">Managed Identities</a> documentation, and  <a href="https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest&WT.mc_id=mifunctions-blog-alehall" target="_blank">Azure CLI</a>.  To follow through examples, get started with <a href="https://azure.microsoft.com/en-us/offers/ms-azr-0044p/?WT.mc_id=mifunctions-blog-alehall" target="_blank">Free Trial</a>.
+                    </p>
+
+                    <h3>Introduction</h3>
+                    <p>
+                        In this article you will learn about using Managed Identities for secure and convenient approach to authenticate to Azure services from Serverless Functions without managing or storing any access keys or credentials!
+                        <br><br>
+                        We will create an Azure Function, obtain an access token from local service identity endpoint, and we will use the access token in the request to a file on Azure storage account.
+                    </p>
+                    <p>
+                        <img src="mi/lightning.jpg" alt="lightning" height="400"/>
+
+                        <br>To learn about why it is a good idea to use Managed Identities and how it can help make access to Azure resources more secure and less error-prone visit this <a href="how-to-securely-access-azure-resources-1.html" target="_blank">page</a> &lt;- it has an overview and an example with Azure Linux VMs.
+
+                        <br><br>
+                        <span style="background-color:lightblue">TL;DR: Managed Identities can significantly improve authentication process between cloud resources, reduce operational overhead and vulnerability of managing and storing authentication credentials.</span>
+                    </p>
+
+                    <br>
+                    <h3>Create a Storage Account</h3>
+                    <p>
+                        Set <code>$storage_group</code> and <code>$storage_account</code> to real values, the use the code below to create a new storage account and upload a file that we're going to request from the Azure Function later in the article.
+                        <br>
+                        <script src="https://gist.github.com/lenadroid/94444156026de286fdc20028a23304f5.js"></script>
+                    </p>
+
+                    <br>
+                    <h3>Create a new Azure Functions App</h3>
+                    <p>
+                        We will be working with Azure Functions App in F#. For more information about using F# in Azure Functions check out the details <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-fsharp?WT.mc_id=mifunctions-blog-alehall" target="_blank">here</a>.
+                        <br><br>
+                        I am a big fan of F#, but feel free to use any other language supported by Azure Functions, overall process should be identical with a few language specific differences.
+                    </p>
+                    <p>
+                        By the end of this step remember the name and resource group of your Azure Function.
+                    </p><br>
+
+                    <h3>Enable Managed Identity for the newly created Azure Function</h3>
+                    <p>
+                        Azure Functions work with system-assigned Managed Identities. Before we can use it with Azure Functions we first need to enable the feature.
+                        <br><br>
+                        First snippet will simply enable it, but the function won't be granted any roles to access any resources.
+                        <br>
+                        <script src="https://gist.github.com/lenadroid/879b26a8828fceaa74c95351af48b2d6.js"></script>
+                        <br>
+
+                        If you'd like to enable Managed Identity and grant permissions to the Azure Function with one command, there's another option.
+                        <br>
+                        <script src="https://gist.github.com/lenadroid/31de5c1505e3c87e1fa16ded598999ef.js"></script>
+                        <br>
+                        You will find two new environment variables called <code>MSI_ENDPOINT</code> and <code>MSI_SECRET</code> after executing one of the snippets.
+
+                    </p><br>
+
+                    <h3>Code for the Azure Function in F#</h3>
+                    <p>
+                        As in the <a href="how-to-securely-access-azure-resources-1.html" target="_blank">previous article</a>, there are two main steps: requesting access token, and accessing the service providing the access token (a storage account in this case). However, there are a few differences with Azure Functions that are worth mentioning.
+                        <br><br>
+                        <code>MSI_ENDPOINT</code> is a URL from which an Azure Function can request tokens. <code>MSI_SECRET</code> is required as a <code>secret</code> parameter to HTTP GET request to this endpoint, along with <code>api-version</code> and <code>resource</code> parameters.
+                        <br><br>
+                        The following code shows end-to-end example of accessing Azure storage account through system-assigned Managed Identity and reading contents of a file stored on the storage account.
+                        <script src="https://gist.github.com/lenadroid/f6282bbdd05862962cec842792f9166d.js"></script>
+
+                        <p>
+                            Don't forget to add FSharp.Data package to your dependencies.
+                            <br>
+                            <script src="https://gist.github.com/lenadroid/fba5ddbd5b8aecb6c083379b43ded9e5.js"></script>
+                        </p>
+
+                        <p>
+                            For those of you interested in using an existing .NET library for requesting an access token, refer to this <a href="https://docs.microsoft.com/en-us/azure/app-service/app-service-managed-service-identity?WT.mc_id=mifunctions-blog-alehall" target="_blank">guide</a>.<br><br>
+                            My example specifically uses REST API and not the Microsoft.Azure.Services.AppAuthentication library for .NET because this way you should be able to implement this functionality in any language other than .NET by just looking at what F# code does, as the implementation prototype is transparent.
+                        </p>
+                    </p><br>
+
+                    <h3>Execution results with incorrectly assigned role and scope</h3>
+                    <p>
+                        <img src="mi/2.png" alt="incorrectresults" height="800"/>
+                    </p>
+                    <br>
+                    <h3>Execution results with correctly assigned role and scope</h3>
+                    <p>
+                        <img src="mi/3.png" alt="incorrectresults" height="800"/>
+                    </p>
+                    <br>
+                    <h3>Thank you for reading!</h3>
+                    I hope this was useful, and if so - mention me on Twitter - I'll be happy to hear your thoughts!
+                    <br>
+                    In the next parts we will learn about managed identities with Azure Kubernetes Service!
+                    <br>
+                    <br>
+                </div>
+
+               <!-- <hr id="hr"> -->
+               <div class='date' >
+                  09.27.2018
+               </div> |
+               <div class='keywords' >
+                    <span class='keyword' >
+                        azure
+                    </span>
+                    <span class='keyword' >
+                        security
+                    </span>
+                    <span class='keyword' >
+                        access
+                    </span>
+                    <span class='keyword' >
+                        identity
+                    </span>
+                    <span class='keyword' >
+                        azure functions
+                    </span>
+                    <span class='keyword' >
+                        fsharp
+                    </span>
+              </div>
+         </article>
+      </section>
+  <!-- generated content ends -->
+
+  <!-- Yandex metrica starts -->
+
+        <a href="https://metrica.yandex.com/stat/?id=25344614&amp;from=informer"
+        target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/25344614/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+        style="display:none; width:88px; height:31px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica: data for today (page views, visits and unique visitors)" onclick="try{Ya.Metrika.informer({i:this,id:25344614,lang:'en'});return false}catch(e){}"/></a>
+
+        <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter25344614 = new Ya.Metrika({id:25344614,
+                            webvisor:true,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/25344614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- Yandex metrica ends -->
+
+
+        <footer id="mainFooter">
+        <!--<div id="square2"><div id="border3"></div></div>-->
+            <p>&copy; 2018 - Lena Hall</p>
+        </footer>
+
+  </body>
+</html>
