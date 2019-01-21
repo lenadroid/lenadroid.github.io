@@ -101,10 +101,10 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 
 #headerwrap {
-	background: url(../img/oscon-1.jpg) no-repeat center top;
+	background: url(../img/background2.jpg) no-repeat center top;
 	margin-top: 50px;
 	padding-top: 120px;
-	padding-left: 490px;
+
 	background-attachment: relative;
 	background-position: center center;
 	min-height: 700px;
@@ -130,6 +130,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 70px;
 	font-weight: bold;
 	text-shadow: 0 0 10px white;
+	text-align: center;
 }
 
 #headerwrap h4 {
@@ -143,8 +144,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #social {
-	padding-top: 50px;
-	padding-bottom: 50px;
+	padding-top: 80px;
+	padding-bottom: 80px;
 	margin-top: -20px;
 	background-color: #f2f2f2;
 	border-top: 10px solid #2f2f2f;
@@ -160,8 +161,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #footerwrap {
-	padding-top: 70px;
-	padding-bottom: 50px;
+	padding-top: 90px;
+	padding-bottom: 70px;
 	background-color: #2f2f2f;
 }
 
